@@ -7,6 +7,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.rodri.portugalproject.model.CurrentBalance;
+import com.example.rodri.portugalproject.model.Expense;
+
+import java.util.Date;
 
 /**
  * Created by rodri on 7/5/2016.
@@ -61,6 +64,31 @@ public class MyDataSource {
         currentBalance.setEstimatedValue(cursor.getFloat(1));
         currentBalance.setAchievedValue(cursor.getFloat(2));
         return currentBalance;
+    }
+
+    public Expense createExpense(String name, float value, long date) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_NAME, name);
+        values.put(MySQLiteHelper.COLUMN_VALUE, value);
+        values.put(MySQLiteHelper.COLUMN_DATE, date);
+
+        long insertId = database.insert(MySQLiteHelper.TABLE_EXPENSES, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
+                MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null);
+        cursor.moveToFirst();
+        Expense newExpense = cursorToExpense(cursor);
+        cursor.close();
+
+        return newExpense;
+    }
+
+    public Expense cursorToExpense(Cursor cursor) {
+        Expense expense = new Expense();
+        expense.setId(cursor.getLong(0));
+        expense.setName(cursor.getString(1));
+        expense.setValue(cursor.getFloat(2));
+        expense.setDate(cursor.getLong(3));
+        return expense;
     }
 
 }

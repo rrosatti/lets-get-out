@@ -45,7 +45,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_NAME + " TEXT NOT NULL, "
             + COLUMN_VALUE + " REAL NOT NULL, "
-            + COLUMN_DATE + " DATE NOT NULL);";
+            + COLUMN_DATE + " INTEGER NOT NULL);";
 
 
     public MySQLiteHelper(Context context) {

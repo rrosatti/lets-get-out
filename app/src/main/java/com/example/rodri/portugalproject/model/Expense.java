@@ -10,11 +10,11 @@ public class Expense {
     private long id;
     private String name;
     private float value;
-    private Date date;
+    private long date;
 
     public Expense() {}
 
-    public Expense(long id, String name, float value, Date date) {
+    public Expense(long id, String name, float value, long date) {
         this.id = id;
         this.name = name;
         this.value = value;
@@ -45,11 +45,11 @@ public class Expense {
         this.value = value;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
