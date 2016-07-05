@@ -1,6 +1,9 @@
 package com.example.rodri.portugalproject.database;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by rodri on 7/5/2016.
@@ -45,4 +48,23 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_DATE + " DATE NOT NULL);";
 
 
+    public MySQLiteHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_TABLE_CURRENT_BALANCE);
+        db.execSQL(CREATE_TABLE_EXPENSES);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.w(MySQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion
+            + ", which will destroy all old data.");
+        if (oldVersion == 1) {
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_CURRENT_BALANCE);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXPENSES);
+        }
+    }
 }
