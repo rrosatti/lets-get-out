@@ -99,5 +99,45 @@ public class MyDataSource {
         return expense;
     }
 
+    public List<Expense> getAllExpensesByMonth(int month, int year) {
+        List<Expense> expenses = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
+                MySQLiteHelper.COLUMN_MONTH + " = " + month + " AND " + MySQLiteHelper.COLUMN_YEAR + " = " + year,
+                null, null, null, null);
+        cursor.moveToFirst();
+
+        Expense expense;
+        while (!cursor.isAfterLast()) {
+            expense = cursorToExpense(cursor);
+            expenses.add(expense);
+            cursor.moveToNext();
+        }
+
+        return expenses;
+    }
+
+    public Expense getExpense(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
+                MySQLiteHelper.KEY_ID + " = " + id,
+                null, null, null, null);
+        cursor.moveToFirst();
+
+        Expense expense = cursorToExpense(cursor);
+        cursor.close();
+
+        return expense;
+    }
+
+    public CurrentBalance getCurrentBalance(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_CURRENT_BALANCE, currentBalanceColumns,
+                MySQLiteHelper.KEY_ID + " = " + id,
+                null, null, null, null);
+        cursor.moveToFirst();
+
+        CurrentBalance currentBalance = cursorToCurrentBalance(cursor);
+        cursor.close();
+
+        return currentBalance;
+    }
 
 }
