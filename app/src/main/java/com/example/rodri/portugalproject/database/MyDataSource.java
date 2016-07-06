@@ -140,4 +140,16 @@ public class MyDataSource {
         return currentBalance;
     }
 
+    public void deleteExpense(long id ) {
+        System.out.println("The expense with the id " + id + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_EXPENSES, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void deleteCurrentBalance(long id) {
+        System.out.println("The current balance with the id " + id + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_CURRENT_BALANCE, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    
+
 }
