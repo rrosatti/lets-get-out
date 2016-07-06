@@ -9,7 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.rodri.portugalproject.model.CurrentBalance;
 import com.example.rodri.portugalproject.model.Expense;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by rodri on 7/5/2016.
@@ -27,7 +29,9 @@ public class MyDataSource {
             MySQLiteHelper.KEY_ID,
             MySQLiteHelper.COLUMN_NAME,
             MySQLiteHelper.COLUMN_VALUE,
-            MySQLiteHelper.COLUMN_DATE
+            MySQLiteHelper.COLUMN_DAY,
+            MySQLiteHelper.COLUMN_MONTH,
+            MySQLiteHelper.COLUMN_YEAR
     };
 
     public MyDataSource(Context context) {
@@ -66,11 +70,13 @@ public class MyDataSource {
         return currentBalance;
     }
 
-    public Expense createExpense(String name, float value, long date) {
+    public Expense createExpense(String name, float value, int day, int month, int year) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_NAME, name);
         values.put(MySQLiteHelper.COLUMN_VALUE, value);
-        values.put(MySQLiteHelper.COLUMN_DATE, date);
+        values.put(MySQLiteHelper.COLUMN_DAY, day);
+        values.put(MySQLiteHelper.COLUMN_MONTH, month);
+        values.put(MySQLiteHelper.COLUMN_YEAR, year);
 
         long insertId = database.insert(MySQLiteHelper.TABLE_EXPENSES, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
@@ -87,8 +93,11 @@ public class MyDataSource {
         expense.setId(cursor.getLong(0));
         expense.setName(cursor.getString(1));
         expense.setValue(cursor.getFloat(2));
-        expense.setDate(cursor.getLong(3));
+        expense.setDay(cursor.getInt(3));
+        expense.setMonth(cursor.getInt(4));
+        expense.setYear(cursor.getInt(5));
         return expense;
     }
+
 
 }

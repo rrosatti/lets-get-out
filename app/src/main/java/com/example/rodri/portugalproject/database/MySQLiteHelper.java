@@ -30,7 +30,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     // expenses columns names
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_VALUE = "value";
-    public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_DAY = "day";
+    public static final String COLUMN_MONTH = "month";
+    public static final String COLUMN_YEAR = "year";
 
     // current_balance table create
     public static final String CREATE_TABLE_CURRENT_BALANCE =
@@ -45,7 +47,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_NAME + " TEXT NOT NULL, "
             + COLUMN_VALUE + " REAL NOT NULL, "
-            + COLUMN_DATE + " INTEGER NOT NULL);";
+            + COLUMN_DAY + " INTEGER NOT NULL, "
+            + COLUMN_MONTH + " INTEGER NOT NULL, "
+            + COLUMN_YEAR + " INTEGER NOT NULL);";
 
 
     public MySQLiteHelper(Context context) {

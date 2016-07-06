@@ -10,15 +10,19 @@ public class Expense {
     private long id;
     private String name;
     private float value;
-    private long date;
+    private int day;
+    private int month;
+    private int year;
 
     public Expense() {}
 
-    public Expense(long id, String name, float value, long date) {
+    public Expense(long id, String name, float value, int day, int month, int year) {
         this.id = id;
         this.name = name;
         this.value = value;
-        this.date = date;
+        this.day = day;
+        this.month = month;
+        this.year = year;
     }
 
     public long getId() {
@@ -45,12 +49,28 @@ public class Expense {
         this.value = value;
     }
 
-    public long getDate() {
-        return date;
+    public int getDay() {
+        return day;
     }
 
-    public void setDate(long date) {
-        this.date = date;
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int  getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
 }
