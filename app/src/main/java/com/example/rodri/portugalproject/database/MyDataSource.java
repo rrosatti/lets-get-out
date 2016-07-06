@@ -150,6 +150,21 @@ public class MyDataSource {
         database.delete(MySQLiteHelper.TABLE_CURRENT_BALANCE, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
-    
+    public void updateExpense(long id, String name, float value, int day, int month, int year) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_NAME, name);
+        values.put(MySQLiteHelper.COLUMN_VALUE, value);
+        values.put(MySQLiteHelper.COLUMN_DAY, day);
+        values.put(MySQLiteHelper.COLUMN_MONTH, month);
+        values.put(MySQLiteHelper.COLUMN_YEAR, year);
+        database.update(MySQLiteHelper.TABLE_EXPENSES, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void updateCurrentBalance(long id, float estimatedValue, float achievedValue) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_ESTIMATED_VALUE, estimatedValue);
+        values.put(MySQLiteHelper.COLUMN_ACHIEVED_VALUE, achievedValue);
+        database.update(MySQLiteHelper.TABLE_CURRENT_BALANCE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
 
 }
