@@ -16,11 +16,11 @@
 
     <!-- Home Quotes -->
     <string-array name="quotes">
-        <item>The harder you work for something, the greater you'll feel when you achieve it.</item>
+        <item>The harder you work for something, the greater you\'ll feel when you achieve it.</item>
         <item>Stop wishing. Start doing.</item>
-        <item>If "Plan A" didn't work. The alphabet has 25 more letters! Stay cool.</item>
-        <item>Don't downgrade your dream just to fit your reality. Upgrade your conviction to match your destiny.</item>
-        <item>If it is important to you, you will find a way. If not you'll find an excuse.</item>
+        <item>If \"Plan A\" didn\'t work. The alphabet has 25 more letters\! Stay cool.</item>
+        <item>Don\'t downgrade your dream just to fit your reality. Upgrade your conviction to match your destiny.</item>
+        <item>If it is important to you, you will find a way. If not you\'ll find an excuse.</item>
         <item>In order to succeed, we must first believe that we can.</item>
         <item>Stay focused and never give up.</item>
         <item>Mistakes are proof that you are trying.</item>
