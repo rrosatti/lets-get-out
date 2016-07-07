@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.rodri.portugalproject.MainActivity;
 import com.example.rodri.portugalproject.R;
+import com.example.rodri.portugalproject.util.Util;
 
 /**
  * Created by rodri on 7/6/2016.
@@ -17,7 +18,7 @@ public class SplashScreenActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Util.setFullScreen(this);
+        Util.setFullScreen(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
