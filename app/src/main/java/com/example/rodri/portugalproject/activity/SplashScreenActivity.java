@@ -13,7 +13,7 @@ import com.example.rodri.portugalproject.util.Util;
  */
 public class SplashScreenActivity extends Activity {
 
-    private long duration = 3000; // duration in milliseconds
+    private long duration = 1500; // duration in milliseconds
     private boolean active = true;
 
     @Override
