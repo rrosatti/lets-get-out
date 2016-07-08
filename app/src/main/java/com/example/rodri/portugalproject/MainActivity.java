@@ -14,6 +14,7 @@ import com.example.rodri.portugalproject.adapter.DrawerItemAdapter;
 import com.example.rodri.portugalproject.fragment.HomeFragment;
 import com.example.rodri.portugalproject.model.DrawerItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private List<DrawerItem> drawerItems;
     private DrawerItemAdapter drawerItemAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +49,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
+        initialize();
+
+        createDrawerItems();
+
         if (savedInstanceState == null) {
             displayView(0);
         }
 
+    }
+
+    private void initialize() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerListView = (ListView) findViewById(R.id.listSliderMenu);
+
+        drawerTitle = title = getTitle();
+
+        menuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+        menuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
+
+        drawerItems = new ArrayList<>();
+    }
+
+    @SuppressWarnings("ResourceType")
+    private void createDrawerItems() {
+        drawerItems.add(new DrawerItem(menuTitles[0], menuIcons.getResourceId(0, -1)));
+        drawerItems.add(new DrawerItem(menuTitles[1], menuIcons.getResourceId(1, -1)));
+
+        menuIcons.recycle();
     }
 
     private void displayView(int position) {
