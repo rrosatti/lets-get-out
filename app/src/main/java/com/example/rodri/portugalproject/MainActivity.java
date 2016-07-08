@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.example.rodri.portugalproject.adapter.DrawerItemAdapter;
 import com.example.rodri.portugalproject.fragment.HomeFragment;
 import com.example.rodri.portugalproject.model.DrawerItem;
 
