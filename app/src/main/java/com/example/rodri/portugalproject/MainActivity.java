@@ -1,14 +1,34 @@
 package com.example.rodri.portugalproject;
 
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ListView;
 
 import com.example.rodri.portugalproject.fragment.HomeFragment;
+import com.example.rodri.portugalproject.model.DrawerItem;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private DrawerLayout drawerLayout;
+    private ListView drawerListView;
+    private ActionBarDrawerToggle drawerToggle;
+
+    private CharSequence drawerTitle;
+    private CharSequence title;
+
+    private String[] menuTitles;
+    private TypedArray menuIcons;
+
+    private List<DrawerItem> drawerItems;
+    private DrawerItemAdapter drawerItemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
