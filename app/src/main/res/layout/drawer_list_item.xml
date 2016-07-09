@@ -18,7 +18,7 @@
         android:id="@+id/txtMenuItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toEndtOf="@+id/imgMenuItemIcon"
+        android:layout_toEndOf="@+id/imgMenuItemIcon"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="@color/list_item_title"

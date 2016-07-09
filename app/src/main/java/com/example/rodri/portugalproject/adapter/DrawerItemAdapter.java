@@ -50,7 +50,7 @@ public class DrawerItemAdapter extends ArrayAdapter<DrawerItem> {
         View v = convertView;
         ViewHolder holder = new ViewHolder();
         if (convertView == null) {
-            inflater.inflate(R.layout.drawer_list_item, null);
+            v = inflater.inflate(R.layout.drawer_list_item, null);
 
             holder.displayMenuItemIcon = (ImageView) v.findViewById(R.id.imgMenuItemIcon);
             holder.displayMenuItemTitle = (TextView) v.findViewById(R.id.txtMenuItemTitle);

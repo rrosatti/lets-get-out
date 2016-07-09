@@ -1,13 +1,21 @@
 package com.example.rodri.portugalproject;
 
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.rodri.portugalproject.adapter.DrawerItemAdapter;
@@ -50,12 +58,44 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
         initialize();
-
         createDrawerItems();
+
+        drawerItemAdapter = new DrawerItemAdapter(this, 0, drawerItems);
+        drawerListView.setAdapter(drawerItemAdapter);
+
+        // Enable Action Bar and making it behave as a Toggle Button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        // 'Gambiarra' used to change the Navigation Drawer icon
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_drawer, getTheme());
+        getSupportActionBar().setHomeAsUpIndicator(drawable);
+
+        Toolbar toolbar = new Toolbar(this);
+
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                toolbar, R.string.app_name, R.string.app_name) {
+
+            public void onDrawerClosed(View view) {
+                getSupportActionBar().setTitle(title);
+                // call onPreparedOptionsMenu() to show action bar icons
+                invalidateOptionsMenu();
+            }
+
+            public void onDrawerOpened(View view) {
+                getSupportActionBar().setTitle(drawerTitle);
+                // call onPreparedOptionsMenu() to hide action bar icons
+                invalidateOptionsMenu();
+            }
+
+        };
+        drawerLayout.setDrawerListener(drawerToggle);
 
         if (savedInstanceState == null) {
             displayView(0);
         }
+
+        drawerListView.setOnItemClickListener(new SlideMenuClickListener());
 
     }
 
@@ -78,6 +118,41 @@ public class MainActivity extends AppCompatActivity {
 
         menuIcons.recycle();
     }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // if the drawer is opened, then hide the action bar items
+        boolean drawerOpen = drawerLayout.isDrawerOpen(drawerListView);
+        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        this.title = title;
+        getSupportActionBar().setTitle(title);
+    }
+
+    /**
+     *
+     * onPortCreate() and onConfigurationChanged() will be called when using the ActionBarDrawerToggle
+     *
+     */
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState occurred
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration changes to the drawer toggle
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
+
 
     private void displayView(int position) {
         Fragment fragment = null;
@@ -106,6 +181,14 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "Error while trying to create fragment.");
         }
 
+    }
+
+    private class SlideMenuClickListener implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            displayView(position);
+        }
     }
 
 
