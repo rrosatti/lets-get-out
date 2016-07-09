@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 invalidateOptionsMenu();
             }
 
-            public void onDrawerOpened(View view) {
+            public void onDrawerOpened(View drawerView) {
                 getSupportActionBar().setTitle(drawerTitle);
                 // call onPreparedOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
     private void createDrawerItems() {
         drawerItems.add(new DrawerItem(menuTitles[0], menuIcons.getResourceId(0, -1)));
         drawerItems.add(new DrawerItem(menuTitles[1], menuIcons.getResourceId(1, -1)));
+        drawerItems.add(new DrawerItem(menuTitles[2], menuIcons.getResourceId(2, -1)));
 
         menuIcons.recycle();
     }
@@ -200,6 +201,10 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.container, fragment).commit();
 
             // some methods related to the navigation drawer will be implemented here
+            drawerListView.setItemChecked(position, true);
+            drawerListView.setSelection(position);
+            setTitle(menuTitles[position]);
+            drawerLayout.closeDrawer(drawerListView);
         } else {
             Log.e("MainActivity", "Error while trying to create fragment.");
         }
