@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.rodri.portugalproject.R;
+import com.example.rodri.portugalproject.adapter.ViewPagerAdapter;
 
 /**
  * Created by rodri on 7/10/2016.
