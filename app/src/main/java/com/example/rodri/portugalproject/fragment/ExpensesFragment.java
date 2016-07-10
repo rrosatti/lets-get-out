@@ -1,6 +1,6 @@
 package com.example.rodri.portugalproject.fragment;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -40,4 +40,11 @@ public class ExpensesFragment extends Fragment {
         return v;
     }
 
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
+        viewPagerAdapter.addFragment(new YearFragment(2016), "2016");
+        viewPagerAdapter.addFragment(new YearFragment(2017), "2017");
+        viewPagerAdapter.addFragment(new YearFragment(2018), "2018");
+        viewPager.setAdapter(viewPagerAdapter);
+    }
 }
