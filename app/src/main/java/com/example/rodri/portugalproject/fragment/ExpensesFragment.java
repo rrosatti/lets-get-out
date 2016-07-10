@@ -42,9 +42,28 @@ public class ExpensesFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
-        viewPagerAdapter.addFragment(new YearFragment(2016), "2016");
-        viewPagerAdapter.addFragment(new YearFragment(2017), "2017");
-        viewPagerAdapter.addFragment(new YearFragment(2018), "2018");
+        Bundle bundle = new Bundle();
+        bundle.putInt("year", 2016);
+        YearFragment yearFragment2016 = new YearFragment();
+        yearFragment2016.setArguments(bundle);
+
+        viewPagerAdapter.addFragment(yearFragment2016, "2016");
+        bundle.remove("year");
+
+        bundle.putInt("year", 2017);
+        YearFragment yearFragment2017 = new YearFragment();
+        yearFragment2017.setArguments(bundle);
+
+        viewPagerAdapter.addFragment(new YearFragment(), "2017");
+        bundle.remove("year");
+
+        bundle.putInt("year", 2018);
+        YearFragment yearFragment2018 = new YearFragment();
+        yearFragment2018.setArguments(bundle);
+
+        viewPagerAdapter.addFragment(new YearFragment(), "2018");
+        bundle.remove("year");
+
         viewPager.setAdapter(viewPagerAdapter);
     }
 }
