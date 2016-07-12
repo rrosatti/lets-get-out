@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.rodri.portugalproject.MainActivity;
 import com.example.rodri.portugalproject.R;
 import com.example.rodri.portugalproject.util.Util;
 

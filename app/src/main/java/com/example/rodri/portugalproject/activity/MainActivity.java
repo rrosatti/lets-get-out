@@ -1,4 +1,4 @@
-package com.example.rodri.portugalproject;
+package com.example.rodri.portugalproject.activity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.rodri.portugalproject.R;
 import com.example.rodri.portugalproject.adapter.DrawerItemAdapter;
 import com.example.rodri.portugalproject.fragment.ExpensesFragment;
 import com.example.rodri.portugalproject.fragment.HomeFragment;
