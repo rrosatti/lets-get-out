@@ -1,12 +1,13 @@
 package com.example.rodri.portugalproject;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.rodri.portugalproject.adapter.DrawerItemAdapter;
+import com.example.rodri.portugalproject.fragment.ExpensesFragment;
 import com.example.rodri.portugalproject.fragment.HomeFragment;
 import com.example.rodri.portugalproject.model.DrawerItem;
 
@@ -186,17 +188,16 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new HomeFragment();
                 break;
             case 1:
-                // current balance
                 break;
             case 2:
-                // expenses
+                fragment = new ExpensesFragment();
                 break;
             default:
                 break;
         }
 
         if (fragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, fragment).commit();
 
