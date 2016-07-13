@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.rodri.portugalproject.R;
 
@@ -15,6 +17,8 @@ import com.example.rodri.portugalproject.R;
  */
 public class ExpensesFragment extends Fragment {
 
+    private ImageView newExpense;
+
     public ExpensesFragment() {}
 
     @Nullable
@@ -22,6 +26,14 @@ public class ExpensesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_expenses, null);
+
+        newExpense = (ImageView) v.findViewById(R.id.btAddExpense);
+        newExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "This is just a test!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return v;
     }
