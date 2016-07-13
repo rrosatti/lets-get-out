@@ -9,6 +9,7 @@
         <item>Home</item>
         <item>Current Balance</item>
         <item>Expenses</item>
+        <item>Statistics</item>
     </string-array>
 
     <!-- Navigation Drawer Menu Icons -->
@@ -16,6 +17,7 @@
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_balance</item>
         <item>@drawable/ic_expenses</item>
+        <item>@drawable/ic_statistics</item>
     </array>
 
     <!-- Home Quotes -->

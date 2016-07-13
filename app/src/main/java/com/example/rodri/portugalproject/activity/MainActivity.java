@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         drawerItems.add(new DrawerItem(menuTitles[0], menuIcons.getResourceId(0, -1)));
         drawerItems.add(new DrawerItem(menuTitles[1], menuIcons.getResourceId(1, -1)));
         drawerItems.add(new DrawerItem(menuTitles[2], menuIcons.getResourceId(2, -1)));
+        drawerItems.add(new DrawerItem(menuTitles[3], menuIcons.getResourceId(3, -1)));
 
         menuIcons.recycle();
     }
@@ -192,6 +193,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 2:
                 fragment = new ExpensesFragment();
+                break;
+            case 3:
                 break;
             default:
                 break;
