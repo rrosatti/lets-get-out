@@ -22,6 +22,7 @@ import android.widget.ListView;
 
 import com.example.rodri.portugalproject.R;
 import com.example.rodri.portugalproject.adapter.DrawerItemAdapter;
+import com.example.rodri.portugalproject.fragment.CurrentBalanceFragment;
 import com.example.rodri.portugalproject.fragment.ExpensesFragment;
 import com.example.rodri.portugalproject.fragment.HomeFragment;
 import com.example.rodri.portugalproject.model.DrawerItem;
@@ -190,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new HomeFragment();
                 break;
             case 1:
+                fragment = new CurrentBalanceFragment();
                 break;
             case 2:
                 fragment = new ExpensesFragment();

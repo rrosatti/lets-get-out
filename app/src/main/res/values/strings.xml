@@ -59,5 +59,6 @@
 
     <!-- Buttons -->
     <string name="set_up_goal">Set up new Goal</string>
+    <string name="update_goal">Update Goal</string>
 
 </resources>
