@@ -88,5 +88,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             db.execSQL(CREATE_TABLE_SAVINGS);
             System.out.println("I've been here!");
         }
+        System.out.println("I've been here! 2");
     }
 }
