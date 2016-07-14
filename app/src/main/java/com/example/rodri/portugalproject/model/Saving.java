@@ -3,7 +3,7 @@ package com.example.rodri.portugalproject.model;
 /**
  * Created by rodri on 7/14/2016.
  */
-public class Savings {
+public class Saving {
 
     private long id;
     private String description;
@@ -12,9 +12,9 @@ public class Savings {
     private int month;
     private int year;
 
-    public Savings() {}
+    public Saving() {}
 
-    public Savings(long id, float value, int day, int month, int year) {
+    public Saving(long id, float value, int day, int month, int year) {
         this.id = id;
         this.value = value;
         this.day = day;
@@ -22,7 +22,7 @@ public class Savings {
         this.year = year;
     }
 
-    public Savings(long id, String description, float value, int day, int month, int year) {
+    public Saving(long id, String description, float value, int day, int month, int year) {
         this(id, value, day, month, year);
         this.description = description;
     }

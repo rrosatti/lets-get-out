@@ -8,9 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.rodri.portugalproject.model.CurrentBalance;
 import com.example.rodri.portugalproject.model.Expense;
+import com.example.rodri.portugalproject.model.Saving;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +28,14 @@ public class MyDataSource {
     private String[] expensesColumns = {
             MySQLiteHelper.KEY_ID,
             MySQLiteHelper.COLUMN_NAME,
+            MySQLiteHelper.COLUMN_VALUE,
+            MySQLiteHelper.COLUMN_DAY,
+            MySQLiteHelper.COLUMN_MONTH,
+            MySQLiteHelper.COLUMN_YEAR
+    };
+    private String[] savingsColumns = {
+            MySQLiteHelper.KEY_ID,
+            MySQLiteHelper.COLUMN_DESCRIPTION,
             MySQLiteHelper.COLUMN_VALUE,
             MySQLiteHelper.COLUMN_DAY,
             MySQLiteHelper.COLUMN_MONTH,
@@ -167,5 +175,34 @@ public class MyDataSource {
         database.update(MySQLiteHelper.TABLE_CURRENT_BALANCE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
+    public Saving createSaving(String description, float value, int day, int month, int year) {
+        ContentValues values = new ContentValues();
+        if (!description.isEmpty()) values.put(MySQLiteHelper.COLUMN_DESCRIPTION, description);
+        values.put(MySQLiteHelper.COLUMN_VALUE, value);
+        values.put(MySQLiteHelper.COLUMN_DAY, day);
+        values.put(MySQLiteHelper.COLUMN_MONTH, month);
+        values.put(MySQLiteHelper.COLUMN_YEAR, year);
+
+        long insertId = database.insert(MySQLiteHelper.TABLE_SAVINGS, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
+                MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
+        cursor.moveToFirst();
+
+        Saving saving = cursorToSaving(cursor);
+        cursor.close();
+
+        return saving;
+    }
+
+    public Saving cursorToSaving(Cursor cursor) {
+        Saving saving = new Saving();
+        saving.setId(cursor.getLong(0));
+        saving.setDescription(cursor.getString(1));
+        saving.setValue(cursor.getFloat(2));
+        saving.setDay(cursor.getInt(3));
+        saving.setMonth(cursor.getInt(4));
+        saving.setYear(cursor.getInt(5));
+        return saving;
+    }
 
 }
