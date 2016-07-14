@@ -16,15 +16,32 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true">
 
-        <ImageButton
-            android:id="@+id/btAddExpense"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="15dp"
-            android:background="@drawable/circle"
-            android:src="@drawable/ic_new_expense"
-            android:elevation="4dp"
-            android:layout_gravity="bottom|end"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btAddExpense"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/red_circle"
+                android:src="@drawable/minus_sign"
+                android:elevation="4dp"
+                android:layout_gravity="bottom|end"/>
+
+            <ImageButton
+                android:id="@+id/btAddSaving"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/green_circle"
+                android:src="@drawable/plus_sign"
+                android:elevation="4dp"
+                android:layout_gravity="top|end"/>
+        </LinearLayout>
 
     </FrameLayout>
 
