@@ -14,11 +14,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "portugalProject.db";
 
     // Database version
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     // Table names
     public static final String TABLE_CURRENT_BALANCE = "current_balance";
     public static final String TABLE_EXPENSES = "expenses";
+    public static final String TABLE_SAVINGS = "savings";
 
     // Common column name
     public static final String KEY_ID = "id";
@@ -34,6 +35,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_MONTH = "month";
     public static final String COLUMN_YEAR = "year";
 
+    // savings columns names (it will use the value, day, month, and year columns from the expenses database)
+    public static final String COLUMN_DESCRIPTION = "description";
+
     // current_balance table create
     public static final String CREATE_TABLE_CURRENT_BALANCE =
             "CREATE TABLE " + TABLE_CURRENT_BALANCE + "("
@@ -46,6 +50,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_EXPENSES + "("
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_NAME + " TEXT NOT NULL, "
+            + COLUMN_VALUE + " REAL NOT NULL, "
+            + COLUMN_DAY + " INTEGER NOT NULL, "
+            + COLUMN_MONTH + " INTEGER NOT NULL, "
+            + COLUMN_YEAR + " INTEGER NOT NULL);";
+
+    public static final String CREATE_TABLE_SAVINGS =
+            "CREATE TABLE " + TABLE_SAVINGS + "("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_DESCRIPTION + " TEXT, "
             + COLUMN_VALUE + " REAL NOT NULL, "
             + COLUMN_DAY + " INTEGER NOT NULL, "
             + COLUMN_MONTH + " INTEGER NOT NULL, "
@@ -66,9 +79,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(MySQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion
             + ", which will destroy all old data.");
-        if (oldVersion == 1) {
+        if (oldVersion == 2) {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_CURRENT_BALANCE);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXPENSES);
+        }
+
+        if (oldVersion == 1 && newVersion == 2) {
+            db.execSQL(CREATE_TABLE_SAVINGS);
+            System.out.println("I've been here!");
         }
     }
 }

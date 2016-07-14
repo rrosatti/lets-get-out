@@ -15,11 +15,11 @@ import com.example.rodri.portugalproject.R;
 /**
  * Created by rodri on 7/10/2016.
  */
-public class ExpensesFragment extends Fragment {
+public class ExpensesAndSavingsFragment extends Fragment {
 
     private ImageView newExpense;
 
-    public ExpensesFragment() {}
+    public ExpensesAndSavingsFragment() {}
 
     @Nullable
     @Override

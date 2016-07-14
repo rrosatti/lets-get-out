@@ -1,6 +1,5 @@
 package com.example.rodri.portugalproject.activity;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -23,7 +22,7 @@ import android.widget.ListView;
 import com.example.rodri.portugalproject.R;
 import com.example.rodri.portugalproject.adapter.DrawerItemAdapter;
 import com.example.rodri.portugalproject.fragment.CurrentBalanceFragment;
-import com.example.rodri.portugalproject.fragment.ExpensesFragment;
+import com.example.rodri.portugalproject.fragment.ExpensesAndSavingsFragment;
 import com.example.rodri.portugalproject.fragment.HomeFragment;
 import com.example.rodri.portugalproject.model.DrawerItem;
 
@@ -194,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new CurrentBalanceFragment();
                 break;
             case 2:
-                fragment = new ExpensesFragment();
+                fragment = new ExpensesAndSavingsFragment();
                 break;
             case 3:
                 break;

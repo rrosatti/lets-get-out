@@ -8,7 +8,7 @@
     <string-array name="nav_drawer_items">
         <item>Home</item>
         <item>Current Balance</item>
-        <item>Expenses</item>
+        <item>Expenses and Savings</item>
         <item>Statistics</item>
     </string-array>
 
