@@ -205,4 +205,45 @@ public class MyDataSource {
         return saving;
     }
 
+    public Saving getSaving(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
+                MySQLiteHelper.KEY_ID + " = " + id,
+                null, null, null, null);
+        cursor.moveToFirst();
+
+        Saving saving = cursorToSaving(cursor);
+        cursor.close();
+
+        return saving;
+    }
+
+    public List<Saving> getAllSavings() {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns, null, null, null, null, null);
+        cursor.moveToFirst();
+
+        List<Saving> savings = new ArrayList<>();
+        while (cursor.isAfterLast()) {
+            savings.add(cursorToSaving(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return savings;
+    }
+
+    public void deleteSaving(long id) {
+        System.out.println("The saving with the id " + id + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_SAVINGS, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void updateSaving(long id, String description, float value, int day, int month, int year) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_DESCRIPTION, description);
+        values.put(MySQLiteHelper.COLUMN_VALUE, value);
+        values.put(MySQLiteHelper.COLUMN_DAY, day);
+        values.put(MySQLiteHelper.COLUMN_MONTH, month);
+        values.put(MySQLiteHelper.COLUMN_YEAR, year);
+        database.update(MySQLiteHelper.TABLE_SAVINGS, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
 }
