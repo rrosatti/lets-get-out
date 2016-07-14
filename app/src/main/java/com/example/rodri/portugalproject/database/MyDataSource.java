@@ -246,4 +246,53 @@ public class MyDataSource {
         database.update(MySQLiteHelper.TABLE_SAVINGS, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
+    public List<Saving> getAllSavingsByMonth(int month, int year) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
+                MySQLiteHelper.COLUMN_MONTH + " = " + month + " AND " + MySQLiteHelper.COLUMN_YEAR + " = " + year,
+                null, null, null, null);
+        cursor.moveToFirst();
+
+        List<Saving> savings = new ArrayList<>();
+        while (cursor.isAfterLast()) {
+            savings.add(cursorToSaving(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return savings;
+    }
+
+    public List<Saving> getAllSavingsByYear(int year) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
+                MySQLiteHelper.COLUMN_YEAR + " = " + year,
+                null, null, null, null);
+        cursor.moveToFirst();
+
+        List<Saving> savings = new ArrayList<>();
+        while (cursor.isAfterLast()) {
+            savings.add(cursorToSaving(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return savings;
+    }
+
+    public List<Expense> getAllExpensesByYear(int year) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
+                MySQLiteHelper.COLUMN_YEAR + " = " + year,
+                null, null, null, null);
+        cursor.moveToFirst();
+
+        List<Expense> expenses = new ArrayList<>();
+        while (cursor.isAfterLast()) {
+            expenses.add(cursorToExpense(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return expenses;
+    }
+
+
 }
