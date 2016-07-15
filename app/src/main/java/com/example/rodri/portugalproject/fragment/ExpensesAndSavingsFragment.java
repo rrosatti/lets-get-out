@@ -27,13 +27,13 @@ public class ExpensesAndSavingsFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_expenses, null);
 
-        newExpense = (ImageView) v.findViewById(R.id.btAddExpense);
+       /** newExpense = (ImageView) v.findViewById(R.id.fabAddExpense);
         newExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "This is just a test!", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         return v;
     }
