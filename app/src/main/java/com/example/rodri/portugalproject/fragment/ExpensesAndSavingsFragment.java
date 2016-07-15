@@ -3,6 +3,7 @@ package com.example.rodri.portugalproject.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,8 @@ import com.example.rodri.portugalproject.R;
  */
 public class ExpensesAndSavingsFragment extends Fragment {
 
-    private ImageView newExpense;
+    private FloatingActionButton newExpense;
+    private FloatingActionButton newSaving;
 
     public ExpensesAndSavingsFragment() {}
 
@@ -27,13 +29,22 @@ public class ExpensesAndSavingsFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_expenses, null);
 
-       /** newExpense = (ImageView) v.findViewById(R.id.fabAddExpense);
+        newExpense = (FloatingActionButton) v.findViewById(R.id.fabNewExpense);
+        newSaving = (FloatingActionButton) v.findViewById(R.id.fabNewSaving);
+
         newExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "This is just a test!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "New Expense", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
+
+        newSaving.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "New Saving", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return v;
     }
