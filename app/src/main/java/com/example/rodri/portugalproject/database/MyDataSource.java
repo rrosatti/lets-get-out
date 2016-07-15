@@ -23,23 +23,26 @@ public class MyDataSource {
     private String[] currentBalanceColumns = {
             MySQLiteHelper.KEY_ID,
             MySQLiteHelper.COLUMN_ESTIMATED_VALUE,
-            MySQLiteHelper.COLUMN_ACHIEVED_VALUE
+            MySQLiteHelper.COLUMN_ACHIEVED_VALUE,
+            MySQLiteHelper.KEY_DAY,
+            MySQLiteHelper.KEY_MONTH,
+            MySQLiteHelper.KEY_YEAR
     };
     private String[] expensesColumns = {
             MySQLiteHelper.KEY_ID,
             MySQLiteHelper.COLUMN_NAME,
             MySQLiteHelper.COLUMN_VALUE,
-            MySQLiteHelper.COLUMN_DAY,
-            MySQLiteHelper.COLUMN_MONTH,
-            MySQLiteHelper.COLUMN_YEAR
+            MySQLiteHelper.KEY_DAY,
+            MySQLiteHelper.KEY_MONTH,
+            MySQLiteHelper.KEY_YEAR
     };
     private String[] savingsColumns = {
             MySQLiteHelper.KEY_ID,
             MySQLiteHelper.COLUMN_DESCRIPTION,
             MySQLiteHelper.COLUMN_VALUE,
-            MySQLiteHelper.COLUMN_DAY,
-            MySQLiteHelper.COLUMN_MONTH,
-            MySQLiteHelper.COLUMN_YEAR
+            MySQLiteHelper.KEY_DAY,
+            MySQLiteHelper.KEY_MONTH,
+            MySQLiteHelper.KEY_YEAR
     };
 
     public MyDataSource(Context context) {
@@ -54,10 +57,13 @@ public class MyDataSource {
         dbHelper.close();
     }
 
-    public CurrentBalance createCurrentBalance(float estimatedValue, float achievedValue) {
+    public CurrentBalance createCurrentBalance(float estimatedValue, float achievedValue, int day, int month, int year) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_ESTIMATED_VALUE, estimatedValue);
         values.put(MySQLiteHelper.COLUMN_ACHIEVED_VALUE, achievedValue);
+        values.put(MySQLiteHelper.KEY_DAY, day);
+        values.put(MySQLiteHelper.KEY_MONTH, month);
+        values.put(MySQLiteHelper.KEY_YEAR, year);
 
         long insertId = database.insert(MySQLiteHelper.TABLE_CURRENT_BALANCE, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_CURRENT_BALANCE, currentBalanceColumns,
@@ -75,6 +81,9 @@ public class MyDataSource {
         currentBalance.setId(cursor.getLong(0));
         currentBalance.setEstimatedValue(cursor.getFloat(1));
         currentBalance.setAchievedValue(cursor.getFloat(2));
+        currentBalance.setDay(cursor.getInt(3));
+        currentBalance.setMonth(cursor.getInt(4));
+        currentBalance.setYear(cursor.getInt(5));
         return currentBalance;
     }
 
@@ -82,9 +91,9 @@ public class MyDataSource {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_NAME, name);
         values.put(MySQLiteHelper.COLUMN_VALUE, value);
-        values.put(MySQLiteHelper.COLUMN_DAY, day);
-        values.put(MySQLiteHelper.COLUMN_MONTH, month);
-        values.put(MySQLiteHelper.COLUMN_YEAR, year);
+        values.put(MySQLiteHelper.KEY_DAY, day);
+        values.put(MySQLiteHelper.KEY_MONTH, month);
+        values.put(MySQLiteHelper.KEY_YEAR, year);
 
         long insertId = database.insert(MySQLiteHelper.TABLE_EXPENSES, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
@@ -110,7 +119,7 @@ public class MyDataSource {
     public List<Expense> getAllExpensesByMonth(int month, int year) {
         List<Expense> expenses = new ArrayList<>();
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
-                MySQLiteHelper.COLUMN_MONTH + " = " + month + " AND " + MySQLiteHelper.COLUMN_YEAR + " = " + year,
+                MySQLiteHelper.KEY_MONTH + " = " + month + " AND " + MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
         cursor.moveToFirst();
 
@@ -162,16 +171,19 @@ public class MyDataSource {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_NAME, name);
         values.put(MySQLiteHelper.COLUMN_VALUE, value);
-        values.put(MySQLiteHelper.COLUMN_DAY, day);
-        values.put(MySQLiteHelper.COLUMN_MONTH, month);
-        values.put(MySQLiteHelper.COLUMN_YEAR, year);
+        values.put(MySQLiteHelper.KEY_DAY, day);
+        values.put(MySQLiteHelper.KEY_MONTH, month);
+        values.put(MySQLiteHelper.KEY_YEAR, year);
         database.update(MySQLiteHelper.TABLE_EXPENSES, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
-    public void updateCurrentBalance(long id, float estimatedValue, float achievedValue) {
+    public void updateCurrentBalance(long id, float estimatedValue, float achievedValue, int day, int month, int year) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_ESTIMATED_VALUE, estimatedValue);
         values.put(MySQLiteHelper.COLUMN_ACHIEVED_VALUE, achievedValue);
+        values.put(MySQLiteHelper.KEY_DAY, day);
+        values.put(MySQLiteHelper.KEY_MONTH, month);
+        values.put(MySQLiteHelper.KEY_YEAR, year);
         database.update(MySQLiteHelper.TABLE_CURRENT_BALANCE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
@@ -179,9 +191,9 @@ public class MyDataSource {
         ContentValues values = new ContentValues();
         if (!description.isEmpty()) values.put(MySQLiteHelper.COLUMN_DESCRIPTION, description);
         values.put(MySQLiteHelper.COLUMN_VALUE, value);
-        values.put(MySQLiteHelper.COLUMN_DAY, day);
-        values.put(MySQLiteHelper.COLUMN_MONTH, month);
-        values.put(MySQLiteHelper.COLUMN_YEAR, year);
+        values.put(MySQLiteHelper.KEY_DAY, day);
+        values.put(MySQLiteHelper.KEY_MONTH, month);
+        values.put(MySQLiteHelper.KEY_YEAR, year);
 
         long insertId = database.insert(MySQLiteHelper.TABLE_SAVINGS, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
@@ -240,15 +252,15 @@ public class MyDataSource {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_DESCRIPTION, description);
         values.put(MySQLiteHelper.COLUMN_VALUE, value);
-        values.put(MySQLiteHelper.COLUMN_DAY, day);
-        values.put(MySQLiteHelper.COLUMN_MONTH, month);
-        values.put(MySQLiteHelper.COLUMN_YEAR, year);
+        values.put(MySQLiteHelper.KEY_DAY, day);
+        values.put(MySQLiteHelper.KEY_MONTH, month);
+        values.put(MySQLiteHelper.KEY_YEAR, year);
         database.update(MySQLiteHelper.TABLE_SAVINGS, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
     public List<Saving> getAllSavingsByMonth(int month, int year) {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
-                MySQLiteHelper.COLUMN_MONTH + " = " + month + " AND " + MySQLiteHelper.COLUMN_YEAR + " = " + year,
+                MySQLiteHelper.KEY_MONTH + " = " + month + " AND " + MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
         cursor.moveToFirst();
 
@@ -264,7 +276,7 @@ public class MyDataSource {
 
     public List<Saving> getAllSavingsByYear(int year) {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
-                MySQLiteHelper.COLUMN_YEAR + " = " + year,
+                MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
         cursor.moveToFirst();
 
@@ -280,7 +292,7 @@ public class MyDataSource {
 
     public List<Expense> getAllExpensesByYear(int year) {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
-                MySQLiteHelper.COLUMN_YEAR + " = " + year,
+                MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
         cursor.moveToFirst();
 
