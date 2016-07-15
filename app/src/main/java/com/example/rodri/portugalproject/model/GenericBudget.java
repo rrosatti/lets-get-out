@@ -10,6 +10,8 @@ public class GenericBudget {
     private int month;
     private int year;
 
+    public GenericBudget() {}
+
     public GenericBudget(float value, int day, int month, int year) {
         this.value = value;
         this.day = day;
