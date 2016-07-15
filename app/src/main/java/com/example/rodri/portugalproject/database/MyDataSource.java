@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.rodri.portugalproject.model.CurrentBalance;
 import com.example.rodri.portugalproject.model.Expense;
+import com.example.rodri.portugalproject.model.GenericBudget;
 import com.example.rodri.portugalproject.model.Saving;
 
 import java.util.ArrayList;
@@ -304,6 +305,98 @@ public class MyDataSource {
         cursor.close();
 
         return expenses;
+    }
+
+    public List<GenericBudget> getAllExpensesAndSavings() {
+        Cursor cursorExpenses = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns, null, null, null, null, null);
+        Cursor cursorSavings = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns, null, null, null, null, null);
+
+        List<Expense> expenses = new ArrayList<>();
+        List<Saving> savings = new ArrayList<>();
+        List<GenericBudget> genericBudgets = new ArrayList<>();
+
+        cursorExpenses.moveToFirst();
+        while (cursorExpenses.isAfterLast()) {
+            expenses.add(cursorToExpense(cursorExpenses));
+            cursorExpenses.moveToNext();
+        }
+        cursorExpenses.close();
+
+        cursorSavings.moveToFirst();
+        while (cursorSavings.isAfterLast()) {
+            savings.add(cursorToSaving(cursorSavings));
+            cursorSavings.moveToNext();
+        }
+        cursorSavings.close();
+
+        genericBudgets.addAll(expenses);
+        genericBudgets.addAll(savings);
+
+        return  genericBudgets;
+    }
+
+    public List<GenericBudget> getAllExpensesAndSavingsByMonth(int month, int year) {
+        Cursor cursorExpenses = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
+                MySQLiteHelper.KEY_MONTH + " = " + month + " AND " + MySQLiteHelper.KEY_YEAR + " = " + year,
+                null, null, null, null);
+        Cursor cursorSavings = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
+                MySQLiteHelper.KEY_MONTH + " = " + month + " AND " + MySQLiteHelper.KEY_YEAR + " = " + year,
+                null, null, null, null);
+
+        List<Expense> expenses = new ArrayList<>();
+        List<Saving> savings = new ArrayList<>();
+        List<GenericBudget> genericBudgets = new ArrayList<>();
+
+        cursorExpenses.moveToFirst();
+        while (cursorExpenses.isAfterLast()) {
+            expenses.add(cursorToExpense(cursorExpenses));
+            cursorExpenses.moveToNext();
+        }
+        cursorExpenses.close();
+
+        cursorSavings.moveToFirst();
+        while (cursorSavings.isAfterLast()) {
+            savings.add(cursorToSaving(cursorSavings));
+            cursorSavings.moveToNext();
+        }
+        cursorSavings.close();
+
+        genericBudgets.addAll(expenses);
+        genericBudgets.addAll(savings);
+
+        return  genericBudgets;
+    }
+
+    public List<GenericBudget> getAllExpensesAndSavingsByYear(int year) {
+        Cursor cursorExpenses = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
+                MySQLiteHelper.KEY_YEAR + " = " + year,
+                null, null, null, null);
+        Cursor cursorSavings = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
+                MySQLiteHelper.KEY_YEAR + " = " + year,
+                null, null, null, null);
+
+        List<Expense> expenses = new ArrayList<>();
+        List<Saving> savings = new ArrayList<>();
+        List<GenericBudget> genericBudgets = new ArrayList<>();
+
+        cursorExpenses.moveToFirst();
+        while (cursorExpenses.isAfterLast()) {
+            expenses.add(cursorToExpense(cursorExpenses));
+            cursorExpenses.moveToNext();
+        }
+        cursorExpenses.close();
+
+        cursorSavings.moveToFirst();
+        while (cursorSavings.isAfterLast()) {
+            savings.add(cursorToSaving(cursorSavings));
+            cursorSavings.moveToNext();
+        }
+        cursorSavings.close();
+
+        genericBudgets.addAll(expenses);
+        genericBudgets.addAll(savings);
+
+        return  genericBudgets;
     }
 
 

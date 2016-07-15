@@ -35,6 +35,6 @@ public class Saving extends GenericBudget {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
 
 }
