@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="15dp">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <RelativeLayout
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etEstimatedValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_estimated_value"
+            android:textStyle="italic"
+            android:textSize="23sp"/>
+
+
+        <Button
+            android:id="@+id/btSetTargetDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/set_target_date"
+            android:textSize="25sp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/etEstimatedValue"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
