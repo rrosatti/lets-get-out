@@ -69,6 +69,13 @@ public class MyDataSource {
         long insertId = database.insert(MySQLiteHelper.TABLE_CURRENT_BALANCE, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_CURRENT_BALANCE, currentBalanceColumns,
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
+
         cursor.moveToFirst();
         CurrentBalance newCurrentBalance = cursorToCurrentBalance(cursor);
         cursor.close();
@@ -99,6 +106,13 @@ public class MyDataSource {
         long insertId = database.insert(MySQLiteHelper.TABLE_EXPENSES, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
+
         cursor.moveToFirst();
         Expense newExpense = cursorToExpense(cursor);
         cursor.close();
@@ -122,6 +136,12 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
                 MySQLiteHelper.KEY_MONTH + " = " + month + " AND " + MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
         cursor.moveToFirst();
 
         Expense expense;
@@ -138,6 +158,12 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
                 MySQLiteHelper.KEY_ID + " = " + id,
                 null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
         cursor.moveToFirst();
 
         Expense expense = cursorToExpense(cursor);
@@ -150,6 +176,12 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_CURRENT_BALANCE, currentBalanceColumns,
                 MySQLiteHelper.KEY_ID + " = " + id,
                 null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
         cursor.moveToFirst();
 
         CurrentBalance currentBalance = cursorToCurrentBalance(cursor);
@@ -199,6 +231,12 @@ public class MyDataSource {
         long insertId = database.insert(MySQLiteHelper.TABLE_SAVINGS, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
         cursor.moveToFirst();
 
         Saving saving = cursorToSaving(cursor);
@@ -222,6 +260,12 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
                 MySQLiteHelper.KEY_ID + " = " + id,
                 null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
         cursor.moveToFirst();
 
         Saving saving = cursorToSaving(cursor);
@@ -232,6 +276,12 @@ public class MyDataSource {
 
     public List<Saving> getAllSavings() {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns, null, null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
         cursor.moveToFirst();
 
         List<Saving> savings = new ArrayList<>();
@@ -263,6 +313,12 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
                 MySQLiteHelper.KEY_MONTH + " = " + month + " AND " + MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
         cursor.moveToFirst();
 
         List<Saving> savings = new ArrayList<>();
@@ -279,6 +335,12 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
                 MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
         cursor.moveToFirst();
 
         List<Saving> savings = new ArrayList<>();
@@ -295,6 +357,12 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
                 MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
         cursor.moveToFirst();
 
         List<Expense> expenses = new ArrayList<>();
@@ -315,7 +383,7 @@ public class MyDataSource {
         List<Saving> savings = new ArrayList<>();
         List<GenericBudget> genericBudgets = new ArrayList<>();
 
-        if (cursorExpenses.moveToFirst()) {
+        if (!isCursorEmpty(cursorExpenses)) {
             while (cursorExpenses.isAfterLast()) {
                 expenses.add(cursorToExpense(cursorExpenses));
                 cursorExpenses.moveToNext();
@@ -324,7 +392,7 @@ public class MyDataSource {
             genericBudgets.addAll(expenses);
         }
 
-        if (cursorSavings.moveToFirst()) {
+        if (!isCursorEmpty(cursorSavings)) {
             cursorSavings.moveToFirst();
             while (cursorSavings.isAfterLast()) {
                 savings.add(cursorToSaving(cursorSavings));
@@ -352,22 +420,29 @@ public class MyDataSource {
         List<Saving> savings = new ArrayList<>();
         List<GenericBudget> genericBudgets = new ArrayList<>();
 
-        cursorExpenses.moveToFirst();
-        while (cursorExpenses.isAfterLast()) {
-            expenses.add(cursorToExpense(cursorExpenses));
-            cursorExpenses.moveToNext();
+        if (!isCursorEmpty(cursorExpenses)) {
+            cursorExpenses.moveToFirst();
+            while (cursorExpenses.isAfterLast()) {
+                expenses.add(cursorToExpense(cursorExpenses));
+                cursorExpenses.moveToNext();
+            }
+            cursorExpenses.close();
+            genericBudgets.addAll(expenses);
         }
-        cursorExpenses.close();
 
-        cursorSavings.moveToFirst();
-        while (cursorSavings.isAfterLast()) {
-            savings.add(cursorToSaving(cursorSavings));
-            cursorSavings.moveToNext();
+        if (!isCursorEmpty(cursorSavings)) {
+            cursorSavings.moveToFirst();
+            while (cursorSavings.isAfterLast()) {
+                savings.add(cursorToSaving(cursorSavings));
+                cursorSavings.moveToNext();
+            }
+            cursorSavings.close();
+            genericBudgets.addAll(savings);
         }
-        cursorSavings.close();
 
-        genericBudgets.addAll(expenses);
-        genericBudgets.addAll(savings);
+        if (genericBudgets.isEmpty())
+            return null;
+
 
         return  genericBudgets;
     }
@@ -384,25 +459,37 @@ public class MyDataSource {
         List<Saving> savings = new ArrayList<>();
         List<GenericBudget> genericBudgets = new ArrayList<>();
 
-        cursorExpenses.moveToFirst();
-        while (cursorExpenses.isAfterLast()) {
-            expenses.add(cursorToExpense(cursorExpenses));
-            cursorExpenses.moveToNext();
+        if (!isCursorEmpty(cursorExpenses)) {
+            cursorExpenses.moveToFirst();
+            while (cursorExpenses.isAfterLast()) {
+                expenses.add(cursorToExpense(cursorExpenses));
+                cursorExpenses.moveToNext();
+            }
+            cursorExpenses.close();
+            genericBudgets.addAll(expenses);
         }
-        cursorExpenses.close();
 
-        cursorSavings.moveToFirst();
-        while (cursorSavings.isAfterLast()) {
-            savings.add(cursorToSaving(cursorSavings));
-            cursorSavings.moveToNext();
+        if (!isCursorEmpty(cursorSavings)) {
+            cursorSavings.moveToFirst();
+            while (cursorSavings.isAfterLast()) {
+                savings.add(cursorToSaving(cursorSavings));
+                cursorSavings.moveToNext();
+            }
+            cursorSavings.close();
+            genericBudgets.addAll(savings);
         }
-        cursorSavings.close();
 
-        genericBudgets.addAll(expenses);
-        genericBudgets.addAll(savings);
+        if (genericBudgets.isEmpty())
+            return null;
 
         return  genericBudgets;
     }
 
+    public boolean isCursorEmpty(Cursor cursor) {
+        if (cursor.moveToFirst())
+            return false;
+        else
+            return true;
+    }
 
 }
