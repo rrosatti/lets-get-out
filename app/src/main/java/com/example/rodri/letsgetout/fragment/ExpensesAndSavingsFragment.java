@@ -1,4 +1,4 @@
-package com.example.rodri.portugalproject.fragment;
+package com.example.rodri.letsgetout.fragment;
 
 
 import android.os.Bundle;
@@ -8,10 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.rodri.portugalproject.R;
+import com.example.rodri.letsgetout.R;
 
 /**
  * Created by rodri on 7/10/2016.

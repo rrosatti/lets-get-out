@@ -1,4 +1,4 @@
-package com.example.rodri.portugalproject.model;
+package com.example.rodri.letsgetout.model;
 
 /**
  * Created by rodri on 7/14/2016.

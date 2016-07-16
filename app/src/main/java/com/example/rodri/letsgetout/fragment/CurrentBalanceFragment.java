@@ -1,5 +1,6 @@
-package com.example.rodri.portugalproject.fragment;
+package com.example.rodri.letsgetout.fragment;
 
+import android.content.Intent;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,10 +8,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import com.example.rodri.portugalproject.R;
-import com.example.rodri.portugalproject.database.MyDataSource;
-import com.example.rodri.portugalproject.model.GenericBudget;
+import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.activity.SetUpGoalActivity;
+import com.example.rodri.letsgetout.database.MyDataSource;
+import com.example.rodri.letsgetout.model.GenericBudget;
 
 import java.util.List;
 
@@ -20,6 +23,7 @@ import java.util.List;
 public class CurrentBalanceFragment extends Fragment {
 
     private MyDataSource myDataSource;
+    private Button btSetUpGoal;
 
     public CurrentBalanceFragment() {}
 
@@ -39,6 +43,16 @@ public class CurrentBalanceFragment extends Fragment {
 
             if (genericBudgets == null) {
                 v = inflater.inflate(R.layout.fragment_new_goal, null);
+                btSetUpGoal = (Button) v.findViewById(R.id.btSetUpGoal);
+
+                btSetUpGoal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intentSetUpGoal = new Intent(getActivity(), SetUpGoalActivity.class);
+                        startActivity(intentSetUpGoal);
+                    }
+                });
+
             } else {
                 v = inflater.inflate(R.layout.fragment_current_balance, null);
             }

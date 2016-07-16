@@ -1,4 +1,4 @@
-package com.example.rodri.portugalproject.database;
+package com.example.rodri.letsgetout.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

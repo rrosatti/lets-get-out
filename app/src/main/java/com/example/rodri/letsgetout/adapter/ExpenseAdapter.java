@@ -1,4 +1,4 @@
-package com.example.rodri.portugalproject.adapter;
+package com.example.rodri.letsgetout.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.rodri.portugalproject.R;
-import com.example.rodri.portugalproject.model.Expense;
+import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.model.Expense;
 
 import java.util.List;
 

@@ -1,11 +1,11 @@
-package com.example.rodri.portugalproject.activity;
+package com.example.rodri.letsgetout.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.rodri.portugalproject.R;
-import com.example.rodri.portugalproject.util.Util;
+import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.util.Util;
 
 /**
  * Created by rodri on 7/6/2016.

@@ -1,4 +1,4 @@
-package com.example.rodri.portugalproject.activity;
+package com.example.rodri.letsgetout.activity;
 
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -19,12 +19,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.rodri.portugalproject.R;
-import com.example.rodri.portugalproject.adapter.DrawerItemAdapter;
-import com.example.rodri.portugalproject.fragment.CurrentBalanceFragment;
-import com.example.rodri.portugalproject.fragment.ExpensesAndSavingsFragment;
-import com.example.rodri.portugalproject.fragment.HomeFragment;
-import com.example.rodri.portugalproject.model.DrawerItem;
+import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.adapter.DrawerItemAdapter;
+import com.example.rodri.letsgetout.fragment.CurrentBalanceFragment;
+import com.example.rodri.letsgetout.fragment.ExpensesAndSavingsFragment;
+import com.example.rodri.letsgetout.fragment.HomeFragment;
+import com.example.rodri.letsgetout.model.DrawerItem;
 
 import java.util.ArrayList;
 import java.util.List;

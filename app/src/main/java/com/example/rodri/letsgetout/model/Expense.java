@@ -1,6 +1,4 @@
-package com.example.rodri.portugalproject.model;
-
-import java.util.Date;
+package com.example.rodri.letsgetout.model;
 
 /**
  * Created by rodri on 7/5/2016.

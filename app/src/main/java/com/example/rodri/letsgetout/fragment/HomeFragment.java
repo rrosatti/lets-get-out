@@ -1,4 +1,4 @@
-package com.example.rodri.portugalproject.fragment;
+package com.example.rodri.letsgetout.fragment;
 
 
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.rodri.portugalproject.R;
+import com.example.rodri.letsgetout.R;
 
 import java.util.Random;
 
