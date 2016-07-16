@@ -77,6 +77,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CURRENT_BALANCE);
         db.execSQL(CREATE_TABLE_EXPENSES);
+        db.execSQL(CREATE_TABLE_SAVINGS);
     }
 
     @Override

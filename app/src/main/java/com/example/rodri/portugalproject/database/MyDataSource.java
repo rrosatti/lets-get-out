@@ -315,22 +315,27 @@ public class MyDataSource {
         List<Saving> savings = new ArrayList<>();
         List<GenericBudget> genericBudgets = new ArrayList<>();
 
-        cursorExpenses.moveToFirst();
-        while (cursorExpenses.isAfterLast()) {
-            expenses.add(cursorToExpense(cursorExpenses));
-            cursorExpenses.moveToNext();
+        if (cursorExpenses.moveToFirst()) {
+            while (cursorExpenses.isAfterLast()) {
+                expenses.add(cursorToExpense(cursorExpenses));
+                cursorExpenses.moveToNext();
+            }
+            cursorExpenses.close();
+            genericBudgets.addAll(expenses);
         }
-        cursorExpenses.close();
 
-        cursorSavings.moveToFirst();
-        while (cursorSavings.isAfterLast()) {
-            savings.add(cursorToSaving(cursorSavings));
-            cursorSavings.moveToNext();
+        if (cursorSavings.moveToFirst()) {
+            cursorSavings.moveToFirst();
+            while (cursorSavings.isAfterLast()) {
+                savings.add(cursorToSaving(cursorSavings));
+                cursorSavings.moveToNext();
+            }
+            cursorSavings.close();
+            genericBudgets.addAll(savings);
         }
-        cursorSavings.close();
 
-        genericBudgets.addAll(expenses);
-        genericBudgets.addAll(savings);
+        if (genericBudgets.isEmpty())
+            return null;
 
         return  genericBudgets;
     }
