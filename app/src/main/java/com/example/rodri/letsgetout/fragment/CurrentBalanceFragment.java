@@ -27,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * Created by rodri on 7/13/2016.
@@ -103,7 +102,7 @@ public class CurrentBalanceFragment extends Fragment {
 
                         EditText txtUpdateEstimatedValue = (EditText) dialog.findViewById(R.id.etEstimatedValue);
                         Button btUpdateTargetDate = (Button) dialog.findViewById(R.id.btUpdateGoal);
-                        Button btConfirm = (Button) dialog.findViewById(R.id.btConfirm);
+                        Button btConfirm = (Button) dialog.findViewById(R.id.setupgoal_btConfirm);
 
                         txtUpdateEstimatedValue.setText(String.valueOf(currentBalance.getEstimatedValue()));
                         btUpdateTargetDate.setOnClickListener(new View.OnClickListener() {

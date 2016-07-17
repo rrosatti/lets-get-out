@@ -35,7 +35,7 @@ public class SetUpGoalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setup_goal);
 
         btSetTargetDate = (Button) findViewById(R.id.btSetTargetDate);
-        btConfirm = (Button) findViewById(R.id.btConfirm);
+        btConfirm = (Button) findViewById(R.id.setupgoal_btConfirm);
         etEstimatedValue = (EditText) findViewById(R.id.etEstimatedValue);
         toolbar = (Toolbar) findViewById(R.id.toolbarSetUpGoal);
         setSupportActionBar(toolbar);

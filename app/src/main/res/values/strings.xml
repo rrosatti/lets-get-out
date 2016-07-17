@@ -58,12 +58,15 @@
     </string-array>
 
     <!-- Buttons -->
-    <string name="set_up_goal">Set up new Goal</string>
-    <string name="update_goal">Update Goal</string>
-    <string name="set_target_date">Set Target Date</string>
-    <string name="confirm">Confirm</string>
+    <string name="button_set_up_goal">Set up new Goal</string>
+    <string name="button_update_goal">Update Goal</string>
+    <string name="button_set_target_date">Set Target Date</string>
+    <string name="button_confirm">Confirm</string>
+    <string name="button_set_date">Set Date</string>
 
     <!-- Hints -->
     <string name="hint_estimated_value">Estimated Value</string>
+    <string name="hint_expense_name">Description</string>
+    <string name="hint_value">Value</string>
 
 </resources>

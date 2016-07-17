@@ -38,17 +38,17 @@
                 android:id="@+id/btSetTargetDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/set_target_date"
+                android:text="@string/button_set_target_date"
                 android:textSize="25sp"
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/etEstimatedValue"
                 android:layout_centerHorizontal="true"/>
 
             <Button
-                android:id="@+id/btConfirm"
+                android:id="@+id/setupgoal_btConfirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/confirm"
+                android:text="@string/button_confirm"
                 android:textSize="25sp"
                 android:layout_marginTop="50dp"
                 android:layout_below="@+id/btSetTargetDate"
