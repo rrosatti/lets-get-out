@@ -69,4 +69,7 @@
     <string name="hint_expense_name">Description</string>
     <string name="hint_value">Value</string>
 
+    <!-- Text Views -->
+    <string name="text_view_new_expense">New Expense</string>
+
 </resources>

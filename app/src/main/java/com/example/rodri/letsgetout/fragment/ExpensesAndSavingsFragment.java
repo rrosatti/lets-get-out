@@ -1,6 +1,7 @@
 package com.example.rodri.letsgetout.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.activity.NewExpenseActivity;
 
 /**
  * Created by rodri on 7/10/2016.
@@ -34,7 +36,8 @@ public class ExpensesAndSavingsFragment extends Fragment {
         newExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "New Expense", Toast.LENGTH_SHORT).show();
+                Intent intentNewExpense = new Intent(getActivity(), NewExpenseActivity.class);
+                startActivity(intentNewExpense);
             }
         });
 
