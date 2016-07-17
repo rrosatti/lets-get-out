@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.util.Util;
@@ -22,6 +24,8 @@ public class SetUpGoalActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private Button btSetTargetDate;
+    private Button btConfirm;
+    private EditText etEstimatedValue;
     private int day, month, year;
 
     @Override
@@ -31,6 +35,8 @@ public class SetUpGoalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setup_goal);
 
         btSetTargetDate = (Button) findViewById(R.id.btSetTargetDate);
+        btConfirm = (Button) findViewById(R.id.btConfirm);
+        etEstimatedValue = (EditText) findViewById(R.id.etEstimatedValue);
         toolbar = (Toolbar) findViewById(R.id.toolbarSetUpGoal);
         setSupportActionBar(toolbar);
 
@@ -52,17 +58,21 @@ public class SetUpGoalActivity extends AppCompatActivity {
                         day = dayOfMonth;
                         month = monthOfYear + 1;
                         year = yeaR;
+                        Toast.makeText(getApplicationContext(), day+"/"+month+"/"+year, Toast.LENGTH_SHORT).show();
                     }
                 };
 
                 Calendar cal = Calendar.getInstance(TimeZone.getDefault());
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SetUpGoalActivity.this, R.style.AppTheme, dateSetListener,
-                        cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
+                        cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
                 datePickerDialog.show();
 
             }
         });
+
+
+        // Save the new data in the database (get text form EditText, implement onClick() event for btConfirm)
 
     }
 }

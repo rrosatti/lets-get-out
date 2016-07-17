@@ -42,7 +42,18 @@
                 android:textSize="25sp"
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/etEstimatedValue"
+                android:layout_centerHorizontal="true"/>
+
+            <Button
+                android:id="@+id/btConfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/confirm"
+                android:textSize="25sp"
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/btSetTargetDate"
                 android:layout_alignParentEnd="true"/>
+
 
 
     </RelativeLayout>
