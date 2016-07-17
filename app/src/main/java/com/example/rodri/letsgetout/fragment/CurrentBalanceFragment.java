@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.activity.SetUpGoalActivity;
@@ -23,7 +24,14 @@ import java.util.List;
 public class CurrentBalanceFragment extends Fragment {
 
     private MyDataSource myDataSource;
+
+    // no data found corresponding to current balance
     private Button btSetUpGoal;
+
+    private TextView txtEstimatedValue;
+    private TextView txtAchievedValue;
+    private TextView txtNeedToSave;
+    private TextView txtMonthsRemaining;
 
     public CurrentBalanceFragment() {}
 
@@ -55,6 +63,10 @@ public class CurrentBalanceFragment extends Fragment {
 
             } else {
                 v = inflater.inflate(R.layout.fragment_current_balance, null);
+                txtEstimatedValue = (TextView) v.findViewById(R.id.txtEstimatedValue);
+                txtAchievedValue = (TextView) v.findViewById(R.id.txtAchievedValue);
+                txtNeedToSave = (TextView) v.findViewById(R.id.txtNeedToSave);
+                txtMonthsRemaining = (TextView) v.findViewById(R.id.txtMonthsRemaining);
             }
 
         } catch (SQLException e) {
