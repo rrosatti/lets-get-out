@@ -68,8 +68,10 @@
     <string name="hint_estimated_value">Estimated Value</string>
     <string name="hint_expense_name">Description</string>
     <string name="hint_value">Value</string>
+    <string name="hint_description">Description</string>
 
     <!-- Text Views -->
     <string name="text_view_new_expense">New Expense</string>
+    <string name="text_view_new_saving">New Saving</string>
 
 </resources>
