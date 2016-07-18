@@ -25,6 +25,8 @@
 
         <activity android:name=".activity.NewExpenseActivity" android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".activity.NewSavingActivity" android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

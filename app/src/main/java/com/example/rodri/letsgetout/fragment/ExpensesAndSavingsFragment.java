@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.activity.NewExpenseActivity;
+import com.example.rodri.letsgetout.activity.NewSavingActivity;
 
 /**
  * Created by rodri on 7/10/2016.
@@ -44,7 +45,8 @@ public class ExpensesAndSavingsFragment extends Fragment {
         newSaving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "New Saving", Toast.LENGTH_SHORT).show();
+                Intent intentNewSaving = new Intent(getActivity(), NewSavingActivity.class);
+                startActivity(intentNewSaving);
             }
         });
 
