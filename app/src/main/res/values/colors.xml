@@ -15,4 +15,7 @@
     <!-- Floating Action Buttons -->
     <color name="fab_green">#006600</color>
     <color name="fab_red">#FF0000</color>
+
+    <!-- Splash Screen Background -->
+    <color name="splash_screen_bg">#F1E9DB</color>
 </resources>

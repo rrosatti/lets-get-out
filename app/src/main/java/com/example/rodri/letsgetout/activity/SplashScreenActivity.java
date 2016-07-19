@@ -17,11 +17,15 @@ public class SplashScreenActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Util.setFullScreen(this);
+        //Util.setFullScreen(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        //setContentView(R.layout.activity_splash_screen);
 
-        final Thread splashThread = new Thread() {
+        Intent intent = new Intent(getApplicationContext() ,MainActivity.class);
+        startActivity(intent);
+        finish();
+
+        /**final Thread splashThread = new Thread() {
 
             @Override
             public void run() {
@@ -42,6 +46,7 @@ public class SplashScreenActivity extends Activity {
         };
         splashThread.start();
 
+         */
 
     }
 }
