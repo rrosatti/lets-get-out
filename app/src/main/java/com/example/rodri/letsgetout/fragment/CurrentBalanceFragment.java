@@ -92,7 +92,7 @@ public class CurrentBalanceFragment extends Fragment {
                 int months = currentBalance.getYear() - Calendar.MONTH;
                 int monthsRemaining = (years * 12) + months;
 
-                txtMonthsRemaining.setText(String.valueOf(monthsRemaining) + " months remaining.");
+                txtMonthsRemaining.setText(String.valueOf(monthsRemaining));
 
                 btUpdateGoal.setOnClickListener(new View.OnClickListener() {
                     @Override
