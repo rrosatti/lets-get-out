@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.util.Util;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -30,6 +31,7 @@ public class NewSavingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        Util.setFullScreen(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_saving);
 

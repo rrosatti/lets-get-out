@@ -14,8 +14,7 @@ public class CurrentBalance{
 
     public CurrentBalance() {}
 
-    public CurrentBalance(long id, float estimatedValue, float achievedValue, int day, int month, int year) {
-        this.id = id;
+    public CurrentBalance(float estimatedValue, float achievedValue, int day, int month, int year) {
         this.estimatedValue = estimatedValue;
         this.achievedValue = achievedValue;
         this.day = day;

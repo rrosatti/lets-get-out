@@ -31,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_estimated_value"
                 android:textStyle="italic"
-                android:textSize="23sp"/>
+                android:textSize="23sp"
+                android:inputType="numberDecimal"/>
 
 
             <Button

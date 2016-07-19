@@ -12,8 +12,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.database.MyDataSource;
+import com.example.rodri.letsgetout.model.CurrentBalance;
 import com.example.rodri.letsgetout.util.Util;
 
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -26,7 +29,10 @@ public class SetUpGoalActivity extends AppCompatActivity {
     private Button btSetTargetDate;
     private Button btConfirm;
     private EditText etEstimatedValue;
-    private int day, month, year;
+
+    private int day = 0, month = 0, year = 0;
+
+    private MyDataSource dataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,14 +40,15 @@ public class SetUpGoalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_goal);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbarSetUpGoal);
         btSetTargetDate = (Button) findViewById(R.id.btSetTargetDate);
         btConfirm = (Button) findViewById(R.id.setupgoal_btConfirm);
         etEstimatedValue = (EditText) findViewById(R.id.etEstimatedValue);
-        toolbar = (Toolbar) findViewById(R.id.toolbarSetUpGoal);
+
+        dataSource = new MyDataSource(getApplicationContext());
+
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +80,34 @@ public class SetUpGoalActivity extends AppCompatActivity {
 
 
         // Save the new data in the database (get text form EditText, implement onClick() event for btConfirm)
+        btConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    dataSource.open();
+
+                    String estimatedValue = etEstimatedValue.getText().toString();
+                    if (estimatedValue.equals("")) {
+                        Toast.makeText(getApplicationContext(), "You must insert a value!", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else if (day ==  0) {
+                        Toast.makeText(getApplicationContext(), "You must set up a target date!", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        dataSource.createCurrentBalance(Float.valueOf(estimatedValue), 0, day, month, year);
+                        Toast.makeText(getApplicationContext(), "A new goal was successfully created!", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    }
+
+                } catch (Exception e) {
+                    dataSource.close();
+                    e.printStackTrace();
+                }
+
+                dataSource.close();
+            }
+        });
+
 
     }
 }

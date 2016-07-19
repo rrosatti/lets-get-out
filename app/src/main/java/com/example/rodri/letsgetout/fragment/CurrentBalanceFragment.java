@@ -61,8 +61,9 @@ public class CurrentBalanceFragment extends Fragment {
             myDataSource.open();
 
             List<GenericBudget> genericBudgets = myDataSource.getAllExpensesAndSavings();
+            CurrentBalance cBalance = myDataSource.getCurrentBalance(1);
 
-            if (genericBudgets == null) {
+            if (cBalance == null) {
                 v = inflater.inflate(R.layout.fragment_new_goal, null);
                 btSetUpGoal = (Button) v.findViewById(R.id.btSetUpGoal);
 
@@ -101,7 +102,7 @@ public class CurrentBalanceFragment extends Fragment {
                         dialog.setTitle("Temporary title...");
 
                         EditText txtUpdateEstimatedValue = (EditText) dialog.findViewById(R.id.etEstimatedValue);
-                        Button btUpdateTargetDate = (Button) dialog.findViewById(R.id.btUpdateGoal);
+                        Button btUpdateTargetDate = (Button) dialog.findViewById(R.id.btUpdateGoal); // btSetTargetDate?
                         Button btConfirm = (Button) dialog.findViewById(R.id.setupgoal_btConfirm);
 
                         txtUpdateEstimatedValue.setText(String.valueOf(currentBalance.getEstimatedValue()));
