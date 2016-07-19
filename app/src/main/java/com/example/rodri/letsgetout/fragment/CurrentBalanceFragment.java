@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.activity.SetUpGoalActivity;
+import com.example.rodri.letsgetout.activity.UpdateGoalActivity;
 import com.example.rodri.letsgetout.database.MyDataSource;
 import com.example.rodri.letsgetout.model.CurrentBalance;
 import com.example.rodri.letsgetout.model.GenericBudget;
@@ -97,52 +98,8 @@ public class CurrentBalanceFragment extends Fragment {
                 btUpdateGoal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Dialog dialog = new Dialog(getContext());
-                        dialog.setContentView(R.layout.activity_setup_goal);
-                        dialog.setTitle("Temporary title...");
-
-                        EditText txtUpdateEstimatedValue = (EditText) dialog.findViewById(R.id.etEstimatedValue);
-                        Button btUpdateTargetDate = (Button) dialog.findViewById(R.id.btUpdateGoal); // btSetTargetDate?
-                        Button btConfirm = (Button) dialog.findViewById(R.id.setupgoal_btConfirm);
-
-                        txtUpdateEstimatedValue.setText(String.valueOf(currentBalance.getEstimatedValue()));
-                        btUpdateTargetDate.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                                    @Override
-                                    public void onDateSet(DatePicker view, int yeaR, int monthOfYear, int dayOfMonth) {
-                                        day = dayOfMonth;
-                                        month = monthOfYear + 1;
-                                        year = yeaR;
-                                        Toast.makeText(getContext(), day+"/"+month+"/"+year, Toast.LENGTH_SHORT).show();
-                                    }
-                                };
-
-                                String dateString = currentBalance.getDay()+"-"+currentBalance.getMonth()+"-"+currentBalance.getYear();
-
-                                SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
-                                Date date = null;
-                                try {
-                                    date = format.parse(dateString);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-
-                                Calendar cal = Calendar.getInstance();
-                                cal.setTime(date);
-
-                                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), R.style.AppTheme, dateSetListener,
-                                        cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-
-                                datePickerDialog.show();
-                            }
-                        });
-
-                        dialog.show();
-
-                        // Need to save all the changes in database (implement onClick() event for btConfirm)
-
+                        Intent intent = new Intent(getActivity(), UpdateGoalActivity.class);
+                        startActivity(intent);
                     }
                 });
             }
