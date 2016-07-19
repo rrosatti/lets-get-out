@@ -88,8 +88,8 @@ public class CurrentBalanceFragment extends Fragment {
                 txtAchievedValue.setText("R$ " + String.valueOf(currentBalance.getAchievedValue()));
                 txtNeedToSave.setText("R$ " + String.valueOf(currentBalance.getEstimatedValue() - currentBalance.getAchievedValue()));
 
-                int years = currentBalance.getYear() - Calendar.YEAR;
-                int months = currentBalance.getYear() - Calendar.MONTH;
+                int years = currentBalance.getYear() - Calendar.getInstance().get(Calendar.YEAR);
+                int months = currentBalance.getMonth() - Calendar.getInstance().get(Calendar.MONTH);
                 int monthsRemaining = (years * 12) + months;
 
                 txtMonthsRemaining.setText(String.valueOf(monthsRemaining));
