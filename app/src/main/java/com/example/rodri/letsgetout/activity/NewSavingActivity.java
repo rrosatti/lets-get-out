@@ -100,6 +100,7 @@ public class NewSavingActivity extends AppCompatActivity {
 
                         dataSource.createSaving(description, Float.valueOf(value), day, month, year);
                         Toast.makeText(getApplicationContext(), "New Saving created successfully!", Toast.LENGTH_SHORT).show();
+                        dataSource.close();
                         onBackPressed();
 
                     } catch (Exception e) {

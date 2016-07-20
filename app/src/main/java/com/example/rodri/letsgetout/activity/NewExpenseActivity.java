@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.database.MyDataSource;
 import com.example.rodri.letsgetout.util.Util;
 
 import java.util.Calendar;
@@ -26,8 +27,11 @@ public class NewExpenseActivity extends AppCompatActivity {
     private EditText etName;
     private EditText etValue;
     private Button btSetDate;
-    private Button btConfifm;
-    private int day, month, year;
+    private Button btConfirm;
+
+    private int day = 0, month = 0, year = 0;
+
+    private MyDataSource dataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +43,9 @@ public class NewExpenseActivity extends AppCompatActivity {
         etName = (EditText) findViewById(R.id.etExpenseName);
         etValue = (EditText) findViewById(R.id.etExpenseValue);
         btSetDate = (Button) findViewById(R.id.newExpense_btSetDate);
-        btConfifm = (Button) findViewById(R.id.newExpense_btConfirm);
+        btConfirm = (Button) findViewById(R.id.newExpense_btConfirm);
+
+        dataSource = new MyDataSource(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -72,6 +78,37 @@ public class NewExpenseActivity extends AppCompatActivity {
         });
 
         // Need to save data into database (get data from EditTexts, implement onClick() event for btConfirm, use MyDataSource)
+        btConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String description = etName.getText().toString();
+                String value = etValue.getText().toString();
+
+                if (description.equals("")) {
+                    Toast.makeText(getApplicationContext(), "The description field cannot be empty!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (value.equals("")) {
+                    Toast.makeText(getApplicationContext(), "The value field cannot be empty!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (day == 0) {
+                    Toast.makeText(getApplicationContext(), "You need to set a date!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    try {
+                        dataSource.open();
+
+                        dataSource.createExpense(description, Float.valueOf(value), day, month, year);
+                        dataSource.close();
+                        Toast.makeText(getApplicationContext(), "A new expense was successfully created!", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+
+                    } catch (Exception e) {
+                        dataSource.close();
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
     }
 }

@@ -100,6 +100,13 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
                 MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null);
 
+        // Subtract the expense from achieved value of the current balance
+        CurrentBalance currentBalance = getCurrentBalance(1);
+        float newAchievedValue = currentBalance.getAchievedValue();
+        newAchievedValue -= value;
+        updateCurrentBalance(currentBalance.getId(), currentBalance.getEstimatedValue(), newAchievedValue,
+                day, month, year);
+
         if (isCursorEmpty(cursor)) {
             System.out.println("ERROR!! Cursor is empty!");
             cursor.close();
