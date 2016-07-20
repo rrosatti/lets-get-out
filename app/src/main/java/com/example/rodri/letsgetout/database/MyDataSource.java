@@ -58,6 +58,10 @@ public class MyDataSource {
         dbHelper.close();
     }
 
+    /**
+     *  ---------- CREATE ----------
+     */
+
     public CurrentBalance createCurrentBalance(float estimatedValue, float achievedValue, int day, int month, int year) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_ESTIMATED_VALUE, estimatedValue);
@@ -82,17 +86,6 @@ public class MyDataSource {
 
         return newCurrentBalance;
 
-    }
-
-    public CurrentBalance cursorToCurrentBalance(Cursor cursor) {
-        CurrentBalance currentBalance = new CurrentBalance();
-        currentBalance.setId(cursor.getLong(0));
-        currentBalance.setEstimatedValue(cursor.getFloat(1));
-        currentBalance.setAchievedValue(cursor.getFloat(2));
-        currentBalance.setDay(cursor.getInt(3));
-        currentBalance.setMonth(cursor.getInt(4));
-        currentBalance.setYear(cursor.getInt(5));
-        return currentBalance;
     }
 
     public Expense createExpense(String name, float value, int day, int month, int year) {
@@ -120,6 +113,57 @@ public class MyDataSource {
         return newExpense;
     }
 
+    public Saving createSaving(String description, float value, int day, int month, int year) {
+        ContentValues values = new ContentValues();
+        if (!description.isEmpty()) values.put(MySQLiteHelper.COLUMN_DESCRIPTION, description);
+        values.put(MySQLiteHelper.COLUMN_VALUE, value);
+        values.put(MySQLiteHelper.KEY_DAY, day);
+        values.put(MySQLiteHelper.KEY_MONTH, month);
+        values.put(MySQLiteHelper.KEY_YEAR, year);
+
+        long insertId = database.insert(MySQLiteHelper.TABLE_SAVINGS, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
+                MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
+
+        // Update Achieved value of the current balance
+        CurrentBalance currentBalance = getCurrentBalance(1);
+        float newAchievedValued = currentBalance.getAchievedValue();
+        newAchievedValued += value;
+        updateCurrentBalance(currentBalance.getId(), currentBalance.getEstimatedValue(), newAchievedValued,
+                currentBalance.getDay(), currentBalance.getMonth(), currentBalance.getYear());
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
+        cursor.moveToFirst();
+
+        Saving saving = cursorToSaving(cursor);
+        cursor.close();
+
+
+
+        return saving;
+    }
+
+
+    /**
+     * ---------- CURSOR TO ---------
+     */
+
+    public CurrentBalance cursorToCurrentBalance(Cursor cursor) {
+        CurrentBalance currentBalance = new CurrentBalance();
+        currentBalance.setId(cursor.getLong(0));
+        currentBalance.setEstimatedValue(cursor.getFloat(1));
+        currentBalance.setAchievedValue(cursor.getFloat(2));
+        currentBalance.setDay(cursor.getInt(3));
+        currentBalance.setMonth(cursor.getInt(4));
+        currentBalance.setYear(cursor.getInt(5));
+        return currentBalance;
+    }
+
+
     public Expense cursorToExpense(Cursor cursor) {
         Expense expense = new Expense();
         expense.setId(cursor.getLong(0));
@@ -130,6 +174,21 @@ public class MyDataSource {
         expense.setYear(cursor.getInt(5));
         return expense;
     }
+
+    public Saving cursorToSaving(Cursor cursor) {
+        Saving saving = new Saving();
+        saving.setId(cursor.getLong(0));
+        saving.setDescription(cursor.getString(1));
+        saving.setValue(cursor.getFloat(2));
+        saving.setDay(cursor.getInt(3));
+        saving.setMonth(cursor.getInt(4));
+        saving.setYear(cursor.getInt(5));
+        return saving;
+    }
+
+    /**
+     *  ---------- GET DATA --------
+     */
 
     public List<Expense> getAllExpensesByMonth(int month, int year) {
         List<Expense> expenses = new ArrayList<>();
@@ -190,72 +249,6 @@ public class MyDataSource {
         return currentBalance;
     }
 
-    public void deleteExpense(long id ) {
-        System.out.println("The expense with the id " + id + " will be deleted!");
-        database.delete(MySQLiteHelper.TABLE_EXPENSES, MySQLiteHelper.KEY_ID + " = " + id, null);
-    }
-
-    public void deleteCurrentBalance(long id) {
-        System.out.println("The current balance with the id " + id + " will be deleted!");
-        database.delete(MySQLiteHelper.TABLE_CURRENT_BALANCE, MySQLiteHelper.KEY_ID + " = " + id, null);
-    }
-
-    public void updateExpense(long id, String name, float value, int day, int month, int year) {
-        ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_NAME, name);
-        values.put(MySQLiteHelper.COLUMN_VALUE, value);
-        values.put(MySQLiteHelper.KEY_DAY, day);
-        values.put(MySQLiteHelper.KEY_MONTH, month);
-        values.put(MySQLiteHelper.KEY_YEAR, year);
-        database.update(MySQLiteHelper.TABLE_EXPENSES, values, MySQLiteHelper.KEY_ID + " = " + id, null);
-    }
-
-    public void updateCurrentBalance(long id, float estimatedValue, float achievedValue, int day, int month, int year) {
-        ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_ESTIMATED_VALUE, estimatedValue);
-        values.put(MySQLiteHelper.COLUMN_ACHIEVED_VALUE, achievedValue);
-        values.put(MySQLiteHelper.KEY_DAY, day);
-        values.put(MySQLiteHelper.KEY_MONTH, month);
-        values.put(MySQLiteHelper.KEY_YEAR, year);
-        database.update(MySQLiteHelper.TABLE_CURRENT_BALANCE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
-    }
-
-    public Saving createSaving(String description, float value, int day, int month, int year) {
-        ContentValues values = new ContentValues();
-        if (!description.isEmpty()) values.put(MySQLiteHelper.COLUMN_DESCRIPTION, description);
-        values.put(MySQLiteHelper.COLUMN_VALUE, value);
-        values.put(MySQLiteHelper.KEY_DAY, day);
-        values.put(MySQLiteHelper.KEY_MONTH, month);
-        values.put(MySQLiteHelper.KEY_YEAR, year);
-
-        long insertId = database.insert(MySQLiteHelper.TABLE_SAVINGS, null, values);
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
-                MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
-
-        if (isCursorEmpty(cursor)) {
-            System.out.println("ERROR!! Cursor is empty!");
-            cursor.close();
-            return null;
-        }
-        cursor.moveToFirst();
-
-        Saving saving = cursorToSaving(cursor);
-        cursor.close();
-
-        return saving;
-    }
-
-    public Saving cursorToSaving(Cursor cursor) {
-        Saving saving = new Saving();
-        saving.setId(cursor.getLong(0));
-        saving.setDescription(cursor.getString(1));
-        saving.setValue(cursor.getFloat(2));
-        saving.setDay(cursor.getInt(3));
-        saving.setMonth(cursor.getInt(4));
-        saving.setYear(cursor.getInt(5));
-        return saving;
-    }
-
     public Saving getSaving(long id) {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
                 MySQLiteHelper.KEY_ID + " = " + id,
@@ -292,21 +285,6 @@ public class MyDataSource {
         cursor.close();
 
         return savings;
-    }
-
-    public void deleteSaving(long id) {
-        System.out.println("The saving with the id " + id + " will be deleted!");
-        database.delete(MySQLiteHelper.TABLE_SAVINGS, MySQLiteHelper.KEY_ID + " = " + id, null);
-    }
-
-    public void updateSaving(long id, String description, float value, int day, int month, int year) {
-        ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_DESCRIPTION, description);
-        values.put(MySQLiteHelper.COLUMN_VALUE, value);
-        values.put(MySQLiteHelper.KEY_DAY, day);
-        values.put(MySQLiteHelper.KEY_MONTH, month);
-        values.put(MySQLiteHelper.KEY_YEAR, year);
-        database.update(MySQLiteHelper.TABLE_SAVINGS, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
     public List<Saving> getAllSavingsByMonth(int month, int year) {
@@ -484,6 +462,65 @@ public class MyDataSource {
 
         return  genericBudgets;
     }
+
+
+    /**
+     * ---------- DELETE DATA ---------
+     */
+
+    public void deleteExpense(long id ) {
+        System.out.println("The expense with the id " + id + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_EXPENSES, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void deleteCurrentBalance(long id) {
+        System.out.println("The current balance with the id " + id + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_CURRENT_BALANCE, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void deleteSaving(long id) {
+        System.out.println("The saving with the id " + id + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_SAVINGS, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    /**
+     * ---------- UPDATE DATA ---------
+     */
+
+    public void updateExpense(long id, String name, float value, int day, int month, int year) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_NAME, name);
+        values.put(MySQLiteHelper.COLUMN_VALUE, value);
+        values.put(MySQLiteHelper.KEY_DAY, day);
+        values.put(MySQLiteHelper.KEY_MONTH, month);
+        values.put(MySQLiteHelper.KEY_YEAR, year);
+        database.update(MySQLiteHelper.TABLE_EXPENSES, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void updateCurrentBalance(long id, float estimatedValue, float achievedValue, int day, int month, int year) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_ESTIMATED_VALUE, estimatedValue);
+        values.put(MySQLiteHelper.COLUMN_ACHIEVED_VALUE, achievedValue);
+        values.put(MySQLiteHelper.KEY_DAY, day);
+        values.put(MySQLiteHelper.KEY_MONTH, month);
+        values.put(MySQLiteHelper.KEY_YEAR, year);
+        database.update(MySQLiteHelper.TABLE_CURRENT_BALANCE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void updateSaving(long id, String description, float value, int day, int month, int year) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_DESCRIPTION, description);
+        values.put(MySQLiteHelper.COLUMN_VALUE, value);
+        values.put(MySQLiteHelper.KEY_DAY, day);
+        values.put(MySQLiteHelper.KEY_MONTH, month);
+        values.put(MySQLiteHelper.KEY_YEAR, year);
+        database.update(MySQLiteHelper.TABLE_SAVINGS, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+
+    /**
+     * --------- OTHER --------
+     */
 
     public boolean isCursorEmpty(Cursor cursor) {
         if (cursor.moveToFirst())

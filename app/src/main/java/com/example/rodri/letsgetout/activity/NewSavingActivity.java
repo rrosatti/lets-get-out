@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.database.MyDataSource;
 import com.example.rodri.letsgetout.util.Util;
 
 import java.util.Calendar;
@@ -27,7 +28,10 @@ public class NewSavingActivity extends AppCompatActivity {
     private EditText etValue;
     private Button btSetDate;
     private Button btConfirm;
-    private int day, month, year;
+
+    private int day = 0, month = 0, year = 0;
+
+    private MyDataSource dataSource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class NewSavingActivity extends AppCompatActivity {
         etValue = (EditText) findViewById(R.id.etSavingValue);
         btSetDate = (Button) findViewById(R.id.newSaving_btSetDate);
         btConfirm = (Button) findViewById(R.id.newSaving_btConfirm);
+
+        dataSource = new MyDataSource(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -70,6 +76,37 @@ public class NewSavingActivity extends AppCompatActivity {
 
                 datePickerDialog.show();
 
+            }
+        });
+
+        btConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String description = etDescription.getText().toString();
+                String value = etValue.getText().toString();
+
+                if (description.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Description field cannot be empty!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (value.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Value field cannot be empty!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (day == 0){
+                    Toast.makeText(getApplicationContext(), "You need to set a date!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    try {
+                        dataSource.open();
+
+                        dataSource.createSaving(description, Float.valueOf(value), day, month, year);
+                        Toast.makeText(getApplicationContext(), "New Saving created successfully!", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+
+                    } catch (Exception e) {
+                        dataSource.close();
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }
