@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.activity.NewExpenseActivity;
@@ -29,7 +28,7 @@ public class ExpensesAndSavingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_expenses, null);
+        View v = inflater.inflate(R.layout.fragment_expenses_and_savings, null);
 
         newExpense = (FloatingActionButton) v.findViewById(R.id.fabNewExpense);
         newSaving = (FloatingActionButton) v.findViewById(R.id.fabNewSaving);

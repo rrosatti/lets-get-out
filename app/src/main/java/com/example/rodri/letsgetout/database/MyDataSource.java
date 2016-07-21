@@ -105,7 +105,7 @@ public class MyDataSource {
         float newAchievedValue = currentBalance.getAchievedValue();
         newAchievedValue -= value;
         updateCurrentBalance(currentBalance.getId(), currentBalance.getEstimatedValue(), newAchievedValue,
-                day, month, year);
+                currentBalance.getDay(), currentBalance.getMonth(), currentBalance.getYear());
 
         if (isCursorEmpty(cursor)) {
             System.out.println("ERROR!! Cursor is empty!");

@@ -8,16 +8,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:textSize="26sp"
-        android:textStyle="bold"
-        android:text="11/07/2016"/>
+        android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/txtExpenseTitle"
+        android:id="@+id/txtDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtDate"
-        android:textSize="22sp"
-        android:text="Cinema"/>
+        android:textSize="22sp"/>
 
     <TextView
         android:id="@+id/txtValue"
@@ -25,8 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:textSize="26sp"
-        android:text="R$ 20,00"/>
+        android:textSize="26sp"/>
 
 
 
