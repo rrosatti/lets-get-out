@@ -369,8 +369,10 @@ public class MyDataSource {
         List<GenericBudget> genericBudgets = new ArrayList<>();
 
         if (!isCursorEmpty(cursorExpenses)) {
-            while (cursorExpenses.isAfterLast()) {
+            System.out.println("I've been here 1!");
+            while (!cursorExpenses.isAfterLast()) {
                 expenses.add(cursorToExpense(cursorExpenses));
+                System.out.println(expenses.get(0).getName());
                 cursorExpenses.moveToNext();
             }
             cursorExpenses.close();
@@ -378,8 +380,9 @@ public class MyDataSource {
         }
 
         if (!isCursorEmpty(cursorSavings)) {
+            System.out.println("I've been here 2!");
             cursorSavings.moveToFirst();
-            while (cursorSavings.isAfterLast()) {
+            while (!cursorSavings.isAfterLast()) {
                 savings.add(cursorToSaving(cursorSavings));
                 cursorSavings.moveToNext();
             }

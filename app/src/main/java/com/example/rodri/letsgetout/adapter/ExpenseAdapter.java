@@ -53,7 +53,7 @@ public class ExpenseAdapter extends ArrayAdapter<Expense> {
             v = inflater.inflate(R.layout.expense_and_saving_item_list, null);
 
             holder.displayDate = (TextView) v.findViewById(R.id.txtDate);
-            holder.displayTitle = (TextView) v.findViewById(R.id.txtExpenseTitle);
+            holder.displayTitle = (TextView) v.findViewById(R.id.txtDescription);
             holder.displayValue = (TextView) v.findViewById(R.id.txtValue);
 
             v.setTag(holder);
