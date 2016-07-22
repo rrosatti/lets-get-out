@@ -11,6 +11,6 @@
         android:layout_marginStart="10dp"
         android:textAlignment="center"
         android:textSize="30sp"
-        android:textStyle="bold"/>
+        android:textColor="@color/text_view_home"/>
 
 </RelativeLayout>

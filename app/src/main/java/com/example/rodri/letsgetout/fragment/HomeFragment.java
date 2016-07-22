@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.util.Util;
 
 import java.util.Random;
 
@@ -33,6 +34,7 @@ public class HomeFragment extends Fragment {
         int randomNumber = rand.nextInt(quotesArray.length);
 
         quote.setText(quotesArray[randomNumber]);
+        Util.setTypeFace(getContext(), quote, "Bevan.ttf");
 
         return rootView;
 

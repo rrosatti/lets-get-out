@@ -4,22 +4,23 @@
     <color name="colorPrimaryDark">#5D4E60</color>
     <color name="colorAccent">#5D4E60</color>
 
-    <!-- Project colors -->
+    <!-- Navigation Drawer -->
     <color name="list_item_title">#fff</color>
     <color name="list_background">#303030</color>
     <color name="list_background_pressed">#5D4E60</color>
     <color name="list_divider">#272727</color>
-    <color name="counter_text_bg">#626262</color>
-    <color name="counter_text_color">#c5c4c4</color>
 
     <!-- Floating Action Buttons -->
     <color name="fab_green">#006600</color>
     <color name="fab_red">#FF0000</color>
 
-    <!-- Splash Screen Background -->
-    <color name="splash_screen_bg">#F1E9DB</color>
+    <!-- Background Activities and Fragments -->
+    <color name="background_color">#F1E9DB</color>
 
     <!-- Custom Button -->
     <color name="button_text_color">#FFFFFF</color>
+
+    <!-- TextViews -->
+    <color name="text_view_home">#826C7F</color>
 
 </resources>
