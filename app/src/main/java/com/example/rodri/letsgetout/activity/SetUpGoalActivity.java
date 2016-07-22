@@ -45,6 +45,10 @@ public class SetUpGoalActivity extends AppCompatActivity {
         btConfirm = (Button) findViewById(R.id.setupgoal_btConfirm);
         etEstimatedValue = (EditText) findViewById(R.id.etEstimatedValue);
 
+        Util.setTypeFace(getApplicationContext(), btConfirm, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), btSetTargetDate, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), etEstimatedValue, "Quicksand.otf");
+
         dataSource = new MyDataSource(getApplicationContext());
 
         setSupportActionBar(toolbar);

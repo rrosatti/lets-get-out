@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -27,6 +28,11 @@ public class Util {
     public static void setTypeFace(Context context, TextView textView, String fontName) {
         Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/"+fontName);
         textView.setTypeface(typeface);
+    }
+
+    public static void setTypeFace(Context context, Button bt, String fontName) {
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/"+fontName);
+        bt.setTypeface(typeface);
     }
 
 }

@@ -18,7 +18,7 @@
     <color name="background_color">#F1E9DB</color>
 
     <!-- Custom Button -->
-    <color name="button_text_color">#FFFFFF</color>
+    <color name="button_text_color">#F1E9DB</color>
 
     <!-- TextViews -->
     <color name="text_view_home">#826C7F</color>

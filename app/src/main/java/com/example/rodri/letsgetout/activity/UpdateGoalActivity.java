@@ -52,6 +52,10 @@ public class UpdateGoalActivity extends AppCompatActivity {
         btUpdateTargetDate = (Button) findViewById(R.id.btSetTargetDate);
         btConfirm = (Button) findViewById(R.id.setupgoal_btConfirm);
 
+        Util.setTypeFace(getApplicationContext(), btConfirm, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), btUpdateTargetDate, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), etUpdateEstimatedValue, "Quicksand.otf");
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

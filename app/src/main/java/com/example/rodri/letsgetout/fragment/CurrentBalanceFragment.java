@@ -22,6 +22,7 @@ import com.example.rodri.letsgetout.activity.UpdateGoalActivity;
 import com.example.rodri.letsgetout.database.MyDataSource;
 import com.example.rodri.letsgetout.model.CurrentBalance;
 import com.example.rodri.letsgetout.model.GenericBudget;
+import com.example.rodri.letsgetout.util.Util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,6 +40,10 @@ public class CurrentBalanceFragment extends Fragment {
     // no data found corresponding to current balance
     private Button btSetUpGoal;
 
+    private TextView txtEstimatedValueLabel;
+    private TextView txtAchievedValueLabel;
+    private TextView txtNeedToSaveLabel;
+    private TextView txtMonthsRemainingLabel;
     private TextView txtEstimatedValue;
     private TextView txtAchievedValue;
     private TextView txtNeedToSave;
@@ -67,6 +72,7 @@ public class CurrentBalanceFragment extends Fragment {
             if (cBalance == null) {
                 v = inflater.inflate(R.layout.fragment_new_goal, null);
                 btSetUpGoal = (Button) v.findViewById(R.id.btSetUpGoal);
+                Util.setTypeFace(getContext(), btSetUpGoal, "Quicksand.otf");
 
                 btSetUpGoal.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -83,6 +89,15 @@ public class CurrentBalanceFragment extends Fragment {
                 txtNeedToSave = (TextView) v.findViewById(R.id.txtNeedToSave);
                 txtMonthsRemaining = (TextView) v.findViewById(R.id.txtMonthsRemaining);
                 btUpdateGoal = (Button) v.findViewById(R.id.btUpdateGoal);
+
+                // Find Views regarding to the labels
+                txtEstimatedValueLabel = (TextView) v.findViewById(R.id.txtEstimatedValueLabel);
+                txtAchievedValueLabel = (TextView) v.findViewById(R.id.txtAchievedValueLabel);
+                txtNeedToSaveLabel = (TextView) v.findViewById(R.id.txtNeedToSaveLabel);
+                txtMonthsRemainingLabel = (TextView) v.findViewById(R.id.txtMonthsRemainingLabel);
+
+                // setTypeFace for all text views
+                setStyle();
 
                 final CurrentBalance currentBalance = myDataSource.getCurrentBalance(1);
                 txtEstimatedValue.setText("R$ " + String.valueOf(currentBalance.getEstimatedValue()));
@@ -110,5 +125,19 @@ public class CurrentBalanceFragment extends Fragment {
 
         return v;
 
+    }
+
+    public void setStyle() {
+        Util.setTypeFace(getContext(), txtEstimatedValue, "Quicksand.otf");
+        Util.setTypeFace(getContext(), txtAchievedValue, "Quicksand.otf");
+        Util.setTypeFace(getContext(), txtNeedToSave, "Quicksand.otf");
+        Util.setTypeFace(getContext(), txtMonthsRemaining, "Quicksand.otf");
+
+        Util.setTypeFace(getContext(), txtEstimatedValueLabel, "Quicksand.otf");
+        Util.setTypeFace(getContext(), txtAchievedValueLabel, "Quicksand.otf");
+        Util.setTypeFace(getContext(), txtNeedToSaveLabel, "Quicksand.otf");
+        Util.setTypeFace(getContext(), txtMonthsRemainingLabel, "Quicksand.otf");
+
+        Util.setTypeFace(getContext(), btUpdateGoal, "Quicksand.otf");
     }
 }
