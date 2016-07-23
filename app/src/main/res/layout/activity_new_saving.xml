@@ -1,84 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="@color/background_color">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbarNewSaving"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
-    </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:padding="20dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color">
 
-        <TextView
-            android:id="@+id/txtNewSaving"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/text_view_new_saving"
-            android:textSize="40sp"
-            android:layout_centerHorizontal="true"/>
-
-        <EditText
-            android:id="@+id/etSavingDescription"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayoutNewSaving"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtNewSaving"
-            android:layout_marginTop="50dp"
-            android:hint="@string/hint_description"
-            android:textSize="22sp"
-            android:textStyle="italic"/>
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <EditText
-            android:id="@+id/etSavingValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/etSavingDescription"
-            android:layout_marginTop="10dp"
-            android:hint="@string/hint_value"
-            android:textSize="22sp"
-            android:textStyle="italic"
-            android:inputType="numberDecimal"/>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarNewSaving"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-        <Button
-            android:id="@+id/newSaving_btSetDate"
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etSavingValue"
-            android:background="@drawable/custom_button"
-            android:padding="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/button_set_date"
-            android:textColor="@color/button_text_color"
-            android:textSize="20sp"
-            android:layout_alignParentEnd="true"/>
+            android:layout_below="@+id/appBarLayoutNewSaving"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="40dp"
+            android:padding="20dp">
 
-        <Button
-            android:id="@+id/newSaving_btConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/newSaving_btSetDate"
-            android:background="@drawable/custom_button"
-            android:padding="10dp"
-            android:layout_marginTop="50dp"
-            android:text="@string/button_confirm"
-            android:textColor="@color/button_text_color"
-            android:textSize="20sp"
-            android:layout_centerHorizontal="true"/>
+            <TextView
+                android:id="@+id/txtNewSaving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_view_new_saving"
+                android:textSize="32sp"
+                android:layout_centerHorizontal="true"/>
+
+            <EditText
+                android:id="@+id/etSavingDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtNewSaving"
+                android:layout_marginTop="50dp"
+                android:hint="@string/hint_description"
+                android:textSize="22sp"
+                android:textStyle="italic"/>
+
+            <EditText
+                android:id="@+id/etSavingValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etSavingDescription"
+                android:layout_marginTop="10dp"
+                android:hint="@string/hint_value"
+                android:textSize="22sp"
+                android:textStyle="italic"
+                android:inputType="numberDecimal"/>
+
+            <Button
+                android:id="@+id/newSaving_btSetDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etSavingValue"
+                android:background="@drawable/custom_button"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/button_set_date"
+                android:textColor="@color/button_text_color"
+                android:textSize="20sp"
+                android:layout_alignParentEnd="true"/>
+
+            <Button
+                android:id="@+id/newSaving_btConfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/newSaving_btSetDate"
+                android:background="@drawable/custom_button"
+                android:padding="10dp"
+                android:layout_marginTop="50dp"
+                android:text="@string/button_confirm"
+                android:textColor="@color/button_text_color"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
+</ScrollView>

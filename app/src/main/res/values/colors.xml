@@ -11,8 +11,8 @@
     <color name="list_divider">#272727</color>
 
     <!-- Floating Action Buttons -->
-    <color name="fab_green">#006600</color>
-    <color name="fab_red">#FF0000</color>
+    <color name="fab_green">#52796F</color>
+    <color name="fab_red">#C94E32</color>
 
     <!-- Background Activities and Fragments -->
     <color name="background_color">#F1E9DB</color>

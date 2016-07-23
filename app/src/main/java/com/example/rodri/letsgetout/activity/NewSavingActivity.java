@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
@@ -28,6 +29,7 @@ public class NewSavingActivity extends AppCompatActivity {
     private EditText etValue;
     private Button btSetDate;
     private Button btConfirm;
+    private TextView txtNewSavingTitle;
 
     private int day = 0, month = 0, year = 0;
 
@@ -44,6 +46,10 @@ public class NewSavingActivity extends AppCompatActivity {
         etValue = (EditText) findViewById(R.id.etSavingValue);
         btSetDate = (Button) findViewById(R.id.newSaving_btSetDate);
         btConfirm = (Button) findViewById(R.id.newSaving_btConfirm);
+        txtNewSavingTitle = (TextView) findViewById(R.id.txtNewSaving);
+
+        // set custom type face to the EditTexts, Buttons and TextViews
+        setStyle();
 
         dataSource = new MyDataSource(this);
 
@@ -110,5 +116,13 @@ public class NewSavingActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void setStyle() {
+        Util.setTypeFace(getApplicationContext(), etDescription, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), etValue, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), btConfirm, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), btSetDate, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), txtNewSavingTitle, "Quicksand.otf");
     }
 }
