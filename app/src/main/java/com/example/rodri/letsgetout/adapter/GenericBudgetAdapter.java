@@ -2,6 +2,8 @@ package com.example.rodri.letsgetout.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.model.Expense;
 import com.example.rodri.letsgetout.model.GenericBudget;
 import com.example.rodri.letsgetout.model.Saving;
+import com.example.rodri.letsgetout.util.Util;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -72,8 +75,11 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
         String description = "";
         if (genericBudget instanceof Expense) {
             description = ((Expense) genericBudget).getName();
+            holder.displayValue.setBackgroundColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.fab_red));
+            
         } else if (genericBudget instanceof Saving) {
             description = ((Saving) genericBudget).getDescription();
+            holder.displayValue.setBackgroundColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.fab_green));
         }
 
         holder.displayDescription.setText(description);
@@ -81,6 +87,12 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
         NumberFormat formatter = new DecimalFormat("#0.00");
         holder.displayValue.setText("R$ " + String.valueOf(formatter.format(genericBudget.getValue())));
 
+        // set custom type font to the TextViews
+        Util.setTypeFace(getContext(), holder.displayDate, "Quicksand.otf");
+        Util.setTypeFace(getContext(), holder.displayDescription, "Quicksand.otf");
+        Util.setTypeFace(getContext(), holder.displayValue, "Quicksand.otf");
+
         return v;
     }
+
 }
