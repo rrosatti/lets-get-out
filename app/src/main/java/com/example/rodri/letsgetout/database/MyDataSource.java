@@ -539,4 +539,15 @@ public class MyDataSource {
             return true;
     }
 
+    public boolean isThereAnyCurrentBalance() {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_CURRENT_BALANCE, currentBalanceColumns, null, null, null, null, null);
+
+        // if isCursorEmpty return true, it means there is no data in the current_balance database
+        if (isCursorEmpty(cursor)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

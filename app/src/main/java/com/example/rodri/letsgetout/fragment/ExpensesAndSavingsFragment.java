@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
@@ -31,6 +32,7 @@ public class ExpensesAndSavingsFragment extends Fragment {
     private FloatingActionButton newExpense;
     private FloatingActionButton newSaving;
     private ListView listOfExpensesAndSavings;
+    private ProgressBar progressBar;
 
     private GenericBudgetAdapter adapter;
     private MyDataSource dataSource;
@@ -55,6 +57,7 @@ public class ExpensesAndSavingsFragment extends Fragment {
         newExpense = (FloatingActionButton) view.findViewById(R.id.fabNewExpense);
         newSaving = (FloatingActionButton) view.findViewById(R.id.fabNewSaving);
         listOfExpensesAndSavings = (ListView) view.findViewById(R.id.listOfExpensesAndSavings);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBarExpensesAndSavings);
 
         expensesAndSavings = new ArrayList<>();
         dataSource = new MyDataSource(getActivity());
@@ -83,6 +86,11 @@ public class ExpensesAndSavingsFragment extends Fragment {
     private class GetDataFromDatabase extends AsyncTask<String, Void, String> {
 
         @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected String doInBackground(String... params) {
             try {
                 Thread.sleep(1000);
@@ -102,6 +110,7 @@ public class ExpensesAndSavingsFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
+            progressBar.setVisibility(View.GONE);
             if (!expensesAndSavings.isEmpty()) {
                 adapter = new GenericBudgetAdapter(getActivity(), 0, expensesAndSavings);
                 listOfExpensesAndSavings.setAdapter(adapter);

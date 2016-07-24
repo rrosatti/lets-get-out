@@ -23,5 +23,10 @@
     <!-- TextViews -->
     <color name="text_view_home">#826C7F</color>
     <color name="text_view_custom_expense_and_saving">#F1E9DB</color>
+    
+    <!-- Progress Bar -->
+    <color name="preloader_start">#5D4E60</color>
+    <color name="preloader_center">#826C7F</color>
+    <color name="preloader_end">#A88FAC</color>
 
 </resources>

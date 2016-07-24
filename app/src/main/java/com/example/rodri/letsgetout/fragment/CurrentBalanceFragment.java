@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.SQLException;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,8 +51,11 @@ public class CurrentBalanceFragment extends Fragment {
     private TextView txtNeedToSave;
     private TextView txtMonthsRemaining;
     private Button btUpdateGoal;
+    private ProgressBar progressBar;
 
     private int day, month, year;
+
+    private CurrentBalance currentBalance;
 
     public CurrentBalanceFragment() {}
 
@@ -66,10 +71,10 @@ public class CurrentBalanceFragment extends Fragment {
         try {
             myDataSource.open();
 
-            List<GenericBudget> genericBudgets = myDataSource.getAllExpensesAndSavings();
-            CurrentBalance cBalance = myDataSource.getCurrentBalance(1);
+            //it was here
 
-            if (cBalance == null) {
+
+            if (!myDataSource.isThereAnyCurrentBalance()) {
                 v = inflater.inflate(R.layout.fragment_new_goal, null);
                 btSetUpGoal = (Button) v.findViewById(R.id.btSetUpGoal);
                 Util.setTypeFace(getContext(), btSetUpGoal, "Quicksand.otf");
@@ -89,6 +94,7 @@ public class CurrentBalanceFragment extends Fragment {
                 txtNeedToSave = (TextView) v.findViewById(R.id.txtNeedToSave);
                 txtMonthsRemaining = (TextView) v.findViewById(R.id.txtMonthsRemaining);
                 btUpdateGoal = (Button) v.findViewById(R.id.btUpdateGoal);
+                progressBar = (ProgressBar) v.findViewById(R.id.progressBarCurrentBalance);
 
                 // Find Views regarding to the labels
                 txtEstimatedValueLabel = (TextView) v.findViewById(R.id.txtEstimatedValueLabel);
@@ -99,16 +105,9 @@ public class CurrentBalanceFragment extends Fragment {
                 // setTypeFace for all text views
                 setStyle();
 
-                final CurrentBalance currentBalance = myDataSource.getCurrentBalance(1);
-                txtEstimatedValue.setText("R$ " + String.valueOf(currentBalance.getEstimatedValue()));
-                txtAchievedValue.setText("R$ " + String.valueOf(currentBalance.getAchievedValue()));
-                txtNeedToSave.setText("R$ " + String.valueOf(currentBalance.getEstimatedValue() - currentBalance.getAchievedValue()));
+                GetDataFromDatabase task = new GetDataFromDatabase();
+                task.execute("");
 
-                int years = currentBalance.getYear() - Calendar.getInstance().get(Calendar.YEAR);
-                int months = currentBalance.getMonth() - Calendar.getInstance().get(Calendar.MONTH);
-                int monthsRemaining = (years * 12) + months;
-
-                txtMonthsRemaining.setText(String.valueOf(monthsRemaining));
 
                 btUpdateGoal.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -133,11 +132,71 @@ public class CurrentBalanceFragment extends Fragment {
         Util.setTypeFace(getContext(), txtNeedToSave, "Quicksand.otf");
         Util.setTypeFace(getContext(), txtMonthsRemaining, "Quicksand.otf");
 
-        Util.setTypeFace(getContext(), txtEstimatedValueLabel, "Quicksand.otf");
-        Util.setTypeFace(getContext(), txtAchievedValueLabel, "Quicksand.otf");
+        Util.setTypeFace(getContext(), txtEstimatedValueLabel, "Quicksand.otf");Util.setTypeFace(getContext(), txtAchievedValueLabel, "Quicksand.otf");
         Util.setTypeFace(getContext(), txtNeedToSaveLabel, "Quicksand.otf");
         Util.setTypeFace(getContext(), txtMonthsRemainingLabel, "Quicksand.otf");
 
         Util.setTypeFace(getContext(), btUpdateGoal, "Quicksand.otf");
+    }
+
+    private class GetDataFromDatabase extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+            changeVisibility(0);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                Thread.sleep(500);
+
+                currentBalance = myDataSource.getCurrentBalance(1);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            progressBar.setVisibility(View.GONE);
+
+            changeVisibility(1);
+            txtEstimatedValue.setText("R$ " + String.valueOf(currentBalance.getEstimatedValue()));
+            txtAchievedValue.setText("R$ " + String.valueOf(currentBalance.getAchievedValue()));
+            txtNeedToSave.setText("R$ " + String.valueOf(currentBalance.getEstimatedValue() - currentBalance.getAchievedValue()));
+
+            int years = currentBalance.getYear() - Calendar.getInstance().get(Calendar.YEAR);
+            int months = currentBalance.getMonth() - Calendar.getInstance().get(Calendar.MONTH);
+            int monthsRemaining = (years * 12) + months;
+
+            txtMonthsRemaining.setText(String.valueOf(monthsRemaining));
+        }
+    }
+
+    /**
+     * if       @param visibility == 0, set as View.GONE
+     * else if  @param visibility == 1, set as View.VISIBLE
+     * @param visibility
+     */
+    public void changeVisibility(int visibility) {
+        if (visibility == 0) {
+            txtEstimatedValueLabel.setVisibility(View.GONE);
+            txtAchievedValueLabel.setVisibility(View.GONE);
+            txtNeedToSaveLabel.setVisibility(View.GONE);
+            txtMonthsRemainingLabel.setVisibility(View.GONE);
+            btUpdateGoal.setVisibility(View.GONE);
+        } else if (visibility == 1) {
+            txtEstimatedValueLabel.setVisibility(View.VISIBLE);
+            txtAchievedValueLabel.setVisibility(View.VISIBLE);
+            txtNeedToSaveLabel.setVisibility(View.VISIBLE);
+            txtMonthsRemainingLabel.setVisibility(View.VISIBLE);
+            btUpdateGoal.setVisibility(View.VISIBLE);
+        }
     }
 }

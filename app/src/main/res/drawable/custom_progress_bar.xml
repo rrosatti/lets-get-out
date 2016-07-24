@@ -17,10 +17,10 @@
             android:width="48dip" />
 
         <gradient
-            android:centerColor="@color/color_preloader_center"
+            android:centerColor="@color/preloader_center"
             android:centerY="0.50"
-            android:endColor="@color/color_preloader_end"
-            android:startColor="@color/color_preloader_start"
+            android:endColor="@color/preloader_end"
+            android:startColor="@color/preloader_start"
             android:type="sweep"
             android:useLevel="false" />
 

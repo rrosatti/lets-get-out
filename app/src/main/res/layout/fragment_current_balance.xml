@@ -119,6 +119,15 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBarCurrentBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?attr/progressBarStyle"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminateDrawable="@drawable/custom_progress_bar"/>
+
 
 
 </RelativeLayout>
