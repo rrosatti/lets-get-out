@@ -2,6 +2,7 @@ package com.example.rodri.letsgetout.fragment;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.activity.NewExpenseActivity;
@@ -43,28 +45,23 @@ public class ExpensesAndSavingsFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_expenses_and_savings, null);
 
-        newExpense = (FloatingActionButton) v.findViewById(R.id.fabNewExpense);
-        newSaving = (FloatingActionButton) v.findViewById(R.id.fabNewSaving);
-        listOfExpensesAndSavings = (ListView) v.findViewById(R.id.listOfExpensesAndSavings);
+        // Try to find a way to perform the db operations in background (AsyncTasks, Loaders?)
+
+        return v;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        newExpense = (FloatingActionButton) view.findViewById(R.id.fabNewExpense);
+        newSaving = (FloatingActionButton) view.findViewById(R.id.fabNewSaving);
+        listOfExpensesAndSavings = (ListView) view.findViewById(R.id.listOfExpensesAndSavings);
 
         expensesAndSavings = new ArrayList<>();
         dataSource = new MyDataSource(getActivity());
 
-        try {
-            dataSource.open();
+        GetDataFromDatabase task = new GetDataFromDatabase();
+        task.execute("");
 
-            expensesAndSavings = dataSource.getAllExpensesAndSavings();
-            if (!expensesAndSavings.isEmpty()) {
-                adapter = new GenericBudgetAdapter(getActivity(), 0, expensesAndSavings);
-                listOfExpensesAndSavings.setAdapter(adapter);
-            }
-
-            dataSource.close();
-
-        } catch (Exception e) {
-            dataSource.close();
-            e.printStackTrace();
-        }
 
         newExpense.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,8 +78,34 @@ public class ExpensesAndSavingsFragment extends Fragment {
                 startActivity(intentNewSaving);
             }
         });
-
-        return v;
     }
 
+    private class GetDataFromDatabase extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                Thread.sleep(1000);
+                dataSource.open();
+
+                expensesAndSavings = dataSource.getAllExpensesAndSavings();
+
+                dataSource.close();
+
+            } catch (Exception e) {
+                dataSource.close();
+                e.printStackTrace();
+            }
+
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            if (!expensesAndSavings.isEmpty()) {
+                adapter = new GenericBudgetAdapter(getActivity(), 0, expensesAndSavings);
+                listOfExpensesAndSavings.setAdapter(adapter);
+            }
+        }
+    }
 }

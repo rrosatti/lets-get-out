@@ -76,7 +76,7 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
         if (genericBudget instanceof Expense) {
             description = ((Expense) genericBudget).getName();
             holder.displayValue.setBackgroundColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.fab_red));
-            
+
         } else if (genericBudget instanceof Saving) {
             description = ((Saving) genericBudget).getDescription();
             holder.displayValue.setBackgroundColor(ContextCompat.getColor(activity.getApplicationContext(), R.color.fab_green));
