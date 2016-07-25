@@ -24,6 +24,7 @@ import com.example.rodri.letsgetout.adapter.DrawerItemAdapter;
 import com.example.rodri.letsgetout.fragment.CurrentBalanceFragment;
 import com.example.rodri.letsgetout.fragment.ExpensesAndSavingsFragment;
 import com.example.rodri.letsgetout.fragment.HomeFragment;
+import com.example.rodri.letsgetout.fragment.StatisticsFragment;
 import com.example.rodri.letsgetout.model.DrawerItem;
 
 import java.util.ArrayList;
@@ -196,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new ExpensesAndSavingsFragment();
                 break;
             case 3:
+                fragment = new StatisticsFragment();
                 break;
             default:
                 break;
