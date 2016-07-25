@@ -1,9 +1,11 @@
 package com.example.rodri.letsgetout.model;
 
+import java.io.Serializable;
+
 /**
  * Created by rodri on 7/5/2016.
  */
-public class CurrentBalance{
+public class CurrentBalance implements Serializable{
 
     private long id;
     private float estimatedValue;

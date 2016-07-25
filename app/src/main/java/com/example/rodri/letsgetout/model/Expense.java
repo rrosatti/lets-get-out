@@ -1,9 +1,11 @@
 package com.example.rodri.letsgetout.model;
 
+import java.io.Serializable;
+
 /**
  * Created by rodri on 7/5/2016.
  */
-public class Expense extends GenericBudget {
+public class Expense extends GenericBudget implements Serializable {
 
     private long id;
     private String name;

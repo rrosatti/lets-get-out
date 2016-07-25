@@ -1,7 +1,5 @@
 package com.example.rodri.letsgetout.fragment;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.database.SQLException;
 import android.os.AsyncTask;
@@ -12,30 +10,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.activity.SetUpGoalActivity;
 import com.example.rodri.letsgetout.activity.UpdateGoalActivity;
 import com.example.rodri.letsgetout.database.MyDataSource;
 import com.example.rodri.letsgetout.model.CurrentBalance;
-import com.example.rodri.letsgetout.model.GenericBudget;
 import com.example.rodri.letsgetout.util.Util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by rodri on 7/13/2016.
  */
 public class CurrentBalanceFragment extends Fragment {
+
+    private static final String STATE_CURRENT_BALANCE = "items";
 
     private MyDataSource myDataSource;
 
@@ -105,8 +97,22 @@ public class CurrentBalanceFragment extends Fragment {
                 // setTypeFace for all text views
                 setStyle();
 
-                GetDataFromDatabase task = new GetDataFromDatabase();
-                task.execute("");
+                if (savedInstanceState != null) {
+                    currentBalance = (CurrentBalance) savedInstanceState.getSerializable(STATE_CURRENT_BALANCE);
+
+                    txtEstimatedValue.setText("R$ " + String.valueOf(currentBalance.getEstimatedValue()));
+                    txtAchievedValue.setText("R$ " + String.valueOf(currentBalance.getAchievedValue()));
+                    txtNeedToSave.setText("R$ " + String.valueOf(currentBalance.getEstimatedValue() - currentBalance.getAchievedValue()));
+
+                    int years = currentBalance.getYear() - Calendar.getInstance().get(Calendar.YEAR);
+                    int months = currentBalance.getMonth() - Calendar.getInstance().get(Calendar.MONTH);
+                    int monthsRemaining = (years * 12) + months;
+
+                    txtMonthsRemaining.setText(String.valueOf(monthsRemaining));
+                } else {
+                    GetDataFromDatabase task = new GetDataFromDatabase();
+                    task.execute("");
+                }
 
 
                 btUpdateGoal.setOnClickListener(new View.OnClickListener() {
@@ -198,5 +204,12 @@ public class CurrentBalanceFragment extends Fragment {
             txtMonthsRemainingLabel.setVisibility(View.VISIBLE);
             btUpdateGoal.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable(STATE_CURRENT_BALANCE, currentBalance);
     }
 }

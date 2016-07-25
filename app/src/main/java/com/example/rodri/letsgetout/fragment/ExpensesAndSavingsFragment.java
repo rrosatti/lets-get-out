@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.activity.NewExpenseActivity;
@@ -21,6 +20,7 @@ import com.example.rodri.letsgetout.adapter.GenericBudgetAdapter;
 import com.example.rodri.letsgetout.database.MyDataSource;
 import com.example.rodri.letsgetout.model.GenericBudget;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +28,8 @@ import java.util.List;
  * Created by rodri on 7/10/2016.
  */
 public class ExpensesAndSavingsFragment extends Fragment {
+
+    private static final String STATE_ITEMS_LIST = "items";
 
     private FloatingActionButton newExpense;
     private FloatingActionButton newSaving;
@@ -47,8 +49,6 @@ public class ExpensesAndSavingsFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_expenses_and_savings, null);
 
-        // Try to find a way to perform the db operations in background (AsyncTasks, Loaders?)
-
         return v;
     }
 
@@ -62,8 +62,14 @@ public class ExpensesAndSavingsFragment extends Fragment {
         expensesAndSavings = new ArrayList<>();
         dataSource = new MyDataSource(getActivity());
 
-        GetDataFromDatabase task = new GetDataFromDatabase();
-        task.execute("");
+        if (savedInstanceState != null) {
+            expensesAndSavings = (ArrayList<GenericBudget>) savedInstanceState.getSerializable(STATE_ITEMS_LIST);
+            adapter = new GenericBudgetAdapter(getActivity(), 0, expensesAndSavings);
+            listOfExpensesAndSavings.setAdapter(adapter);
+        } else {
+            GetDataFromDatabase task = new GetDataFromDatabase();
+            task.execute("");
+        }
 
 
         newExpense.setOnClickListener(new View.OnClickListener() {
@@ -116,5 +122,12 @@ public class ExpensesAndSavingsFragment extends Fragment {
                 listOfExpensesAndSavings.setAdapter(adapter);
             }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable(STATE_ITEMS_LIST, (Serializable) expensesAndSavings);
     }
 }

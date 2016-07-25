@@ -1,9 +1,11 @@
 package com.example.rodri.letsgetout.model;
 
+import java.io.Serializable;
+
 /**
  * Created by rodri on 7/15/2016.
  */
-public class GenericBudget {
+public class GenericBudget implements Serializable{
 
     private float value;
     private int day;
