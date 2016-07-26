@@ -74,4 +74,16 @@
     <string name="text_view_new_expense">New Expense</string>
     <string name="text_view_new_saving">New Saving</string>
 
+    <!-- Statistics Menu Icons -->
+    <array name="statistics_icon_list">
+        <item>@drawable/ic_simulation</item>
+        <item>@drawable/ic_graph</item>
+    </array>
+
+    <!-- Statistics Menu Item Titles -->
+    <string-array name="statistics_menu_item_title">
+        <item>Simulation</item>
+        <item>Graph</item>
+    </string-array>
+
 </resources>
