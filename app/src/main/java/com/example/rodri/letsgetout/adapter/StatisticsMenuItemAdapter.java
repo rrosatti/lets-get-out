@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.model.StatisticsMenuItem;
@@ -47,14 +48,26 @@ public class StatisticsMenuItemAdapter extends RecyclerView.Adapter<StatisticsMe
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        StatisticsMenuItem menuItem = menuItems.get(position);
+        final StatisticsMenuItem menuItem = menuItems.get(position);
 
-        holder.displayIcon.setImageDrawable(menuItem.getIcon());
+        holder.displayIcon.setImageResource(menuItem.getIconId());
         holder.displayTitle.setText(menuItem.getTitle());
+
+        holder.displayTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity.getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return menuItems.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 }

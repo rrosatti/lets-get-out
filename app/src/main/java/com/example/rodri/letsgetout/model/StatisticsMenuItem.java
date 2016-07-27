@@ -9,13 +9,13 @@ public class StatisticsMenuItem {
 
     private long id;
     private String title;
-    private Drawable icon;
+    private int iconId;
 
     public StatisticsMenuItem() {}
 
-    public StatisticsMenuItem(long id, String title, Drawable icon) {
+    public StatisticsMenuItem(long id, String title, int iconId) {
         this.title = title;
-        this.icon = icon;
+        this.iconId = iconId;
     }
 
     public long getId() {
@@ -26,8 +26,8 @@ public class StatisticsMenuItem {
         return title;
     }
 
-    public Drawable getIcon() {
-        return icon;
+    public int getIconId() {
+        return iconId;
     }
 
     public void setId(long id) {
@@ -38,8 +38,8 @@ public class StatisticsMenuItem {
         this.title = title;
     }
 
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
+    public void setIconId(int iconId) {
+        this.iconId = iconId;
     }
 
 

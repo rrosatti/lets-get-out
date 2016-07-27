@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment {
         quotesArray = getResources().getStringArray(R.array.quotes);
 
         if (savedInstanceState != null) {
+            randomNumber = savedInstanceState.getInt(STATE_QUOTE);
             quote.setText(quotesArray[randomNumber]);
         } else {
             // random a number from 0 to the length of quotesArray
@@ -48,13 +49,12 @@ public class HomeFragment extends Fragment {
 
         }
 
-
         return rootView;
 
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(STATE_QUOTE, quotesArray[randomNumber]);
+        outState.putSerializable(STATE_QUOTE, randomNumber);
     }
 }
