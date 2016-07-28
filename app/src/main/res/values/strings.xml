@@ -63,12 +63,15 @@
     <string name="button_set_target_date">Set Target Date</string>
     <string name="button_confirm">Confirm</string>
     <string name="button_set_date">Set Date</string>
+    <string name="button_get_my_settings">Get My Settings</string>
+    <string name="button_simulate">Simulate</string>
 
     <!-- Hints -->
     <string name="hint_estimated_value">Estimated Value</string>
     <string name="hint_expense_name">Description</string>
     <string name="hint_value">Value</string>
     <string name="hint_description">Description</string>
+    <string name="hint_target_date">Target Date</string>
 
     <!-- Text Views -->
     <string name="text_view_new_expense">New Expense</string>

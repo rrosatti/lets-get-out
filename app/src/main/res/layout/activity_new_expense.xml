@@ -53,7 +53,7 @@
                 android:layout_below="@+id/txtNewExpense"
                 android:layout_marginTop="50dp"
                 android:hint="@string/hint_expense_name"
-                android:textSize="22sp"
+                android:textSize="@dimen/editText_text_size"
                 android:textStyle="italic"/>
 
             <EditText
@@ -63,7 +63,7 @@
                 android:layout_below="@+id/etExpenseName"
                 android:layout_marginTop="10dp"
                 android:hint="@string/hint_value"
-                android:textSize="22sp"
+                android:textSize="@dimen/editText_text_size"
                 android:textStyle="italic"
                 android:inputType="numberDecimal"/>
 
@@ -77,7 +77,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/button_set_date"
                 android:textColor="@color/button_text_color"
-                android:textSize="20sp"
+                android:textSize="@dimen/button_text_size"
                 android:layout_centerHorizontal="true"/>
 
             <Button
@@ -90,7 +90,7 @@
                 android:layout_marginTop="50dp"
                 android:text="@string/button_confirm"
                 android:textColor="@color/button_text_color"
-                android:textSize="20sp"
+                android:textSize="@dimen/button_text_size"
                 android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>

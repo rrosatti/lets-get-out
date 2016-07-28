@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_estimated_value"
                 android:textStyle="italic"
-                android:textSize="23sp"
+                android:textSize="@dimen/editText_text_size"
                 android:inputType="numberDecimal"/>
 
 
@@ -43,7 +43,7 @@
                 android:background="@drawable/custom_button"
                 android:padding="10dp"
                 android:text="@string/button_set_target_date"
-                android:textSize="20sp"
+                android:textSize="@dimen/button_text_size"
                 android:textColor="@color/button_text_color"
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/etEstimatedValue"
@@ -56,7 +56,7 @@
                 android:background="@drawable/custom_button"
                 android:padding="10dp"
                 android:text="@string/button_confirm"
-                android:textSize="20sp"
+                android:textSize="@dimen/button_text_size"
                 android:textColor="@color/button_text_color"
                 android:layout_marginTop="50dp"
                 android:layout_below="@+id/btSetTargetDate"

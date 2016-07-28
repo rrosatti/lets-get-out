@@ -31,6 +31,15 @@ public class StatisticsMenuItemAdapter extends RecyclerView.Adapter<StatisticsMe
 
             displayIcon = (ImageView) v.findViewById(R.id.imgStatisticsOptionIcon);
             displayTitle = (TextView) v.findViewById(R.id.txtStatisticsOptionTitle);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(activity.getApplicationContext(), displayTitle.getText().toString(),
+                            Toast.LENGTH_SHORT).show();
+                    // create a method to check which item was clicked in order to call the proper intent
+                }
+            });
         }
     }
 
@@ -53,12 +62,12 @@ public class StatisticsMenuItemAdapter extends RecyclerView.Adapter<StatisticsMe
         holder.displayIcon.setImageResource(menuItem.getIconId());
         holder.displayTitle.setText(menuItem.getTitle());
 
-        holder.displayTitle.setOnClickListener(new View.OnClickListener() {
+        /**holder.displayTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(activity.getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
     @Override
