@@ -22,7 +22,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:layout_weight="3"
-                android:text="Estimated Value"/>
+                android:text="@string/text_view_estimated_value"/>
 
             <TextView
                 android:id="@+id/txtEstimatedValue"
@@ -46,7 +46,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:layout_weight="3"
-                android:text="Achieved Value"/>
+                android:text="@string/text_view_achieved_value"/>
 
             <TextView
                 android:id="@+id/txtAchievedValue"
@@ -70,7 +70,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:layout_weight="3"
-                android:text="Need to Save"/>
+                android:text="@string/text_view_need_to_save"/>
 
             <TextView
                 android:id="@+id/txtNeedToSave"
@@ -94,7 +94,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:layout_weight="3"
-                android:text="Months remaining"/>
+                android:text="@string/text_view_months_remaining"/>
 
             <TextView
                 android:id="@+id/txtMonthsRemaining"

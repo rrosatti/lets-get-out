@@ -2,6 +2,7 @@ package com.example.rodri.letsgetout.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ public class StatisticsMenuItemAdapter extends RecyclerView.Adapter<StatisticsMe
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView displayIcon;
         public TextView displayTitle;
+        public StatisticsMenuItem currentMenuItem;
 
         public MyViewHolder(View v) {
             super(v);
@@ -40,7 +42,7 @@ public class StatisticsMenuItemAdapter extends RecyclerView.Adapter<StatisticsMe
                     Toast.makeText(activity.getApplicationContext(), displayTitle.getText().toString(),
                             Toast.LENGTH_SHORT).show();
                     // create a method to check which item was clicked in order to call the proper intent
-                    if (displayIcon.getTag() == R.drawable.ic_simulation) {
+                    if (currentMenuItem.getIconId() == R.drawable.ic_simulation) {
                         Intent i = new Intent(activity, SimulationActivity.class);
                         activity.startActivity(i);
                     }
@@ -64,6 +66,7 @@ public class StatisticsMenuItemAdapter extends RecyclerView.Adapter<StatisticsMe
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final StatisticsMenuItem menuItem = menuItems.get(position);
+        holder.currentMenuItem = menuItem;
 
         holder.displayIcon.setImageResource(menuItem.getIconId());
         holder.displayTitle.setText(menuItem.getTitle());

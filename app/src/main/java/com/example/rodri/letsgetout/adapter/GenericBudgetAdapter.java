@@ -88,7 +88,7 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
         holder.displayValue.setText("R$ " + String.valueOf(formatter.format(genericBudget.getValue())));
 
         // set custom type font to the TextViews
-        Util.setTypeFace(getContext(), holder.displayDate, "Quicksand.otf");
+        Util.setTypeFace(getContext(), holder.displayDate, "Quicksand-Bold.otf");
         Util.setTypeFace(getContext(), holder.displayDescription, "Quicksand.otf");
         Util.setTypeFace(getContext(), holder.displayValue, "Quicksand.otf");
 

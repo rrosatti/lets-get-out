@@ -119,10 +119,12 @@ public class NewSavingActivity extends AppCompatActivity {
     }
 
     public void setStyle() {
-        Util.setTypeFace(getApplicationContext(), etDescription, "Quicksand.otf");
-        Util.setTypeFace(getApplicationContext(), etValue, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), etDescription, "Quicksand-Italic.otf");
+        Util.setTypeFace(getApplicationContext(), etValue, "Quicksand-Italic.otf");
+
         Util.setTypeFace(getApplicationContext(), btConfirm, "Quicksand.otf");
         Util.setTypeFace(getApplicationContext(), btSetDate, "Quicksand.otf");
+
         Util.setTypeFace(getApplicationContext(), txtNewSavingTitle, "Quicksand.otf");
     }
 }

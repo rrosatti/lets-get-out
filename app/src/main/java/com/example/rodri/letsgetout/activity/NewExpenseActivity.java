@@ -119,10 +119,12 @@ public class NewExpenseActivity extends AppCompatActivity {
     }
 
     public void setStyle() {
-        Util.setTypeFace(getApplicationContext(), etName, "Quicksand.otf");
-        Util.setTypeFace(getApplicationContext(), etValue, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), etName, "Quicksand-Italic.otf");
+        Util.setTypeFace(getApplicationContext(), etValue, "Quicksand-Italic.otf");
+
         Util.setTypeFace(getApplicationContext(), btConfirm, "Quicksand.otf");
         Util.setTypeFace(getApplicationContext(), btSetDate, "Quicksand.otf");
+
         Util.setTypeFace(getApplicationContext(), txtNewExpenseTitle, "Quicksand.otf");
     }
 }

@@ -47,7 +47,7 @@ public class SetUpGoalActivity extends AppCompatActivity {
 
         Util.setTypeFace(getApplicationContext(), btConfirm, "Quicksand.otf");
         Util.setTypeFace(getApplicationContext(), btSetTargetDate, "Quicksand.otf");
-        Util.setTypeFace(getApplicationContext(), etEstimatedValue, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), etEstimatedValue, "Quicksand-Italic.otf");
 
         dataSource = new MyDataSource(getApplicationContext());
 

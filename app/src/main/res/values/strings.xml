@@ -76,6 +76,12 @@
     <!-- Text Views -->
     <string name="text_view_new_expense">New Expense</string>
     <string name="text_view_new_saving">New Saving</string>
+    <string name="text_view_estimated_value">Estimated Value</string>
+    <string name="text_view_achieved_value">Achieved Value</string>
+    <string name="text_view_need_to_save">Need to Save</string>
+    <string name="text_view_months_remaining">Months remaining</string>
+    <string name="text_view_monthly_savings_expected">Monthly Savings Expected</string>
+    <string name="text_view_months_expected">Months Expected</string>
 
     <!-- Statistics Menu Icons -->
     <array name="statistics_icon_list">

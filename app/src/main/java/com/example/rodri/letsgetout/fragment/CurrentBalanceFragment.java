@@ -138,9 +138,10 @@ public class CurrentBalanceFragment extends Fragment {
         Util.setTypeFace(getContext(), txtNeedToSave, "Quicksand.otf");
         Util.setTypeFace(getContext(), txtMonthsRemaining, "Quicksand.otf");
 
-        Util.setTypeFace(getContext(), txtEstimatedValueLabel, "Quicksand.otf");Util.setTypeFace(getContext(), txtAchievedValueLabel, "Quicksand.otf");
-        Util.setTypeFace(getContext(), txtNeedToSaveLabel, "Quicksand.otf");
-        Util.setTypeFace(getContext(), txtMonthsRemainingLabel, "Quicksand.otf");
+        Util.setTypeFace(getContext(), txtEstimatedValueLabel, "Quicksand-Bold.otf");
+        Util.setTypeFace(getContext(), txtAchievedValueLabel, "Quicksand-Bold.otf");
+        Util.setTypeFace(getContext(), txtNeedToSaveLabel, "Quicksand-Bold.otf");
+        Util.setTypeFace(getContext(), txtMonthsRemainingLabel, "Quicksand-Bold.otf");
 
         Util.setTypeFace(getContext(), btUpdateGoal, "Quicksand.otf");
     }

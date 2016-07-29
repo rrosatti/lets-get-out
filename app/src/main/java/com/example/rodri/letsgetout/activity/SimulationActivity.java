@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.util.Util;
 
 /**
  * Created by rodri on 7/29/2016.
@@ -29,6 +30,7 @@ public class SimulationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        Util.setFullScreen(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simulation);
 
@@ -37,6 +39,7 @@ public class SimulationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initializeViews();
+        setStyle(); // set font type for all the TextViews, Buttons and EditTexts
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,14 +50,30 @@ public class SimulationActivity extends AppCompatActivity {
     }
 
     public void initializeViews() {
-        btGetMySettings = (Button) findViewById(R.id.btGetMySettings);
         etEstimatedValue = (EditText) findViewById(R.id.simulation_etEstimatedValue);
         etTargetDate = (EditText) findViewById(R.id.simulation_etTargetDate);
+
+        btGetMySettings = (Button) findViewById(R.id.btGetMySettings);
         btSetTargetDate = (Button) findViewById(R.id.simulation_btSetTargetDate);
         btSimulate = (Button) findViewById(R.id.simulation_btSimulate);
+
         txtMonthlySavingsExpectedLabel = (TextView) findViewById(R.id.simulation_txtMonthlySavingsExpectedLabel);
         txtMonthlySavingsExpected = (TextView) findViewById(R.id.simulation_txtMonthlySavingsExpected);
         txtMonthsExpectedLabel = (TextView) findViewById(R.id.simulation_txtMonthsExpectedLabel);
         txtMonthsExpected = (TextView) findViewById(R.id.simulation_txtMonthsExpected);
+    }
+
+    public void setStyle() {
+        Util.setTypeFace(getApplicationContext(), etEstimatedValue, "Quicksand-Italic.otf");
+        Util.setTypeFace(getApplicationContext(), etTargetDate, "Quicksand-Italic.otf");
+
+        Util.setTypeFace(getApplicationContext(), btGetMySettings, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), btSetTargetDate, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), btSimulate, "Quicksand.otf");
+
+        Util.setTypeFace(getApplicationContext(), txtMonthlySavingsExpectedLabel, "Quicksand-Bold.otf");
+        Util.setTypeFace(getApplicationContext(), txtMonthlySavingsExpected, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), txtMonthsExpectedLabel, "Quicksand-Bold.otf");
+        Util.setTypeFace(getApplicationContext(), txtMonthsExpected, "Quicksand.otf");
     }
 }
