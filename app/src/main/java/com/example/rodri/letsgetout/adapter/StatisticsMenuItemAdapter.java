@@ -1,6 +1,7 @@
 package com.example.rodri.letsgetout.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.activity.SimulationActivity;
 import com.example.rodri.letsgetout.model.StatisticsMenuItem;
 
 import java.util.List;
@@ -38,6 +40,10 @@ public class StatisticsMenuItemAdapter extends RecyclerView.Adapter<StatisticsMe
                     Toast.makeText(activity.getApplicationContext(), displayTitle.getText().toString(),
                             Toast.LENGTH_SHORT).show();
                     // create a method to check which item was clicked in order to call the proper intent
+                    if (displayIcon.getTag() == R.drawable.ic_simulation) {
+                        Intent i = new Intent(activity, SimulationActivity.class);
+                        activity.startActivity(i);
+                    }
                 }
             });
         }

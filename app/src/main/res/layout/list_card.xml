@@ -20,6 +20,7 @@
             android:layout_gravity="center_horizontal"
             android:padding="10dp">
 
+            <!-- Switch it to Table Layout?? -->
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,9 +35,9 @@
                     android:id="@+id/txtStatisticsOptionTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/imgStatisticsOptionIcon"
+                    android:layout_toEndOf="@+id/imgStatisticsOptionIcon"
+                    android:paddingStart="40dp"
                     android:layout_centerVertical="true"
-                    android:paddingStart="50dp"
                     android:textSize="20sp"/>
 
             </RelativeLayout>

@@ -29,6 +29,8 @@
 
         <activity android:name=".activity.UpdateGoalActivity" android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".activity.SimulationActivity" android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>
