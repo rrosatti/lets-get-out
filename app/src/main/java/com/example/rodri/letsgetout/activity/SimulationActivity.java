@@ -1,5 +1,6 @@
 package com.example.rodri.letsgetout.activity;
 
+import android.database.SQLException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.database.MyDataSource;
+import com.example.rodri.letsgetout.model.CurrentBalance;
 import com.example.rodri.letsgetout.util.Util;
 
 /**
@@ -20,13 +24,18 @@ public class SimulationActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Button btGetMySettings;
     private EditText etEstimatedValue;
-    private EditText etTargetDate;
     private Button btSetTargetDate;
     private Button btSimulate;
     private TextView txtMonthlySavingsExpectedLabel;
     private TextView txtMonthlySavingsExpected;
     private TextView txtMonthsExpectedLabel;
     private TextView txtMonthsExpected;
+    private TextView txtResults;
+    private TextView txtTargetDateLabel;
+    private TextView txtTargetDate;
+
+    private MyDataSource dataSource;
+    private CurrentBalance currentBalance;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,11 +56,32 @@ public class SimulationActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        btGetMySettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    dataSource = new MyDataSource(getApplicationContext());
+                    dataSource.open();
+
+                    currentBalance = dataSource.getCurrentBalance(1);
+
+                    etEstimatedValue.setText(Util.setNumberFormat(currentBalance.getEstimatedValue()));
+                    String date = currentBalance.getDay() + "/" + currentBalance.getMonth() + "/" + currentBalance.getYear();
+                    txtTargetDate.setText(date);
+                    txtTargetDateLabel.setVisibility(View.VISIBLE);
+
+                } catch (SQLException e) {
+                    dataSource.close();
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     public void initializeViews() {
         etEstimatedValue = (EditText) findViewById(R.id.simulation_etEstimatedValue);
-        etTargetDate = (EditText) findViewById(R.id.simulation_etTargetDate);
 
         btGetMySettings = (Button) findViewById(R.id.btGetMySettings);
         btSetTargetDate = (Button) findViewById(R.id.simulation_btSetTargetDate);
@@ -61,11 +91,15 @@ public class SimulationActivity extends AppCompatActivity {
         txtMonthlySavingsExpected = (TextView) findViewById(R.id.simulation_txtMonthlySavingsExpected);
         txtMonthsExpectedLabel = (TextView) findViewById(R.id.simulation_txtMonthsExpectedLabel);
         txtMonthsExpected = (TextView) findViewById(R.id.simulation_txtMonthsExpected);
+        txtResults = (TextView) findViewById(R.id.simulation_txtResults);
+        txtTargetDateLabel = (TextView) findViewById(R.id.simulation_txtTargetDateLabel);
+        txtTargetDate = (TextView) findViewById(R.id.simulation_txtTargetDate);
+
+        txtTargetDateLabel.setVisibility(View.GONE);
     }
 
     public void setStyle() {
         Util.setTypeFace(getApplicationContext(), etEstimatedValue, "Quicksand-Italic.otf");
-        Util.setTypeFace(getApplicationContext(), etTargetDate, "Quicksand-Italic.otf");
 
         Util.setTypeFace(getApplicationContext(), btGetMySettings, "Quicksand.otf");
         Util.setTypeFace(getApplicationContext(), btSetTargetDate, "Quicksand.otf");
@@ -75,5 +109,8 @@ public class SimulationActivity extends AppCompatActivity {
         Util.setTypeFace(getApplicationContext(), txtMonthlySavingsExpected, "Quicksand.otf");
         Util.setTypeFace(getApplicationContext(), txtMonthsExpectedLabel, "Quicksand-Bold.otf");
         Util.setTypeFace(getApplicationContext(), txtMonthsExpected, "Quicksand.otf");
+        Util.setTypeFace(getApplicationContext(), txtResults, "Quicksand-Bold.otf");
+        Util.setTypeFace(getApplicationContext(), txtTargetDateLabel, "Quicksand-Bold.otf");
+        Util.setTypeFace(getApplicationContext(), txtTargetDate, "Quicksand.otf");
     }
 }

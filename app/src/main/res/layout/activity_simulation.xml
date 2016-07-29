@@ -62,22 +62,37 @@
                     android:textStyle="italic"
                     android:textSize="@dimen/editText_text_size"/>
 
-                <EditText
-                    android:id="@+id/simulation_etTargetDate"
+                <LinearLayout
+                    android:id="@+id/simulation_linearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/simulation_etEstimatedValue"
                     android:layout_marginTop="10dp"
-                    android:hint="@string/hint_target_date"
-                    android:textStyle="italic"
-                    android:textSize="@dimen/editText_text_size"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/simulation_txtTargetDateLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/text_view_target_date"
+                        android:textSize="22sp"/>
+
+                    <TextView
+                        android:id="@+id/simulation_txtTargetDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:textSize="22sp"/>
+
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/simulation_btSetTargetDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/simulation_etTargetDate"
-                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/simulation_linearLayout"
+                    android:layout_marginTop="20dp"
                     android:layout_alignParentEnd="true"
                     android:padding="10dp"
                     android:background="@drawable/custom_button"
@@ -101,11 +116,27 @@
 
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimaryDark"/>
+
+            <TextView
+                android:id="@+id/simulation_txtResults"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/text_view_results"
+                android:textAlignment="center"
+                android:textSize="26sp"
+                android:textColor="@color/colorPrimaryDark"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/simulation_RelativeLayout"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
                 <LinearLayout

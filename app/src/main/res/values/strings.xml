@@ -82,6 +82,8 @@
     <string name="text_view_months_remaining">Months remaining</string>
     <string name="text_view_monthly_savings_expected">Monthly Savings Expected</string>
     <string name="text_view_months_expected">Months Expected</string>
+    <string name="text_view_results">Results</string>
+    <string name="text_view_target_date">Target Date</string>
 
     <!-- Statistics Menu Icons -->
     <array name="statistics_icon_list">

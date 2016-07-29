@@ -8,6 +8,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  * Created by rodri on 7/7/2016.
  */
@@ -33,6 +36,11 @@ public class Util {
     public static void setTypeFace(Context context, Button bt, String fontName) {
         Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/"+fontName);
         bt.setTypeface(typeface);
+    }
+
+    public static String setNumberFormat(float value) {
+        NumberFormat formatter = new DecimalFormat("#0,000.00");
+        return String.valueOf(formatter.format(value));
     }
 
 }
