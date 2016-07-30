@@ -117,7 +117,7 @@ public class ExpensesAndSavingsFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             progressBar.setVisibility(View.GONE);
-            if (!expensesAndSavings.isEmpty()) {
+            if (expensesAndSavings != null) {
                 adapter = new GenericBudgetAdapter(getActivity(), 0, expensesAndSavings);
                 listOfExpensesAndSavings.setAdapter(adapter);
             }

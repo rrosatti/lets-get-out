@@ -64,12 +64,15 @@ public class SimulationActivity extends AppCompatActivity {
                     dataSource = new MyDataSource(getApplicationContext());
                     dataSource.open();
 
-                    currentBalance = dataSource.getCurrentBalance(1);
+                    if (dataSource.isThereAnyCurrentBalance()) {
+                        currentBalance = dataSource.getCurrentBalance(1);
 
-                    etEstimatedValue.setText(Util.setNumberFormat(currentBalance.getEstimatedValue()));
-                    String date = currentBalance.getDay() + "/" + currentBalance.getMonth() + "/" + currentBalance.getYear();
-                    txtTargetDate.setText(date);
-                    txtTargetDateLabel.setVisibility(View.VISIBLE);
+                        etEstimatedValue.setText(Util.setNumberFormat(currentBalance.getEstimatedValue()));
+                        String date = currentBalance.getDay() + "/" + currentBalance.getMonth() + "/" + currentBalance.getYear();
+                        txtTargetDate.setText(date);
+                        txtTargetDateLabel.setVisibility(View.VISIBLE);
+                    }
+
 
                 } catch (SQLException e) {
                     dataSource.close();
