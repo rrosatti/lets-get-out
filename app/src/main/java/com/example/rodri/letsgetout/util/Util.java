@@ -39,7 +39,13 @@ public class Util {
     }
 
     public static String setNumberFormat(float value) {
-        NumberFormat formatter = new DecimalFormat("#0,000.00");
+        String format = "";
+        if (value < 9999.99) {
+            format = "#0.00";
+        } else {
+            format = "#0,000.00";
+        }
+        NumberFormat formatter = new DecimalFormat(format);
         return String.valueOf(formatter.format(value));
     }
 

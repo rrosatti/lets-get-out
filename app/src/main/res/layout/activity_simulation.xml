@@ -160,8 +160,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
-                        android:textSize="20sp"
-                        android:text="R$ 554.32"/>
+                        android:textSize="20sp"/>
 
                 </LinearLayout>
 
@@ -188,8 +187,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
-                        android:textSize="20sp"
-                        android:text="30"/>
+                        android:textSize="20sp"/>
 
                 </LinearLayout>
 

@@ -18,7 +18,10 @@ import com.example.rodri.letsgetout.database.MyDataSource;
 import com.example.rodri.letsgetout.model.CurrentBalance;
 import com.example.rodri.letsgetout.util.Util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -42,7 +45,7 @@ public class SimulationActivity extends AppCompatActivity {
     private MyDataSource dataSource;
     private CurrentBalance currentBalance;
 
-    private int day = 0, motnh = 0, year = 0;
+    private int day = 0, month = 0, year = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,8 +77,12 @@ public class SimulationActivity extends AppCompatActivity {
                     if (dataSource.isThereAnyCurrentBalance()) {
                         currentBalance = dataSource.getCurrentBalance(1);
 
-                        etEstimatedValue.setText(Util.setNumberFormat(currentBalance.getEstimatedValue()));
-                        String date = currentBalance.getDay() + "/" + currentBalance.getMonth() + "/" + currentBalance.getYear();
+                        etEstimatedValue.setText(
+                                Util.setNumberFormat(currentBalance.getEstimatedValue() - currentBalance.getAchievedValue()));
+                        day = currentBalance.getDay();
+                        month = currentBalance.getMonth();
+                        year = currentBalance.getYear();
+                        String date = day+"/"+month+"/"+year;
                         txtTargetDate.setText(date);
                         txtTargetDateLabel.setVisibility(View.VISIBLE);
                     }
@@ -95,19 +102,67 @@ public class SimulationActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int yeaR, int monthOfYear, int dayOfMonth) {
                         day = dayOfMonth;
-                        motnh = monthOfYear + 1;
+                        month = monthOfYear + 1;
                         year = yeaR;
-                        String date = day+"/"+motnh+"/"+year;
+                        String date = day+"/"+ month +"/"+year;
                         txtTargetDate.setText(date);
                         txtTargetDateLabel.setVisibility(View.VISIBLE);
                     }
                 };
 
-                Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+
+                Calendar cal = Calendar.getInstance(TimeZone.getDefault());;
+                if (day != 0) {
+                    String dateString = day + "-" + month + "-" + year;
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+                    Date date = null;
+
+                    try {
+                        date = dateFormat.parse(dateString);
+
+                        cal = Calendar.getInstance();
+                        cal.setTime(date);
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SimulationActivity.this, R.style.AppTheme,
                         dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
                 datePickerDialog.show();
+            }
+        });
+
+        btSimulate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etEstimatedValue.equals("")) {
+                    Toast.makeText(getApplicationContext(), "You need to enter a value!", Toast.LENGTH_SHORT).show();
+                } else if (day == 0) {
+                    Toast.makeText(getApplicationContext(), "You need to set a target date!", Toast.LENGTH_SHORT).show();
+                } else {
+                    // calculate how many months are still remaining till the target date
+                    // target year - current year
+                    int years = year - Calendar.getInstance().get(Calendar.YEAR);
+                    // target month - current month
+                    int months = month - Calendar.getInstance().get(Calendar.MONTH);
+                    int monthsRemaining = (years * 12) + months;
+                    txtMonthsExpected.setText(String.valueOf(monthsRemaining));
+                    txtMonthsExpectedLabel.setVisibility(View.VISIBLE);
+
+
+                    // calculate the monthly savings till the target date
+                    // estimated value / monthsRemaining
+                    float estimatedValue = Float.valueOf(currentBalance.getEstimatedValue() - currentBalance.getAchievedValue());
+                    float monthlySavingsExpected = estimatedValue/monthsRemaining;
+                    txtMonthlySavingsExpected.setText("R$ " + Util.setNumberFormat(monthlySavingsExpected));
+                    txtMonthlySavingsExpectedLabel.setVisibility(View.VISIBLE);
+                }
+
             }
         });
 
@@ -129,6 +184,9 @@ public class SimulationActivity extends AppCompatActivity {
         txtTargetDate = (TextView) findViewById(R.id.simulation_txtTargetDate);
 
         txtTargetDateLabel.setVisibility(View.GONE);
+        txtResults.setVisibility(View.GONE);
+        txtMonthlySavingsExpectedLabel.setVisibility(View.GONE);
+        txtMonthsExpectedLabel.setVisibility(View.GONE);
     }
 
     public void setStyle() {
