@@ -1,5 +1,6 @@
 package com.example.rodri.letsgetout.activity;
 
+import android.app.DatePickerDialog;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +17,9 @@ import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.database.MyDataSource;
 import com.example.rodri.letsgetout.model.CurrentBalance;
 import com.example.rodri.letsgetout.util.Util;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * Created by rodri on 7/29/2016.
@@ -36,6 +41,8 @@ public class SimulationActivity extends AppCompatActivity {
 
     private MyDataSource dataSource;
     private CurrentBalance currentBalance;
+
+    private int day = 0, motnh = 0, year = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +85,29 @@ public class SimulationActivity extends AppCompatActivity {
                     dataSource.close();
                     e.printStackTrace();
                 }
+            }
+        });
+
+        btSetTargetDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int yeaR, int monthOfYear, int dayOfMonth) {
+                        day = dayOfMonth;
+                        motnh = monthOfYear + 1;
+                        year = yeaR;
+                        String date = day+"/"+motnh+"/"+year;
+                        txtTargetDate.setText(date);
+                        txtTargetDateLabel.setVisibility(View.VISIBLE);
+                    }
+                };
+
+                Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+                DatePickerDialog datePickerDialog = new DatePickerDialog(SimulationActivity.this, R.style.AppTheme,
+                        dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+
+                datePickerDialog.show();
             }
         });
 
