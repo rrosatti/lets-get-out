@@ -3,6 +3,7 @@ package com.example.rodri.letsgetout.activity;
 import android.app.DatePickerDialog;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +30,12 @@ import java.util.TimeZone;
  */
 public class SimulationActivity extends AppCompatActivity {
 
+    private static final String STATE_ESTIMATED_VALUE = "estimated_value";
+    private static final String STATE_DAY = "day";
+    private static final String STATE_MONTH = "month";
+    private static final String STATE_YEAR = "year";
+    private static final String STATE_IS_BT_SIMULATE_CLICKED = "is_bt_simulate_clicked";
+
     private Toolbar toolbar;
     private Button btGetMySettings;
     private EditText etEstimatedValue;
@@ -46,6 +53,7 @@ public class SimulationActivity extends AppCompatActivity {
     private CurrentBalance currentBalance;
 
     private int day = 0, month = 0, year = 0;
+    private boolean isBtSimulateClicked = false; // it will be used to show results when onSaveInstanceState
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +67,27 @@ public class SimulationActivity extends AppCompatActivity {
 
         initializeViews();
         setStyle(); // set font type for all the TextViews, Buttons and EditTexts
+
+        if (savedInstanceState != null) {
+            try {
+                etEstimatedValue.setText(savedInstanceState.getString(STATE_ESTIMATED_VALUE));
+                day = savedInstanceState.getInt(STATE_DAY);
+                month = savedInstanceState.getInt(STATE_MONTH);
+                year = savedInstanceState.getInt(STATE_YEAR);
+
+                if (day != 0) {
+                    txtTargetDate.setText(day + "/" + month + "/" + year);
+                    txtTargetDateLabel.setVisibility(View.VISIBLE);
+                }
+
+                isBtSimulateClicked = savedInstanceState.getBoolean(STATE_IS_BT_SIMULATE_CLICKED);
+                if (isBtSimulateClicked) {
+                    simulate();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,22 +174,7 @@ public class SimulationActivity extends AppCompatActivity {
                 } else if (day == 0) {
                     Toast.makeText(getApplicationContext(), "You need to set a target date!", Toast.LENGTH_SHORT).show();
                 } else {
-                    // calculate how many months are still remaining till the target date
-                    // target year - current year
-                    int years = year - Calendar.getInstance().get(Calendar.YEAR);
-                    // target month - current month
-                    int months = month - Calendar.getInstance().get(Calendar.MONTH);
-                    int monthsRemaining = (years * 12) + months;
-                    txtMonthsExpected.setText(String.valueOf(monthsRemaining));
-                    txtMonthsExpectedLabel.setVisibility(View.VISIBLE);
-
-
-                    // calculate the monthly savings till the target date
-                    // estimated value / monthsRemaining
-                    float estimatedValue = Float.valueOf(currentBalance.getEstimatedValue() - currentBalance.getAchievedValue());
-                    float monthlySavingsExpected = estimatedValue/monthsRemaining;
-                    txtMonthlySavingsExpected.setText("R$ " + Util.setNumberFormat(monthlySavingsExpected));
-                    txtMonthlySavingsExpectedLabel.setVisibility(View.VISIBLE);
+                    simulate();
                 }
 
             }
@@ -203,5 +217,46 @@ public class SimulationActivity extends AppCompatActivity {
         Util.setTypeFace(getApplicationContext(), txtResults, "Quicksand-Bold.otf");
         Util.setTypeFace(getApplicationContext(), txtTargetDateLabel, "Quicksand-Bold.otf");
         Util.setTypeFace(getApplicationContext(), txtTargetDate, "Quicksand.otf");
+    }
+
+    // implement onSaveInstanceState()
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        outState.putString(STATE_ESTIMATED_VALUE, etEstimatedValue.getText().toString());
+        outState.putBoolean(STATE_IS_BT_SIMULATE_CLICKED, isBtSimulateClicked);
+        if (day != 0) {
+            outState.putInt(STATE_DAY, day);
+            outState.putInt(STATE_MONTH, month);
+            outState.putInt(STATE_YEAR, year);
+        } else {
+            outState.putInt(STATE_DAY, 0);
+            outState.putInt(STATE_MONTH, 0);
+            outState.putInt(STATE_YEAR, 0);
+        }
+    }
+
+    public void simulate() {
+        txtResults.setVisibility(View.VISIBLE);
+        // calculate how many months are still remaining till the target date
+        // target year - current year
+        int years = year - Calendar.getInstance().get(Calendar.YEAR);
+        // target month - current month
+        int months = month - Calendar.getInstance().get(Calendar.MONTH);
+        int monthsRemaining = (years * 12) + months;
+        txtMonthsExpected.setText(String.valueOf(monthsRemaining));
+        txtMonthsExpectedLabel.setVisibility(View.VISIBLE);
+
+
+        // calculate the monthly savings till the target date
+        // estimated value / monthsRemaining
+        String estimatedValueString = etEstimatedValue.getText().toString();
+        float estimatedValue = Float.valueOf(estimatedValueString.replace(",", ""));
+        float monthlySavingsExpected = estimatedValue/monthsRemaining;
+        txtMonthlySavingsExpected.setText("R$ " + Util.setNumberFormat(monthlySavingsExpected));
+        txtMonthlySavingsExpectedLabel.setVisibility(View.VISIBLE);
+
+        isBtSimulateClicked = true;
     }
 }

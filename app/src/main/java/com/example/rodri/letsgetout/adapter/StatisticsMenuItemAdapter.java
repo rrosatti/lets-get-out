@@ -39,8 +39,6 @@ public class StatisticsMenuItemAdapter extends RecyclerView.Adapter<StatisticsMe
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(activity.getApplicationContext(), displayTitle.getText().toString(),
-                            Toast.LENGTH_SHORT).show();
                     // create a method to check which item was clicked in order to call the proper intent
                     if (currentMenuItem.getIconId() == R.drawable.ic_simulation) {
                         Intent i = new Intent(activity, SimulationActivity.class);
