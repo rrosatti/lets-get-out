@@ -169,10 +169,12 @@ public class SimulationActivity extends AppCompatActivity {
         btSimulate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etEstimatedValue.equals("")) {
+                if (etEstimatedValue.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "You need to enter a value!", Toast.LENGTH_SHORT).show();
+                    return;
                 } else if (day == 0) {
                     Toast.makeText(getApplicationContext(), "You need to set a target date!", Toast.LENGTH_SHORT).show();
+                    return;
                 } else {
                     simulate();
                 }
