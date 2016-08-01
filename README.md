@@ -1,4 +1,4 @@
-# portugal-project
+# lets-get-out-project
 
 ![ic_launcher](https://cloud.githubusercontent.com/assets/16086636/17085321/90750754-51ab-11e6-9b52-99ac4aaaea86.png)
 ![screenshot_2016-07-24-14-16-06](https://cloud.githubusercontent.com/assets/16086636/17085327/90d6fb80-51ab-11e6-8957-020eb9a0bc0f.png)
