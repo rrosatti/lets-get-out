@@ -31,6 +31,8 @@
 
         <activity android:name=".activity.SimulationActivity" android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".activity.GraphActivity" android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

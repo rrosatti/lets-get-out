@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.activity.GraphActivity;
 import com.example.rodri.letsgetout.activity.SimulationActivity;
 import com.example.rodri.letsgetout.model.StatisticsMenuItem;
 
@@ -42,6 +43,9 @@ public class StatisticsMenuItemAdapter extends RecyclerView.Adapter<StatisticsMe
                     // create a method to check which item was clicked in order to call the proper intent
                     if (currentMenuItem.getIconId() == R.drawable.ic_simulation) {
                         Intent i = new Intent(activity, SimulationActivity.class);
+                        activity.startActivity(i);
+                    } else if (currentMenuItem.getIconId() == R.drawable.ic_graph) {
+                        Intent i = new Intent(activity, GraphActivity.class);
                         activity.startActivity(i);
                     }
                 }

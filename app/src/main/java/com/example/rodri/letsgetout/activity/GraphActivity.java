@@ -9,7 +9,10 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.DataSet;
+import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,7 @@ public class GraphActivity extends AppCompatActivity {
             createEntriesAndLabels();
 
             dataSet = new BarDataSet(entries, "#test");
+            dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
             barChart = new BarChart(getApplicationContext());
             setContentView(barChart);
 
@@ -48,7 +52,9 @@ public class GraphActivity extends AppCompatActivity {
             dataSets.add(dataSet);
 
             barData = new BarData(dataSets);
+            barChart.setData(barData);
             barChart.setDescription("# just a random description");
+            barChart.invalidate();
 
         } catch (Exception e) {
             dataSource.close();
@@ -58,11 +64,11 @@ public class GraphActivity extends AppCompatActivity {
 
     public void createEntriesAndLabels() {
         entries = new ArrayList<>();
-        entries.add(new BarEntry(150, 0));
-        entries.add(new BarEntry(263, 1));
-        entries.add(new BarEntry(547, 2));
-        entries.add(new BarEntry(958, 3));
-        entries.add(new BarEntry(457, 4));
+        entries.add(new BarEntry(0, 150));
+        entries.add(new BarEntry(1, 263));
+        entries.add(new BarEntry(2, 547));
+        entries.add(new BarEntry(3, 958));
+        entries.add(new BarEntry(4, 457));
 
         labels = new ArrayList<>();
         labels.add("January");
