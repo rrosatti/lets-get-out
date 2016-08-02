@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.database.MyDataSource;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -41,6 +42,7 @@ public class GraphActivity extends AppCompatActivity {
         System.out.println("something - " + data.getDataSet());
         pieChart.setData(data);
         pieChart.setDescription("Description");
+        pieChart.animateY(2000);
     }
 
     public void setEntries() {

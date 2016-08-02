@@ -84,6 +84,7 @@
     <string name="text_view_months_expected">Months Expected</string>
     <string name="text_view_results">Results</string>
     <string name="text_view_target_date">Target Date</string>
+    <string name="text_view_year_balance">Year Balance</string>
 
     <!-- Statistics Menu Icons -->
     <array name="statistics_icon_list">

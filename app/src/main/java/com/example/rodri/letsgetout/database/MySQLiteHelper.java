@@ -14,12 +14,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "portugalProject.db";
 
     // Database version
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
 
     // Table names
     public static final String TABLE_CURRENT_BALANCE = "current_balance";
     public static final String TABLE_EXPENSES = "expenses";
     public static final String TABLE_SAVINGS = "savings";
+    public static final String TABLE_MONTHLY_BALANCE = "monthly_balance";
 
     // Common column name
     public static final String KEY_ID = "id";
@@ -37,6 +38,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     // savings columns names
     public static final String COLUMN_DESCRIPTION = "description";
+
+    // monthly_balance column names
+    public static final String COLUMN_TOTAL_EXPENSES = "total_expenses";
+    public static final String COLUMN_TOTAL_SAVINGS = "total_savings";
+    public static final String COLUMN_BALANCE = "balance";
 
     // current_balance table create
     public static final String CREATE_TABLE_CURRENT_BALANCE =
@@ -68,6 +74,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + KEY_MONTH + " INTEGER NOT NULL, "
             + KEY_YEAR + " INTEGER NOT NULL);";
 
+    public static final String CREATE_TABLE_MONTHLY_BALANCE =
+            "CREATE TABLE " + TABLE_MONTHLY_BALANCE + "("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + KEY_MONTH + " INTEGER NOT NULL, "
+            + KEY_YEAR + " INTEGER NOT NULL, "
+            + COLUMN_TOTAL_EXPENSES + " REAL NOT NULL, "
+            + COLUMN_TOTAL_SAVINGS + " REAL NOT NULL, "
+            + COLUMN_BALANCE + " REAL NOT NULL);";
+
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -78,6 +93,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CURRENT_BALANCE);
         db.execSQL(CREATE_TABLE_EXPENSES);
         db.execSQL(CREATE_TABLE_SAVINGS);
+        db.execSQL(CREATE_TABLE_MONTHLY_BALANCE);
     }
 
     @Override
@@ -85,15 +101,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         Log.w(MySQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion
             + ", which will destroy all old data.");
 
-        if (oldVersion < 3) {
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_CURRENT_BALANCE);
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXPENSES);
-        }
 
-        if (oldVersion == 2 && newVersion == 3) {
-            db.execSQL(CREATE_TABLE_SAVINGS);
-            System.out.println("I've been here!");
-        }
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CURRENT_BALANCE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXPENSES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SAVINGS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MONTHLY_BALANCE);
+
+        onCreate(db);
+
 
         System.out.println("I've been here! 2");
     }
