@@ -105,6 +105,13 @@ public class NewSavingActivity extends AppCompatActivity {
                         dataSource.open();
 
                         dataSource.createSaving(description, Float.valueOf(value), day, month, year);
+                        if (dataSource.isThereAlreadyAMonthlyBalance(month, year)) {
+                            dataSource.addSavingToTheMonthlyBalance(month, year, Float.valueOf(value));
+                            Toast.makeText(getApplicationContext(), "Add Saving to Monthly Balance", Toast.LENGTH_SHORT).show();
+                        } else {
+                            dataSource.createMonthlyBalance(month, year, 0, Float.valueOf(value), Float.valueOf(value));
+                            Toast.makeText(getApplicationContext(), "Create new Monthly Balance", Toast.LENGTH_SHORT).show();
+                        }
                         Toast.makeText(getApplicationContext(), "New Saving created successfully!", Toast.LENGTH_SHORT).show();
                         dataSource.close();
                         onBackPressed();

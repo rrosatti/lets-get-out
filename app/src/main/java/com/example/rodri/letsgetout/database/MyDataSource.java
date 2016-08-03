@@ -548,7 +548,7 @@ public class MyDataSource {
         cursor.moveToFirst();
 
         List<MonthlyBalance> monthlyBalances = new ArrayList<>();
-        while (cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
             monthlyBalances.add(cursorToMonthlyBalance(cursor));
             cursor.moveToNext();
         }
@@ -633,7 +633,7 @@ public class MyDataSource {
         float newTotalExpenses = monthlyBalance.getTotalExpenses() + newExpense;
         database.execSQL("UPDATE " + MySQLiteHelper.TABLE_MONTHLY_BALANCE +
                 " SET " + MySQLiteHelper.COLUMN_TOTAL_EXPENSES + " = " + newTotalExpenses +
-                " AND " + MySQLiteHelper.COLUMN_BALANCE + " = " + newBalance +
+                ", " + MySQLiteHelper.COLUMN_BALANCE + " = " + newBalance +
                 " WHERE " + MySQLiteHelper.KEY_MONTH + " = " + month +
                 " AND " + MySQLiteHelper.KEY_YEAR + " = " + year);
     }
@@ -644,7 +644,7 @@ public class MyDataSource {
         float newTotalSavings = monthlyBalance.getTotalSavings() + newSaving;
         database.execSQL("UPDATE " + MySQLiteHelper.TABLE_MONTHLY_BALANCE +
                 " SET " + MySQLiteHelper.COLUMN_TOTAL_SAVINGS + " = " + newTotalSavings +
-                " AND " + MySQLiteHelper.COLUMN_BALANCE + " = " + newBalance +
+                ", " + MySQLiteHelper.COLUMN_BALANCE + " = " + newBalance +
                 " WHERE " + MySQLiteHelper.KEY_MONTH + " = " + month +
                 " AND " + MySQLiteHelper.KEY_YEAR + " = " + year);
     }
