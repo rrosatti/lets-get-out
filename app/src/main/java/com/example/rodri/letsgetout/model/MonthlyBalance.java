@@ -8,18 +8,18 @@ public class MonthlyBalance {
     private long id;
     private int month;
     private int year;
-    private float totalSavings;
     private float totalExpenses;
+    private float totalSavings;
     private float balance;
 
     public MonthlyBalance() {}
 
-    public MonthlyBalance(long id, int month, int year, float totalSavings, float totalExpenses, float balance) {
+    public MonthlyBalance(long id, int month, int year, float totalExpenses, float totalSavings,  float balance) {
         this.id = id;
         this.month = month;
         this.year = year;
-        this.totalSavings = totalSavings;
         this.totalExpenses = totalExpenses;
+        this.totalSavings = totalSavings;
         this.balance = balance;
     }
 

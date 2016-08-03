@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.rodri.letsgetout.model.CurrentBalance;
 import com.example.rodri.letsgetout.model.Expense;
 import com.example.rodri.letsgetout.model.GenericBudget;
+import com.example.rodri.letsgetout.model.MonthlyBalance;
 import com.example.rodri.letsgetout.model.Saving;
 
 import java.util.ArrayList;
@@ -44,6 +45,14 @@ public class MyDataSource {
             MySQLiteHelper.KEY_DAY,
             MySQLiteHelper.KEY_MONTH,
             MySQLiteHelper.KEY_YEAR
+    };
+    private String[] monthlyBalanceColumns = {
+            MySQLiteHelper.KEY_ID,
+            MySQLiteHelper.KEY_MONTH,
+            MySQLiteHelper.KEY_YEAR,
+            MySQLiteHelper.COLUMN_TOTAL_EXPENSES,
+            MySQLiteHelper.COLUMN_TOTAL_SAVINGS,
+            MySQLiteHelper.COLUMN_BALANCE
     };
 
     public MyDataSource(Context context) {
@@ -154,6 +163,31 @@ public class MyDataSource {
         return saving;
     }
 
+    public MonthlyBalance createMonthlyBalance(int month, int year, float totalExpenses, float totalSavings, float balance) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.KEY_MONTH, month);
+        values.put(MySQLiteHelper.KEY_YEAR, year);
+        values.put(MySQLiteHelper.COLUMN_TOTAL_EXPENSES, totalExpenses);
+        values.put(MySQLiteHelper.COLUMN_TOTAL_SAVINGS, totalSavings);
+        values.put(MySQLiteHelper.COLUMN_BALANCE, balance);
+
+        long insertId = database.insert(MySQLiteHelper.TABLE_MONTHLY_BALANCE, null, values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_MONTHLY_BALANCE, monthlyBalanceColumns,
+                MySQLiteHelper.KEY_ID + " = " + insertId, null, null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
+        cursor.moveToFirst();
+
+        MonthlyBalance monthlyBalance = cursorToMonthlyBalance(cursor);
+        cursor.close();
+
+        return monthlyBalance;
+    }
+
 
     /**
      * ---------- CURSOR TO ---------
@@ -191,6 +225,17 @@ public class MyDataSource {
         saving.setMonth(cursor.getInt(4));
         saving.setYear(cursor.getInt(5));
         return saving;
+    }
+
+    public MonthlyBalance cursorToMonthlyBalance(Cursor cursor) {
+        MonthlyBalance monthlyBalance = new MonthlyBalance();
+        monthlyBalance.setId(cursor.getLong(0));
+        monthlyBalance.setMonth(cursor.getInt(1));
+        monthlyBalance.setYear(cursor.getInt(2));
+        monthlyBalance.setTotalExpenses(cursor.getFloat(3));
+        monthlyBalance.setTotalSavings(cursor.getFloat(4));
+        monthlyBalance.setBalance(cursor.getFloat(5));
+        return monthlyBalance;
     }
 
     /**
@@ -473,6 +518,46 @@ public class MyDataSource {
         return  genericBudgets;
     }
 
+    public MonthlyBalance getMonthlyBalance(int month, int year) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_MONTHLY_BALANCE, monthlyBalanceColumns,
+                MySQLiteHelper.KEY_MONTH + " = " + month + " AND " + MySQLiteHelper.KEY_YEAR + " = " + year,
+                null, null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
+        cursor.moveToFirst();
+
+        MonthlyBalance monthlyBalance = cursorToMonthlyBalance(cursor);
+        cursor.close();
+
+        return monthlyBalance;
+    }
+
+    public List<MonthlyBalance> getAllMonthlyBalances() {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_MONTHLY_BALANCE, monthlyBalanceColumns,
+                null, null, null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
+        cursor.moveToFirst();
+
+        List<MonthlyBalance> monthlyBalances = new ArrayList<>();
+        while (cursor.isAfterLast()) {
+            monthlyBalances.add(cursorToMonthlyBalance(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return monthlyBalances;
+
+    }
+
 
     /**
      * ---------- DELETE DATA ---------
@@ -491,6 +576,11 @@ public class MyDataSource {
     public void deleteSaving(long id) {
         System.out.println("The saving with the id " + id + " will be deleted!");
         database.delete(MySQLiteHelper.TABLE_SAVINGS, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
+    public void deleteMonthlyBalance(long id) {
+        System.out.println("The monthly balance referring to the id " + id + " will be deleted!");
+        database.delete(MySQLiteHelper.TABLE_MONTHLY_BALANCE, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
     /**
@@ -527,6 +617,16 @@ public class MyDataSource {
         database.update(MySQLiteHelper.TABLE_SAVINGS, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
+    public void updateMonthlyBalance(long id, int month, int year, float totalExpenses, float totalSavings, float balance) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.KEY_MONTH, month);
+        values.put(MySQLiteHelper.KEY_YEAR, year);
+        values.put(MySQLiteHelper.COLUMN_TOTAL_EXPENSES, totalExpenses);
+        values.put(MySQLiteHelper.COLUMN_TOTAL_SAVINGS, totalSavings);
+        values.put(MySQLiteHelper.COLUMN_BALANCE, balance);
+        database.update(MySQLiteHelper.TABLE_MONTHLY_BALANCE, values, MySQLiteHelper.KEY_ID + " = " + id, null);
+    }
+
 
     /**
      * --------- OTHER --------
@@ -543,6 +643,19 @@ public class MyDataSource {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_CURRENT_BALANCE, currentBalanceColumns, null, null, null, null, null);
 
         // if isCursorEmpty return true, it means there is no data in the current_balance database
+        if (isCursorEmpty(cursor)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean isThereAlreadyAMonthlyBalance(int month, int year) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_MONTHLY_BALANCE, monthlyBalanceColumns,
+                MySQLiteHelper.KEY_MONTH + " = " + month + " AND " + MySQLiteHelper.KEY_YEAR + " = " + year,
+                null, null, null, null, null);
+
+        // if cursor is empty, it means that there is no monthly balance with the given month and year
         if (isCursorEmpty(cursor)) {
             return false;
         } else {
