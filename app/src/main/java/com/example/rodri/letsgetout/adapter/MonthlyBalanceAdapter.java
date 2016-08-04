@@ -2,6 +2,7 @@ package com.example.rodri.letsgetout.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.activity.MonthlyBalanceGraphActivity;
 import com.example.rodri.letsgetout.model.MonthlyBalance;
 import com.example.rodri.letsgetout.util.Util;
 
@@ -62,9 +64,29 @@ public class MonthlyBalanceAdapter extends ArrayAdapter<MonthlyBalance> {
             holder = (ViewHolder) v.getTag();
         }
 
-        MonthlyBalance mb = monthlyBalances.get(position);
+        final MonthlyBalance mb = monthlyBalances.get(position);
         holder.displayMonthAndYear.setText(months[mb.getMonth() - 1]+"/"+mb.getYear());
         holder.displayMonthlyBalance.setText("R$ " + Util.setNumberFormat(mb.getBalance()));
+
+        // set custom font
+        Util.setTypeFace(activity, holder.displayMonthAndYear, "Quicksand-Bold.otf");
+        Util.setTypeFace(activity, holder.displayMonthlyBalance, "Quicksand.otf");
+
+        // set background color according to the monthly balance
+        if (mb.getBalance() > 0) {
+            holder.displayMonthlyBalance.setBackgroundColor(activity.getResources().getColor(R.color.green));
+        } else {
+            holder.displayMonthlyBalance.setBackgroundColor(activity.getResources().getColor(R.color.red));
+        }
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(activity, MonthlyBalanceGraphActivity.class);
+                i.putExtra("monthly_balance_id", mb.getId());
+                activity.startActivity(i);
+            }
+        });
 
         return v;
     }

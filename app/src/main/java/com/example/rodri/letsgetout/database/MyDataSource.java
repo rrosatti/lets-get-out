@@ -518,6 +518,24 @@ public class MyDataSource {
         return  genericBudgets;
     }
 
+    public MonthlyBalance getMonthlyBalance(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_MONTHLY_BALANCE, monthlyBalanceColumns,
+                MySQLiteHelper.KEY_ID + " = " + id, null, null, null, null, null);
+
+        if (isCursorEmpty(cursor)) {
+            System.out.println("ERROR!! Cursor is empty!");
+            cursor.close();
+            return null;
+        }
+        cursor.moveToFirst();
+
+        MonthlyBalance mb = cursorToMonthlyBalance(cursor);
+        cursor.close();
+
+        return mb;
+
+    }
+
     public MonthlyBalance getMonthlyBalance(int month, int year) {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_MONTHLY_BALANCE, monthlyBalanceColumns,
                 MySQLiteHelper.KEY_MONTH + " = " + month + " AND " + MySQLiteHelper.KEY_YEAR + " = " + year,

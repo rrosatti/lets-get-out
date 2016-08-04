@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayoutMonthlyBalanceGraph"
@@ -28,8 +29,7 @@
         android:layout_below="@+id/appBarLayoutMonthlyBalanceGraph"
         android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
-        android:textSize="24sp"
-        android:text="August/2016"/>
+        android:textSize="24sp"/>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"

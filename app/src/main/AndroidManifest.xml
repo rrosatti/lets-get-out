@@ -18,8 +18,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.rodri.letsgetout.activity.MainActivity"
-            android:theme="@style/AppTheme"/>
+        <activity android:name=".activity.MainActivity" android:theme="@style/AppTheme"/>
 
         <activity android:name=".activity.SetUpGoalActivity" android:theme="@style/AppTheme.NoActionBar"/>
 
@@ -32,6 +31,8 @@
         <activity android:name=".activity.SimulationActivity" android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".activity.GraphActivity" android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".activity.MonthlyBalanceGraphActivity" android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 
