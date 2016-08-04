@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.activity.NewExpenseActivity;
@@ -129,5 +130,11 @@ public class ExpensesAndSavingsFragment extends Fragment {
         super.onSaveInstanceState(outState);
 
         outState.putSerializable(STATE_ITEMS_LIST, (Serializable) expensesAndSavings);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(getContext(), "onResume() was called", Toast.LENGTH_SHORT).show();
     }
 }
