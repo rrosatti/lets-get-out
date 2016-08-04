@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.adapter.MonthlyBalanceAdapter;
 import com.example.rodri.letsgetout.database.MyDataSource;
 import com.example.rodri.letsgetout.model.MonthlyBalance;
 import com.example.rodri.letsgetout.util.Util;
@@ -31,6 +32,10 @@ public class GraphActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ListView listOfMonthlyBalances;
 
+    private List<MonthlyBalance> monthlyBalances;
+    private MonthlyBalanceAdapter adapter;
+    private MyDataSource dataSource;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Util.setFullScreen(this);
@@ -48,6 +53,21 @@ public class GraphActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        dataSource = new MyDataSource(this);
+        try {
+            dataSource.open();
+
+            monthlyBalances = dataSource.getAllMonthlyBalances();
+            adapter = new MonthlyBalanceAdapter(this, 0, monthlyBalances);
+            listOfMonthlyBalances.setAdapter(adapter);
+
+            dataSource.close();
+
+        } catch (Exception e) {
+            dataSource.close();
+            e.printStackTrace();
+        }
 
 
     }

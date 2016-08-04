@@ -59,11 +59,11 @@ public class MonthlyBalanceAdapter extends ArrayAdapter<MonthlyBalance> {
 
             v.setTag(holder);
         } else {
-            inflater = (LayoutInflater) v.getTag();
+            holder = (ViewHolder) v.getTag();
         }
 
         MonthlyBalance mb = monthlyBalances.get(position);
-        holder.displayMonthAndYear.setText(months[mb.getMonth()]+"/"+mb.getYear());
+        holder.displayMonthAndYear.setText(months[mb.getMonth() - 1]+"/"+mb.getYear());
         holder.displayMonthlyBalance.setText("R$ " + Util.setNumberFormat(mb.getBalance()));
 
         return v;
