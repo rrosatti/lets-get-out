@@ -1,6 +1,7 @@
 package com.example.rodri.letsgetout.fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -77,7 +78,7 @@ public class ExpensesAndSavingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intentNewExpense = new Intent(getActivity(), NewExpenseActivity.class);
-                startActivity(intentNewExpense);
+                startActivityForResult(intentNewExpense, 1);
             }
         });
 
@@ -85,7 +86,7 @@ public class ExpensesAndSavingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intentNewSaving = new Intent(getActivity(), NewSavingActivity.class);
-                startActivity(intentNewSaving);
+                startActivityForResult(intentNewSaving, 1);
             }
         });
     }
@@ -136,5 +137,16 @@ public class ExpensesAndSavingsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Toast.makeText(getContext(), "onResume() was called", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                GenericBudget newGenericBudget = (GenericBudget) data.getSerializableExtra("result");
+                adapter.add(newGenericBudget);
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 }

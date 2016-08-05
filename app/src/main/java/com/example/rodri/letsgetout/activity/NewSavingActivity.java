@@ -1,6 +1,8 @@
 package com.example.rodri.letsgetout.activity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
 import com.example.rodri.letsgetout.database.MyDataSource;
+import com.example.rodri.letsgetout.model.Saving;
 import com.example.rodri.letsgetout.util.Util;
 
 import java.util.Calendar;
@@ -58,7 +61,9 @@ public class NewSavingActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED, returnIntent);
+                finish();
             }
         });
 
@@ -104,7 +109,7 @@ public class NewSavingActivity extends AppCompatActivity {
                     try {
                         dataSource.open();
 
-                        dataSource.createSaving(description, Float.valueOf(value), day, month, year);
+                        Saving newSaving = dataSource.createSaving(description, Float.valueOf(value), day, month, year);
                         if (dataSource.isThereAlreadyAMonthlyBalance(month, year)) {
                             dataSource.addSavingToTheMonthlyBalance(month, year, Float.valueOf(value));
                             Toast.makeText(getApplicationContext(), "Add Saving to Monthly Balance", Toast.LENGTH_SHORT).show();
@@ -114,7 +119,11 @@ public class NewSavingActivity extends AppCompatActivity {
                         }
                         Toast.makeText(getApplicationContext(), "New Saving created successfully!", Toast.LENGTH_SHORT).show();
                         dataSource.close();
-                        onBackPressed();
+
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result", newSaving);
+                        setResult(Activity.RESULT_OK, returnIntent);
+                        finish();
 
                     } catch (Exception e) {
                         dataSource.close();
@@ -133,5 +142,12 @@ public class NewSavingActivity extends AppCompatActivity {
         Util.setTypeFace(getApplicationContext(), btSetDate, "Quicksand.otf");
 
         Util.setTypeFace(getApplicationContext(), txtNewSavingTitle, "Quicksand.otf");
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED, returnIntent);
+        finish();
     }
 }

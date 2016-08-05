@@ -242,7 +242,7 @@ public class MyDataSource {
      *  ---------- GET DATA --------
      */
 
-    public List<Expense> getAllExpensesByMonth(int month, int year) {
+    public List<Expense> getAllExpenses(int month, int year) {
         List<Expense> expenses = new ArrayList<>();
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
                 MySQLiteHelper.KEY_MONTH + " = " + month + " AND " + MySQLiteHelper.KEY_YEAR + " = " + year,
@@ -339,7 +339,7 @@ public class MyDataSource {
         return savings;
     }
 
-    public List<Saving> getAllSavingsByMonth(int month, int year) {
+    public List<Saving> getAllSavings(int month, int year) {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
                 MySQLiteHelper.KEY_MONTH + " = " + month + " AND " + MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
@@ -361,7 +361,7 @@ public class MyDataSource {
         return savings;
     }
 
-    public List<Saving> getAllSavingsByYear(int year) {
+    public List<Saving> getAllSavings(int year) {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SAVINGS, savingsColumns,
                 MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
@@ -383,7 +383,7 @@ public class MyDataSource {
         return savings;
     }
 
-    public List<Expense> getAllExpensesByYear(int year) {
+    public List<Expense> getAllExpenses(int year) {
         Cursor cursor = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
                 MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
@@ -441,7 +441,7 @@ public class MyDataSource {
         return  genericBudgets;
     }
 
-    public List<GenericBudget> getAllExpensesAndSavingsByMonth(int month, int year) {
+    public List<GenericBudget> getAllExpensesAndSavings(int month, int year) {
         Cursor cursorExpenses = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
                 MySQLiteHelper.KEY_MONTH + " = " + month + " AND " + MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
@@ -480,7 +480,7 @@ public class MyDataSource {
         return  genericBudgets;
     }
 
-    public List<GenericBudget> getAllExpensesAndSavingsByYear(int year) {
+    public List<GenericBudget> getAllExpensesAndSavings(int year) {
         Cursor cursorExpenses = database.query(MySQLiteHelper.TABLE_EXPENSES, expensesColumns,
                 MySQLiteHelper.KEY_YEAR + " = " + year,
                 null, null, null, null);
