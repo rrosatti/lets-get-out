@@ -56,6 +56,7 @@ public class NewExpenseActivity extends AppCompatActivity {
 
         dataSource = new MyDataSource(this);
 
+        toolbar.setTitle(R.string.toolbar_new_expense);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -110,10 +111,8 @@ public class NewExpenseActivity extends AppCompatActivity {
                         Expense newExpense = dataSource.createExpense(description, Float.valueOf(value), day, month, year);
                         if (dataSource.isThereAlreadyAMonthlyBalance(month, year)) {
                             dataSource.addExpenseToTheMonthlyBalance(month, year, Float.valueOf(value));
-                            Toast.makeText(getApplicationContext(), "Add Expense to Monthly Balance", Toast.LENGTH_SHORT).show();
                         } else {
                             dataSource.createMonthlyBalance(month, year, Float.valueOf(value), 0, -Float.valueOf(value));
-                            Toast.makeText(getApplicationContext(), "Create new Monthly Balance", Toast.LENGTH_SHORT).show();
                         }
                         dataSource.close();
                         Toast.makeText(getApplicationContext(), "A new expense was successfully created!", Toast.LENGTH_SHORT).show();

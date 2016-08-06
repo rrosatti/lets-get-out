@@ -97,5 +97,12 @@
         <item>Simulation</item>
         <item>Graph</item>
     </string-array>
+    
+    <!-- Toolbar Titles -->
+    <string name="toolbar_update_goal">Update Goal</string>
+    <string name="toolbar_new_expense">New Expense</string>
+    <string name="toolbar_new_saving">New Saving</string>
+    <string name="toolbar_simulation">Simulation</string>
+    <string name="toolbar_monthly_balance_list">Monthly Balance</string>
 
 </resources>

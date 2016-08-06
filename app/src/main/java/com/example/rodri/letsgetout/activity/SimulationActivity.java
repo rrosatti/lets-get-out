@@ -62,6 +62,7 @@ public class SimulationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_simulation);
 
         toolbar = (Toolbar) findViewById(R.id.toolbarSimulation);
+        toolbar.setTitle(R.string.toolbar_simulation);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

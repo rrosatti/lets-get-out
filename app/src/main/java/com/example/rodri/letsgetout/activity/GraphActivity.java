@@ -45,6 +45,7 @@ public class GraphActivity extends AppCompatActivity {
         listOfMonthlyBalances = (ListView) findViewById(R.id.listOfMonthlyBalances);
         toolbar = (Toolbar) findViewById(R.id.toolbarGraph);
 
+        toolbar.setTitle(R.string.toolbar_monthly_balance_list);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

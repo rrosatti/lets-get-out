@@ -1,6 +1,8 @@
 package com.example.rodri.letsgetout.activity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -56,12 +58,14 @@ public class UpdateGoalActivity extends AppCompatActivity {
         Util.setTypeFace(getApplicationContext(), btUpdateTargetDate, "Quicksand.otf");
         Util.setTypeFace(getApplicationContext(), etUpdateEstimatedValue, "Quicksand.otf");
 
+        toolbar.setTitle(R.string.toolbar_update_goal);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                setResult(Activity.RESULT_CANCELED);
+                finish();
             }
         });
 
@@ -124,10 +128,12 @@ public class UpdateGoalActivity extends AppCompatActivity {
                         dataSource.updateCurrentBalance(1, Float.valueOf(estimatedValue),
                                 currentBalance.getAchievedValue(), day, month, year);
                         Toast.makeText(UpdateGoalActivity.this, "Current Goal was successfully updated!", Toast.LENGTH_SHORT).show();
-                        onBackPressed();
 
+                        setResult(Activity.RESULT_OK);
+                        finish();
                         // Try to find a way to update the current balance values(fragment)
                         // when coming back to CurrentBalanceFragment
+
                     }
 
                 }
@@ -140,5 +146,11 @@ public class UpdateGoalActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(Activity.RESULT_CANCELED);
+        finish();
     }
 }

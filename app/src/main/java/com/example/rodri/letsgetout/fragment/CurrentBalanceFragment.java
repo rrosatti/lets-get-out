@@ -1,5 +1,6 @@
 package com.example.rodri.letsgetout.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.SQLException;
 import android.os.AsyncTask;
@@ -119,7 +120,7 @@ public class CurrentBalanceFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), UpdateGoalActivity.class);
-                        startActivity(intent);
+                        startActivityForResult(intent, 1);
                     }
                 });
             }
@@ -212,5 +213,14 @@ public class CurrentBalanceFragment extends Fragment {
         super.onSaveInstanceState(outState);
 
         outState.putSerializable(STATE_CURRENT_BALANCE, currentBalance);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                new GetDataFromDatabase().execute();
+            }
+        }
     }
 }

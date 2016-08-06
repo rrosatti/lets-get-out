@@ -65,6 +65,7 @@ public class MonthlyBalanceGraphActivity extends AppCompatActivity {
             finish();
         }
 
+        toolbar.setTitle(R.string.toolbar_monthly_balance_list);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

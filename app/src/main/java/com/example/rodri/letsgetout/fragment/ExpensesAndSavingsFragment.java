@@ -134,18 +134,18 @@ public class ExpensesAndSavingsFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Toast.makeText(getContext(), "onResume() was called", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 GenericBudget newGenericBudget = (GenericBudget) data.getSerializableExtra("result");
-                adapter.add(newGenericBudget);
-                adapter.notifyDataSetChanged();
+                if (listOfExpensesAndSavings != null && adapter != null) {
+
+                    adapter.add(newGenericBudget);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    GetDataFromDatabase task = new GetDataFromDatabase();
+                    task.execute("");
+                }
             }
         }
     }
