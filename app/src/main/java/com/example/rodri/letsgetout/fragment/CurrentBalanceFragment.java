@@ -76,7 +76,7 @@ public class CurrentBalanceFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Intent intentSetUpGoal = new Intent(getActivity(), SetUpGoalActivity.class);
-                        startActivity(intentSetUpGoal);
+                        startActivityForResult(intentSetUpGoal, 2);
                     }
                 });
 
@@ -221,6 +221,11 @@ public class CurrentBalanceFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
                 new GetDataFromDatabase().execute();
             }
+        } else if (requestCode == 2) {
+            if (resultCode == Activity.RESULT_OK) {
+                new GetDataFromDatabase().execute();
+            }
         }
+
     }
 }

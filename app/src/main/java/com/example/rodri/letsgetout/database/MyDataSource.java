@@ -583,6 +583,19 @@ public class MyDataSource {
 
     public void deleteExpense(long id ) {
         System.out.println("The expense with the id " + id + " will be deleted!");
+        // Get the expense by the given ID
+        Expense expense = getExpense(id);
+        // Update the values of the monthly_balance table
+        MonthlyBalance mb = getMonthlyBalance(expense.getMonth(), expense.getYear());
+        mb.setTotalExpenses(mb.getTotalExpenses() - expense.getValue());
+        mb.setBalance(mb.getBalance() + expense.getValue());
+        updateMonthlyBalance(mb.getId(), mb.getMonth(), mb.getYear(), mb.getTotalExpenses(),
+                mb.getTotalSavings(), mb.getBalance());
+        // Update the Current Balance
+        CurrentBalance cb = getCurrentBalance(1);
+        cb.setAchievedValue(cb.getAchievedValue() + expense.getValue());
+        updateCurrentBalance(cb.getId(), cb.getEstimatedValue(), cb.getAchievedValue(), cb.getDay(), cb.getMonth(), cb.getYear());
+        // Delete the data from expenses table
         database.delete(MySQLiteHelper.TABLE_EXPENSES, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 

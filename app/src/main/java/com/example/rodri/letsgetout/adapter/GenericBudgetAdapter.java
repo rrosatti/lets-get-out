@@ -1,7 +1,9 @@
 package com.example.rodri.letsgetout.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -9,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.database.MyDataSource;
 import com.example.rodri.letsgetout.model.Expense;
 import com.example.rodri.letsgetout.model.GenericBudget;
 import com.example.rodri.letsgetout.model.Saving;
@@ -18,6 +22,7 @@ import com.example.rodri.letsgetout.util.Util;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,12 +33,14 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
     private Activity activity;
     private List<GenericBudget> genericBudgets;
     private LayoutInflater inflater = null;
+    private MyDataSource dataSource;
 
     public GenericBudgetAdapter(Activity activity, int textViewResourceId, List<GenericBudget> genericBudgets) {
         super(activity, textViewResourceId, genericBudgets);
         try {
             this.activity = activity;
             this.genericBudgets = genericBudgets;
+            this.dataSource = new MyDataSource(activity);
 
             inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         } catch (Exception e) {
@@ -53,7 +60,7 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View v = convertView;
         ViewHolder holder = new ViewHolder();
         if (convertView == null) {
@@ -68,7 +75,7 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
             holder = (ViewHolder) v.getTag();
         }
 
-        GenericBudget genericBudget = genericBudgets.get(position);
+        final GenericBudget genericBudget = genericBudgets.get(position);
 
         holder.displayDate.setText(genericBudget.getDay()+"/"+genericBudget.getMonth()+"/"+genericBudget.getYear());
 
@@ -92,7 +99,52 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
         Util.setTypeFace(getContext(), holder.displayDescription, "Quicksand.otf");
         Util.setTypeFace(getContext(), holder.displayValue, "Quicksand.otf");
 
+        v.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setMessage("Are you sure you want to delete this item?")
+                        .setTitle("Delete item");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            dataSource.open();
+
+                            if (genericBudget instanceof Expense) {
+                                dataSource.deleteExpense(((Expense) genericBudget).getId());
+                                genericBudgets.remove(position);
+                                List<GenericBudget> newList = new ArrayList<GenericBudget>(genericBudgets);
+                                updateList(newList);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            dataSource.close();
+                        }
+
+                    }
+                });
+                builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        List<GenericBudget> newList = new ArrayList<GenericBudget>(genericBudgets);
+                        updateList(newList);
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                return true;
+            }
+        });
+
         return v;
+    }
+
+    public void updateList(List<GenericBudget> newList) {
+        genericBudgets.clear();
+        genericBudgets.addAll(newList);
+        notifyDataSetChanged();
     }
 
 }

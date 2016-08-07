@@ -1,5 +1,6 @@
 package com.example.rodri.letsgetout.activity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -56,7 +57,8 @@ public class SetUpGoalActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                setResult(Activity.RESULT_CANCELED);
+                finish();
             }
         });
 
@@ -100,7 +102,9 @@ public class SetUpGoalActivity extends AppCompatActivity {
                     } else {
                         dataSource.createCurrentBalance(Float.valueOf(estimatedValue), 0, day, month, year);
                         Toast.makeText(getApplicationContext(), "A new goal was successfully created!", Toast.LENGTH_SHORT).show();
-                        onBackPressed();
+
+                        setResult(Activity.RESULT_OK);
+                        finish();
                     }
 
                 } catch (Exception e) {
@@ -113,5 +117,11 @@ public class SetUpGoalActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(Activity.RESULT_CANCELED);
+        finish();
     }
 }
