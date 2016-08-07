@@ -606,6 +606,20 @@ public class MyDataSource {
 
     public void deleteSaving(long id) {
         System.out.println("The saving with the id " + id + " will be deleted!");
+        // Get the saving by the given id
+        Saving saving = getSaving(id);
+        // Update the values of the monthly_balance table
+        MonthlyBalance mb = getMonthlyBalance(saving.getMonth(), saving.getYear());
+        mb.setTotalSavings(mb.getTotalSavings() - saving.getValue());
+        mb.setBalance(mb.getBalance() - saving.getValue());
+        updateMonthlyBalance(mb.getId(), mb.getMonth(), mb.getYear(), mb.getTotalExpenses(), mb.getTotalSavings(),
+                    mb.getBalance());
+        // Update Current Balance
+        CurrentBalance cb = getCurrentBalance(1);
+        cb.setAchievedValue(cb.getAchievedValue() - saving.getValue());
+        updateCurrentBalance(cb.getId(), cb.getEstimatedValue(), cb.getAchievedValue(), cb.getDay(),
+                    cb.getMonth(), cb.getYear());
+        // Delete the data from savings table
         database.delete(MySQLiteHelper.TABLE_SAVINGS, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 

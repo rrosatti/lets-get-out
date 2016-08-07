@@ -114,7 +114,12 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
                             if (genericBudget instanceof Expense) {
                                 dataSource.deleteExpense(((Expense) genericBudget).getId());
                                 genericBudgets.remove(position);
-                                List<GenericBudget> newList = new ArrayList<GenericBudget>(genericBudgets);
+                                List<GenericBudget> newList = new ArrayList<>(genericBudgets);
+                                updateList(newList);
+                            } else if (genericBudget instanceof Saving) {
+                                dataSource.deleteSaving(((Saving) genericBudget).getId());
+                                genericBudgets.remove(position);
+                                List<GenericBudget> newList = new ArrayList<>(genericBudgets);
                                 updateList(newList);
                             }
                         } catch (Exception e) {
