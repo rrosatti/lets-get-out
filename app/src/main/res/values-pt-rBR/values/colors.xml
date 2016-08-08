@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#826C7F</color>
+    <color name="colorPrimaryDark">#5D4E60</color>
+    <color name="colorAccent">#5D4E60</color>
+    <color name="cream">#F1E9DB</color>
+    <color name="green">#52796F</color>
+    <color name="red">#C94E32</color>
+
+    <!-- Navigation Drawer -->
+    <color name="list_item_title">#fff</color>
+    <color name="list_background">#303030</color>
+    <color name="list_background_pressed">#5D4E60</color>
+    <color name="list_divider">#272727</color>
+
+    <!-- Floating Action Buttons -->
+    <color name="fab_green">#52796F</color>
+    <color name="fab_red">#C94E32</color>
+
+    <!-- Background Activities and Fragments -->
+    <color name="background_color">#F1E9DB</color>
+
+    <!-- Custom Button -->
+    <color name="button_text_color">#F1E9DB</color>
+
+    <!-- TextViews -->
+    <color name="text_view_home">#826C7F</color>
+    <color name="text_view_custom_expense_and_saving">#F1E9DB</color>
+    
+    <!-- Progress Bar -->
+    <color name="preloader_start">#5D4E60</color>
+    <color name="preloader_center">#826C7F</color>
+    <color name="preloader_end">#A88FAC</color>
+
+    <!-- Pie Chart -->
+    <color name="pie_chart_description">#F1E9DB</color>
+    <color name="pie_chart_expenses">#C94E32</color>
+    <color name="pie_chart_savings">#52796F</color>
+
+</resources>
