@@ -94,14 +94,14 @@ public class SetUpGoalActivity extends AppCompatActivity {
 
                     String estimatedValue = etEstimatedValue.getText().toString();
                     if (estimatedValue.equals("")) {
-                        Toast.makeText(getApplicationContext(), "You must insert a value!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.toast_estimated_value_field_empty, Toast.LENGTH_SHORT).show();
                         return;
                     } else if (day ==  0) {
-                        Toast.makeText(getApplicationContext(), "You must set up a target date!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.toast_set_a_date, Toast.LENGTH_SHORT).show();
                         return;
                     } else {
                         dataSource.createCurrentBalance(Float.valueOf(estimatedValue), 0, day, month, year);
-                        Toast.makeText(getApplicationContext(), "A new goal was successfully created!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.toast_new_goal_created, Toast.LENGTH_SHORT).show();
 
                         setResult(Activity.RESULT_OK);
                         finish();

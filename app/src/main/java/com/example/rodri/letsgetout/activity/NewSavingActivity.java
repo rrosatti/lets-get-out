@@ -98,13 +98,13 @@ public class NewSavingActivity extends AppCompatActivity {
                 String value = etValue.getText().toString();
 
                 if (description.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Description field cannot be empty!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toast_description_field_empty, Toast.LENGTH_SHORT).show();
                     return;
                 } else if (value.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Value field cannot be empty!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toast_value_field_empty, Toast.LENGTH_SHORT).show();
                     return;
                 } else if (day == 0){
-                    Toast.makeText(getApplicationContext(), "You need to set a date!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toast_set_a_date, Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     try {
@@ -116,7 +116,7 @@ public class NewSavingActivity extends AppCompatActivity {
                         } else {
                             dataSource.createMonthlyBalance(month, year, 0, Float.valueOf(value), Float.valueOf(value));
                         }
-                        Toast.makeText(getApplicationContext(), "New Saving created successfully!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.toast_new_saving_created, Toast.LENGTH_SHORT).show();
                         dataSource.close();
 
                         Intent returnIntent = new Intent();

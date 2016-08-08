@@ -122,12 +122,12 @@ public class UpdateGoalActivity extends AppCompatActivity {
 
                     String estimatedValue = etUpdateEstimatedValue.getText().toString();
                     if (estimatedValue.equals("")) {
-                        Toast.makeText(UpdateGoalActivity.this, "Estimated value cannot be blank!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateGoalActivity.this, R.string.toast_estimated_value_field_empty, Toast.LENGTH_SHORT).show();
                     } else {
 
                         dataSource.updateCurrentBalance(1, Float.valueOf(estimatedValue),
                                 currentBalance.getAchievedValue(), day, month, year);
-                        Toast.makeText(UpdateGoalActivity.this, "Current Goal was successfully updated!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateGoalActivity.this, R.string.toast_current_goal_updated, Toast.LENGTH_SHORT).show();
 
                         setResult(Activity.RESULT_OK);
                         finish();

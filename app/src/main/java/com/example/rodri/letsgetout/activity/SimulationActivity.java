@@ -171,9 +171,9 @@ public class SimulationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (etEstimatedValue.equals("")) {
-                    Toast.makeText(getApplicationContext(), "You need to enter a value!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toast_estimated_value_field_empty, Toast.LENGTH_SHORT).show();
                 } else if (day == 0) {
-                    Toast.makeText(getApplicationContext(), "You need to set a target date!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toast_set_a_date, Toast.LENGTH_SHORT).show();
                 } else {
                     simulate();
                 }

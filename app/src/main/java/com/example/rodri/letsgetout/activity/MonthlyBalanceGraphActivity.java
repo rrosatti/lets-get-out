@@ -60,7 +60,7 @@ public class MonthlyBalanceGraphActivity extends AppCompatActivity {
         if (extras != null) {
             monthlyBalanceId = extras.getLong("monthly_balance_id");
         } else {
-            Toast.makeText(this, "Invalid ID!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_invalid_id, Toast.LENGTH_SHORT).show();
             dataSource.close();
             finish();
         }

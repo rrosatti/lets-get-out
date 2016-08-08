@@ -96,13 +96,13 @@ public class NewExpenseActivity extends AppCompatActivity {
                 String value = etValue.getText().toString();
 
                 if (description.equals("")) {
-                    Toast.makeText(getApplicationContext(), "The description field cannot be empty!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toast_description_field_empty, Toast.LENGTH_SHORT).show();
                     return;
                 } else if (value.equals("")) {
-                    Toast.makeText(getApplicationContext(), "The value field cannot be empty!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toast_value_field_empty, Toast.LENGTH_SHORT).show();
                     return;
                 } else if (day == 0) {
-                    Toast.makeText(getApplicationContext(), "You need to set a date!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toast_set_a_date, Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     try {
@@ -115,7 +115,7 @@ public class NewExpenseActivity extends AppCompatActivity {
                             dataSource.createMonthlyBalance(month, year, Float.valueOf(value), 0, -Float.valueOf(value));
                         }
                         dataSource.close();
-                        Toast.makeText(getApplicationContext(), "A new expense was successfully created!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.toast_new_expense_created, Toast.LENGTH_SHORT).show();
 
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result", newExpense);

@@ -73,12 +73,6 @@ public class StatisticsMenuItemAdapter extends RecyclerView.Adapter<StatisticsMe
         holder.displayIcon.setImageResource(menuItem.getIconId());
         holder.displayTitle.setText(menuItem.getTitle());
 
-        /**holder.displayTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity.getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
     @Override

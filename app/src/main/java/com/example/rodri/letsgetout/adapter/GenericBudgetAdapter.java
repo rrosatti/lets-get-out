@@ -103,8 +103,8 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
             @Override
             public boolean onLongClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                builder.setMessage("Are you sure you want to delete this item?")
-                        .setTitle("Delete item");
+                builder.setMessage(R.string.alert_dialog_delete_message)
+                        .setTitle(R.string.alert_dialog_delete_message_title);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -129,7 +129,7 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
 
                     }
                 });
-                builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNeutralButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         List<GenericBudget> newList = new ArrayList<GenericBudget>(genericBudgets);
