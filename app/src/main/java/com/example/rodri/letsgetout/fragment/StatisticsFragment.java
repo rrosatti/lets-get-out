@@ -1,5 +1,7 @@
 package com.example.rodri.letsgetout.fragment;
 
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +16,7 @@ import com.example.rodri.letsgetout.adapter.StatisticsMenuItemAdapter;
 import com.example.rodri.letsgetout.model.StatisticsMenuItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,6 +28,8 @@ public class StatisticsFragment extends Fragment {
     private StatisticsMenuItemAdapter adapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
+    private TypedArray menuItemIcons;
+    private List<String> menuItemTitles;
 
     public StatisticsFragment() {}
 
@@ -52,8 +57,14 @@ public class StatisticsFragment extends Fragment {
 
     public void createMenuItems() {
         menuItems = new ArrayList<>();
+        menuItemIcons = getResources().obtainTypedArray(R.array.statistics_icon_list);
+        menuItemTitles = Arrays.asList(getResources().getStringArray(R.array.statistics_menu_item_title));
 
-        menuItems.add(new StatisticsMenuItem(0, "Simulation", R.drawable.ic_simulation));
-        menuItems.add(new StatisticsMenuItem(1, "Graph", R.drawable.ic_graph));
+        for (int i = 0; i < menuItemTitles.size(); i++) {
+            menuItems.add(new StatisticsMenuItem(i, menuItemTitles.get(i), menuItemIcons.getResourceId(i, -1)));
+        }
+
+        //menuItems.add(new StatisticsMenuItem(0, "Simulation", R.drawable.ic_simulation));
+        //menuItems.add(new StatisticsMenuItem(1, "Graph", R.drawable.ic_graph));
     }
 }

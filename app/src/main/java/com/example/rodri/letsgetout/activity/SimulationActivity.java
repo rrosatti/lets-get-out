@@ -107,8 +107,8 @@ public class SimulationActivity extends AppCompatActivity {
                     if (dataSource.isThereAnyCurrentBalance()) {
                         currentBalance = dataSource.getCurrentBalance(1);
 
-                        etEstimatedValue.setText(
-                                Util.setNumberFormat(currentBalance.getEstimatedValue() - currentBalance.getAchievedValue()));
+                        etEstimatedValue.setText(String.valueOf(currentBalance.getEstimatedValue()
+                                - currentBalance.getAchievedValue()));
                         day = currentBalance.getDay();
                         month = currentBalance.getMonth();
                         year = currentBalance.getYear();

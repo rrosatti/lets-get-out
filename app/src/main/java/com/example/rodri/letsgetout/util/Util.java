@@ -45,6 +45,7 @@ public class Util {
         } else {
             format = "#0,000.00";
         }
+
         NumberFormat formatter = new DecimalFormat(format);
         return String.valueOf(formatter.format(value));
     }

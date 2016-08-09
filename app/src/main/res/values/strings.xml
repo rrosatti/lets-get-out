@@ -121,5 +121,8 @@
     <string name="alert_dialog_cancel">Cancel</string>
     <string name="alert_dialog_delete_message_title">Delete item</string>
 
+    <!-- Graph Labels -->
+    <string name="label_expenses">Expenses</string>
+    <string name="label_savings">Savings</string>
 
 </resources>

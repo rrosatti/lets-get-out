@@ -97,7 +97,7 @@
         <item>Simulação</item>
         <item>Graficos</item>
     </string-array>
-    
+
     <!-- Toolbar Titles -->
     <string name="toolbar_update_goal">Atualizar Objetivo</string>
     <string name="toolbar_new_expense">Novo Gasto</string>
@@ -120,6 +120,10 @@
     <string name="alert_dialog_delete_message">Tem certeza que deseja deletar este item?</string>
     <string name="alert_dialog_cancel">Cancelar</string>
     <string name="alert_dialog_delete_message_title">Deletar item</string>
+
+    <!-- Graph Labels -->
+    <string name="label_expenses">Gastos</string>
+    <string name="label_savings">Economias</string>
 
 
 </resources>
