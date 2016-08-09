@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <!-- Date(Edit Text and Button), Value(EditText) and Description(EditText)  + Update (Button)-->
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayoutUpdateGenericBudget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarUpdateGenericBudget"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/updateGenericBudget_relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="40dp"
+        android:padding="20dp">
+
+
+
+        <EditText
+            android:id="@+id/etValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/editText_text_size"
+            android:textStyle="italic"/>
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etValue"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/editText_text_size"
+            android:textStyle="italic"/>
+
+        <LinearLayout
+            android:id="@+id/updateGenericBudget_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/etDescription"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/etDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="start"
+                android:textSize="@dimen/editText_text_size"
+                android:textStyle="italic"/>
+
+            <Button
+                android:id="@+id/btChangeDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/custom_button"
+                android:padding="4dp"
+                android:textSize="@dimen/button_text_size"
+                android:textColor="@color/button_text_color"
+                android:text="@string/button_change_date"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btUpdateGenericBudget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/updateGenericBudget_linearLayout"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/custom_button"
+            android:padding="4dp"
+            android:textSize="@dimen/button_text_size"
+            android:textColor="@color/button_text_color"
+            android:text="@string/button_update"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

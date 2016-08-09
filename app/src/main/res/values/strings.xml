@@ -65,6 +65,8 @@
     <string name="button_set_date">Set Date</string>
     <string name="button_get_my_settings">Get My Settings</string>
     <string name="button_simulate">Simulate</string>
+    <string name="button_update">Update</string>
+    <string name="button_change_date">Change Date</string>
 
     <!-- Hints -->
     <string name="hint_estimated_value">Estimated Value</string>

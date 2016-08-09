@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rodri.letsgetout.R;
+import com.example.rodri.letsgetout.activity.UpdateGenericBudgetActivity;
 import com.example.rodri.letsgetout.database.MyDataSource;
 import com.example.rodri.letsgetout.model.Expense;
 import com.example.rodri.letsgetout.model.GenericBudget;
@@ -140,6 +142,15 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
                 AlertDialog dialog = builder.create();
                 dialog.show();
                 return true;
+            }
+        });
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(activity, UpdateGenericBudgetActivity.class);
+                i.putExtra("generic_budget", genericBudget);
+                activity.startActivityForResult(i, -1);
             }
         });
 
