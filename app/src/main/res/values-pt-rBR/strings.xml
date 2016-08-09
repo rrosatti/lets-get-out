@@ -106,6 +106,8 @@
     <string name="toolbar_new_saving">Nova Economia</string>
     <string name="toolbar_simulation">Simulação</string>
     <string name="toolbar_monthly_balance_list">Balanço Mensal</string>
+    <string name="toolbar_update_expense">Atualizar Despesa</string>
+    <string name="toolbar_update_saving">Atualizar Economia</string>
 
     <!-- Toast Messages -->
     <string name="toast_invalid_id">ID Inválido!!</string>

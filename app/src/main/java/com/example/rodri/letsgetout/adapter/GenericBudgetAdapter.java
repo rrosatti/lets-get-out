@@ -162,5 +162,6 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
         genericBudgets.addAll(newList);
         notifyDataSetChanged();
     }
+    
 
 }

@@ -106,6 +106,8 @@
     <string name="toolbar_new_saving">New Saving</string>
     <string name="toolbar_simulation">Simulation</string>
     <string name="toolbar_monthly_balance_list">Monthly Balance</string>
+    <string name="toolbar_update_expense">Update Expense</string>
+    <string name="toolbar_update_saving">Update Saving</string>
 
     <!-- Toast Messages -->
     <string name="toast_invalid_id">Invalid ID!!</string>
