@@ -119,6 +119,8 @@
     <string name="toast_estimated_value_field_empty">You must insert a value!</string>
     <string name="toast_new_goal_created">A new goal was successfully created!</string>
     <string name="toast_current_goal_updated">Current Goal was successfully updated!</string>
+    <string name="toast_expense_updated">The Expense Info was updated!</string>
+    <string name="toast_saving_updated">The Saving Info was updated!</string>
 
     <!-- Alert Dialog Messages -->
     <string name="alert_dialog_delete_message">Are you sure you want to delete this item?</string>

@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,13 +38,17 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
     private List<GenericBudget> genericBudgets;
     private LayoutInflater inflater = null;
     private MyDataSource dataSource;
+    private Fragment fragment;
 
-    public GenericBudgetAdapter(Activity activity, int textViewResourceId, List<GenericBudget> genericBudgets) {
+    public GenericBudgetAdapter(Activity activity, int textViewResourceId,
+                                List<GenericBudget> genericBudgets, Fragment fragment) {
+
         super(activity, textViewResourceId, genericBudgets);
         try {
             this.activity = activity;
             this.genericBudgets = genericBudgets;
             this.dataSource = new MyDataSource(activity);
+            this.fragment = fragment;
 
             inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         } catch (Exception e) {
@@ -150,9 +156,10 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
             public void onClick(View v) {
                 Intent i = new Intent(activity, UpdateGenericBudgetActivity.class);
                 i.putExtra("generic_budget", genericBudget);
-                activity.startActivityForResult(i, -1);
+                fragment.startActivityForResult(i, 2);
             }
         });
+
 
         return v;
     }
@@ -162,6 +169,11 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
         genericBudgets.addAll(newList);
         notifyDataSetChanged();
     }
-    
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("GenericBudgetAdapter", "onActivityResult");
+        Toast.makeText(activity, "It worked!", Toast.LENGTH_SHORT).show();
+    }
+
 
 }

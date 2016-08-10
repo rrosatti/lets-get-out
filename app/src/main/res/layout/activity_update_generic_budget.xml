@@ -54,12 +54,12 @@
             android:layout_below="@+id/etDescription"
             android:layout_marginTop="10dp">
 
-            <EditText
-                android:id="@+id/etDate"
+            <TextView
+                android:id="@+id/updateGenericBudget_txtDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="start"
+                android:layout_gravity="start|center_vertical"
                 android:textSize="@dimen/editText_text_size"/>
 
             <Button

@@ -66,7 +66,7 @@ public class ExpensesAndSavingsFragment extends Fragment {
 
         if (savedInstanceState != null) {
             expensesAndSavings = (ArrayList<GenericBudget>) savedInstanceState.getSerializable(STATE_ITEMS_LIST);
-            adapter = new GenericBudgetAdapter(getActivity(), 0, expensesAndSavings);
+            adapter = new GenericBudgetAdapter(getActivity(), 0, expensesAndSavings, ExpensesAndSavingsFragment.this);
             listOfExpensesAndSavings.setAdapter(adapter);
         } else {
             GetDataFromDatabase task = new GetDataFromDatabase();
@@ -120,7 +120,7 @@ public class ExpensesAndSavingsFragment extends Fragment {
         protected void onPostExecute(String s) {
             progressBar.setVisibility(View.GONE);
             if (expensesAndSavings != null) {
-                adapter = new GenericBudgetAdapter(getActivity(), 0, expensesAndSavings);
+                adapter = new GenericBudgetAdapter(getActivity(), 0, expensesAndSavings, ExpensesAndSavingsFragment.this);
                 listOfExpensesAndSavings.setAdapter(adapter);
             }
         }
@@ -147,6 +147,9 @@ public class ExpensesAndSavingsFragment extends Fragment {
                     task.execute("");
                 }
             }
+        } else if (requestCode == 2) {
+            Toast.makeText(getActivity(), "HEY!", Toast.LENGTH_SHORT).show();
+            adapter.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

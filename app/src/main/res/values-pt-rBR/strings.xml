@@ -119,6 +119,8 @@
     <string name="toast_estimated_value_field_empty">Você precisa inserir um valor!</string>
     <string name="toast_new_goal_created">Um novo objetivo foi cadastrado!</string>
     <string name="toast_current_goal_updated">O objetivo atual foi atualizado!</string>
+    <string name="toast_expense_updated">As informações desta despesa foram alteradas!</string>
+    <string name="toast_saving_updated">As informações desta economia foram alteradas!</string>
 
     <!-- Alert Dialog Messages -->
     <string name="alert_dialog_delete_message">Tem certeza que deseja deletar este item?</string>

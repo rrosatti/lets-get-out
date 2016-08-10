@@ -639,6 +639,7 @@ public class MyDataSource {
         values.put(MySQLiteHelper.KEY_DAY, day);
         values.put(MySQLiteHelper.KEY_MONTH, month);
         values.put(MySQLiteHelper.KEY_YEAR, year);
+        System.out.println("I've been here! value: " + value);
         database.update(MySQLiteHelper.TABLE_EXPENSES, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
