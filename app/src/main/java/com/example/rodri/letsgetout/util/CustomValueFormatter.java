@@ -7,6 +7,9 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.text.DecimalFormat;
 
 /**
+ *
+ * This class will be used in PieChart to show a custom format to the numbers
+ *
  * Created by rodri on 8/4/2016.
  */
 public class CustomValueFormatter implements ValueFormatter {

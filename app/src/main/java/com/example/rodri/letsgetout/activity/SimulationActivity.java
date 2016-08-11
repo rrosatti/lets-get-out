@@ -66,9 +66,11 @@ public class SimulationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Initialize Views and set custom font to them
         initializeViews();
-        setStyle(); // set font type for all the TextViews, Buttons and EditTexts
+        setStyle();
 
+        // Get InstanceState if the screen changes from portrait to landscape (vice versa)
         if (savedInstanceState != null) {
             try {
                 etEstimatedValue.setText(savedInstanceState.getString(STATE_ESTIMATED_VALUE));
@@ -82,6 +84,7 @@ public class SimulationActivity extends AppCompatActivity {
                 }
 
                 isBtSimulateClicked = savedInstanceState.getBoolean(STATE_IS_BT_SIMULATE_CLICKED);
+                // Check whether the user has clicked in the Simulate button or not before changing screen orientation
                 if (isBtSimulateClicked) {
                     simulate();
                 }
@@ -97,6 +100,7 @@ public class SimulationActivity extends AppCompatActivity {
             }
         });
 
+        // Get the user's settings related to the Current Balance
         btGetMySettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +129,7 @@ public class SimulationActivity extends AppCompatActivity {
             }
         });
 
+        // Create a "Calendar Dialog" in order to get the values for day, month and year
         btSetTargetDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,22 +146,11 @@ public class SimulationActivity extends AppCompatActivity {
                 };
 
 
-                Calendar cal = Calendar.getInstance(TimeZone.getDefault());;
+                Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+                // Check if the user got his settings or not (btGetMySettings)
+                // If yes, than we just set the Calendar with the given date
                 if (day != 0) {
-                    String dateString = day + "-" + month + "-" + year;
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
-                    Date date = null;
-
-                    try {
-                        date = dateFormat.parse(dateString);
-
-                        cal = Calendar.getInstance();
-                        cal.setTime(date);
-
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
+                    cal.set(year, month - 1, day);
                 }
 
 
@@ -170,6 +164,7 @@ public class SimulationActivity extends AppCompatActivity {
         btSimulate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Check if any field was left empty
                 if (etEstimatedValue.equals("")) {
                     Toast.makeText(getApplicationContext(), R.string.toast_estimated_value_field_empty, Toast.LENGTH_SHORT).show();
                 } else if (day == 0) {
@@ -219,8 +214,6 @@ public class SimulationActivity extends AppCompatActivity {
         Util.setTypeFace(getApplicationContext(), txtTargetDateLabel, "Quicksand-Bold.otf");
         Util.setTypeFace(getApplicationContext(), txtTargetDate, "Quicksand.otf");
     }
-
-    // implement onSaveInstanceState()
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

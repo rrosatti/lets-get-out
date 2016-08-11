@@ -50,6 +50,7 @@ public class UpdateGenericBudgetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_generic_budget);
 
+        // Get the information about the Generic Budget that might be updated
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             genericBudget = (GenericBudget) extras.getSerializable("generic_budget");
@@ -101,6 +102,7 @@ public class UpdateGenericBudgetActivity extends AppCompatActivity {
             etDescription.setText(((Saving) genericBudget).getDescription());
         }
 
+        // Create a "Calendar Dialog" in order to get the values for day, month and year
         btChangeDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +139,7 @@ public class UpdateGenericBudgetActivity extends AppCompatActivity {
                     return;
                 }
 
-                // check if the description, value or date EditTexts are not empty
+                // Check if any field was left empty
                 if (value.equals("")) {
                     Toast.makeText(getApplicationContext(), R.string.toast_value_field_empty, Toast.LENGTH_SHORT).show();
                 } else if (description.equals("")) {
@@ -165,6 +167,7 @@ public class UpdateGenericBudgetActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    // Set result as OK in order to refresh the list in the previous activity
                     setResult(RESULT_OK);
                     finish();
                 }

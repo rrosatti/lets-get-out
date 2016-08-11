@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize views and other variables
         initialize();
         createDrawerItems();
 
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      *
-     * onPortCreate() and onConfigurationChanged() will be called when using the ActionBarDrawerToggle
+     * onPostCreate() and onConfigurationChanged() will be called when using the ActionBarDrawerToggle
      *
      */
 
@@ -171,7 +172,16 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-
+    /**
+     * Show the proper fragment according to the given position
+     *
+     * 0 - Home
+     * 1 - Current Balance
+     * 2 - Expenses And Savings
+     * 3 - Statistics
+     *
+     * @param position
+     */
     private void displayView(int position) {
         Fragment fragment = null;
 

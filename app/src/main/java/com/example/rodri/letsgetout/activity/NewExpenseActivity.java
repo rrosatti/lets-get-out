@@ -44,6 +44,7 @@ public class NewExpenseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_expense);
 
+        // Initialize Views
         toolbar = (Toolbar) findViewById(R.id.toolbarNewExpense);
         etName = (EditText) findViewById(R.id.etExpenseName);
         etValue = (EditText) findViewById(R.id.etExpenseValue);
@@ -62,12 +63,12 @@ public class NewExpenseActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent returnIntent = new Intent();
-                setResult(Activity.RESULT_CANCELED, returnIntent);
+                setResult(Activity.RESULT_CANCELED);
                 finish();
             }
         });
 
+        // Create a "Calendar Dialog" in order to get the values for day, month and year
         btSetDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +96,7 @@ public class NewExpenseActivity extends AppCompatActivity {
                 String description = etName.getText().toString();
                 String value = etValue.getText().toString();
 
+                // check if any field was left empty
                 if (description.equals("")) {
                     Toast.makeText(getApplicationContext(), R.string.toast_description_field_empty, Toast.LENGTH_SHORT).show();
                     return;
@@ -109,6 +111,10 @@ public class NewExpenseActivity extends AppCompatActivity {
                         dataSource.open();
 
                         Expense newExpense = dataSource.createExpense(description, Float.valueOf(value), day, month, year);
+
+                        // Check if there is already an instance for MonthlyBalance with the given month and year
+                        // If yes, than we just add the new expense to it
+                        // Else, we create a new MonthlyBalance
                         if (dataSource.isThereAlreadyAMonthlyBalance(month, year)) {
                             dataSource.addExpenseToTheMonthlyBalance(month, year, Float.valueOf(value));
                         } else {
@@ -117,6 +123,7 @@ public class NewExpenseActivity extends AppCompatActivity {
                         dataSource.close();
                         Toast.makeText(getApplicationContext(), R.string.toast_new_expense_created, Toast.LENGTH_SHORT).show();
 
+                        // Return the new expense in order to refresh the list in the previous activity
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result", newExpense);
                         setResult(Activity.RESULT_OK, returnIntent);
@@ -144,8 +151,7 @@ public class NewExpenseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent returnIntent = new Intent();
-        setResult(Activity.RESULT_CANCELED, returnIntent);
+        setResult(Activity.RESULT_CANCELED);
         finish();
     }
 }

@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by rodri on 7/19/2016.
@@ -83,6 +84,8 @@ public class UpdateGoalActivity extends AppCompatActivity {
 
 
             etUpdateEstimatedValue.setText(String.valueOf(currentBalance.getEstimatedValue()));
+
+            // Create a "Calendar Dialog" in order to get the values for day, month and year
             btUpdateTargetDate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,18 +99,8 @@ public class UpdateGoalActivity extends AppCompatActivity {
                         }
                     };
 
-                    String dateString = day+"-"+month+"-"+year;
-
-                    SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
-                    Date date = null;
-                    try {
-                        date = format.parse(dateString);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(date);
+                    Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+                    cal.set(year, month - 1, day);
 
                     DatePickerDialog datePickerDialog = new DatePickerDialog(UpdateGoalActivity.this, R.style.AppTheme, dateSetListener,
                             cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
@@ -121,6 +114,7 @@ public class UpdateGoalActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     String estimatedValue = etUpdateEstimatedValue.getText().toString();
+                    // Check if any field was left empty
                     if (estimatedValue.equals("")) {
                         Toast.makeText(UpdateGoalActivity.this, R.string.toast_estimated_value_field_empty, Toast.LENGTH_SHORT).show();
                     } else {
@@ -129,11 +123,9 @@ public class UpdateGoalActivity extends AppCompatActivity {
                                 currentBalance.getAchievedValue(), day, month, year);
                         Toast.makeText(UpdateGoalActivity.this, R.string.toast_current_goal_updated, Toast.LENGTH_SHORT).show();
 
+                        // Set Result as Ok in order to refresh the content of the previous fragment
                         setResult(Activity.RESULT_OK);
                         finish();
-                        // Try to find a way to update the current balance values(fragment)
-                        // when coming back to CurrentBalanceFragment
-
                     }
 
                 }

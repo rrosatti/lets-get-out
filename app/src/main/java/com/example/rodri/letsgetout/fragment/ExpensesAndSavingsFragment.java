@@ -64,6 +64,7 @@ public class ExpensesAndSavingsFragment extends Fragment {
         expensesAndSavings = new ArrayList<>();
         dataSource = new MyDataSource(getActivity());
 
+        // Get the InstanceStates if the user has changed the screen orientation
         if (savedInstanceState != null) {
             expensesAndSavings = (ArrayList<GenericBudget>) savedInstanceState.getSerializable(STATE_ITEMS_LIST);
             adapter = new GenericBudgetAdapter(getActivity(), 0, expensesAndSavings, ExpensesAndSavingsFragment.this);
@@ -91,7 +92,8 @@ public class ExpensesAndSavingsFragment extends Fragment {
         });
     }
 
-    private class GetDataFromDatabase extends AsyncTask<String, Void, String> {
+    // Will get the data from database through DataSource
+    private class GetDataFromDatabase extends AsyncTask<String,  Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -133,6 +135,14 @@ public class ExpensesAndSavingsFragment extends Fragment {
         outState.putSerializable(STATE_ITEMS_LIST, (Serializable) expensesAndSavings);
     }
 
+    /**
+     *
+     * Refresh ListView if any action was taken with the Expenses/Savings
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {

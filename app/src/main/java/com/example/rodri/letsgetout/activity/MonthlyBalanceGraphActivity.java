@@ -47,15 +47,19 @@ public class MonthlyBalanceGraphActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monthly_balance_graph);
 
+        // Initialize Views
         txtGraphLabel = (TextView) findViewById(R.id.txtGraphLabel);
         pieChart = (PieChart) findViewById(R.id.pieChart);
         toolbar = (Toolbar) findViewById(R.id.toolbarMonthlyBalanceGraph);
 
+        // Get the months array in strings.xml
         months = getResources().getStringArray(R.array.months);
         dataSource = new MyDataSource(this);
+        // create a vector of colors (colors.xml)
         int[] pieChartColors = {getApplicationContext().getResources().getColor(R.color.pie_chart_expenses),
                             getApplicationContext().getResources().getColor(R.color.pie_chart_savings)};
 
+        // Get the ID of Expense/Saving which was selected by the user
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             monthlyBalanceId = extras.getLong("monthly_balance_id");
@@ -80,14 +84,17 @@ public class MonthlyBalanceGraphActivity extends AppCompatActivity {
 
             mb = dataSource.getMonthlyBalance(monthlyBalanceId);
 
+            // Set Graph label with the following pattern: Month/Year -> August/2016
             txtGraphLabel.setText(months[mb.getMonth() - 1]+"/"+mb.getYear());
 
+            // Set both total expenses and total savings as the PieGraph data
             entries.add(new Entry(mb.getTotalExpenses(), 0));
             entries.add(new Entry(mb.getTotalSavings(), 1));
 
             labels.add(getResources().getString(R.string.label_expenses));
             labels.add(getResources().getString(R.string.label_savings));
 
+            // Set the data to PieChart. Set custom colors.
             pieDataSet = new PieDataSet(entries, null);
             pieDataSet.setColors(pieChartColors);
             pieDataSet.setValueFormatter(new CustomValueFormatter());

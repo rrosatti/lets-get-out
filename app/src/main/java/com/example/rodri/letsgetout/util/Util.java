@@ -24,6 +24,8 @@ public class Util {
 
     /**
      *
+     * Set TypeFace for the given View
+     *
      * @param context  - it will be used to getAssets()
      * @param textView
      * @param fontName
@@ -38,6 +40,12 @@ public class Util {
         bt.setTypeface(typeface);
     }
 
+    /**
+     * Set a money format to the given value and return it as a String
+     *
+     * @param value
+     * @return
+     */
     public static String setNumberFormat(float value) {
         String format = "";
         if (value < 9999.99) {

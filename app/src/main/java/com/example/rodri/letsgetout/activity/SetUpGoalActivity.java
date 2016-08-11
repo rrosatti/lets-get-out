@@ -41,11 +41,13 @@ public class SetUpGoalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_goal);
 
+        // Initialize Views
         toolbar = (Toolbar) findViewById(R.id.toolbarSetUpGoal);
         btSetTargetDate = (Button) findViewById(R.id.btSetTargetDate);
         btConfirm = (Button) findViewById(R.id.setupgoal_btConfirm);
         etEstimatedValue = (EditText) findViewById(R.id.etEstimatedValue);
 
+        // Set Custom font style to the Views
         Util.setTypeFace(getApplicationContext(), btConfirm, "Quicksand.otf");
         Util.setTypeFace(getApplicationContext(), btSetTargetDate, "Quicksand.otf");
         Util.setTypeFace(getApplicationContext(), etEstimatedValue, "Quicksand-Italic.otf");
@@ -62,6 +64,7 @@ public class SetUpGoalActivity extends AppCompatActivity {
             }
         });
 
+        // Create a "Calendar Dialog" in order to get the values for day, month and year
         btSetTargetDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +88,6 @@ public class SetUpGoalActivity extends AppCompatActivity {
         });
 
 
-        // Save the new data in the database (get text form EditText, implement onClick() event for btConfirm)
         btConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +95,7 @@ public class SetUpGoalActivity extends AppCompatActivity {
                     dataSource.open();
 
                     String estimatedValue = etEstimatedValue.getText().toString();
+                    // check if any field was left empty
                     if (estimatedValue.equals("")) {
                         Toast.makeText(getApplicationContext(), R.string.toast_estimated_value_field_empty, Toast.LENGTH_SHORT).show();
                         return;

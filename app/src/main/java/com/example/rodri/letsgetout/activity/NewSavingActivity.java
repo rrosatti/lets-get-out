@@ -44,6 +44,7 @@ public class NewSavingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_saving);
 
+        // Initialize Views
         toolbar = (Toolbar) findViewById(R.id.toolbarNewSaving);
         etDescription = (EditText) findViewById(R.id.etSavingDescription);
         etValue = (EditText) findViewById(R.id.etSavingValue);
@@ -68,6 +69,7 @@ public class NewSavingActivity extends AppCompatActivity {
             }
         });
 
+        // Create a "Calendar Dialog" in order to get the values for day, month and year
         btSetDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +99,7 @@ public class NewSavingActivity extends AppCompatActivity {
                 String description = etDescription.getText().toString();
                 String value = etValue.getText().toString();
 
+                // check if any field was left empty
                 if (description.equals("")) {
                     Toast.makeText(getApplicationContext(), R.string.toast_description_field_empty, Toast.LENGTH_SHORT).show();
                     return;
@@ -111,6 +114,10 @@ public class NewSavingActivity extends AppCompatActivity {
                         dataSource.open();
 
                         Saving newSaving = dataSource.createSaving(description, Float.valueOf(value), day, month, year);
+
+                        // Check if there is already an instance for MonthlyBalance with the given month and year
+                        // If yes, than we just add the new saving to it
+                        // Else, we create a new MonthlyBalance
                         if (dataSource.isThereAlreadyAMonthlyBalance(month, year)) {
                             dataSource.addSavingToTheMonthlyBalance(month, year, Float.valueOf(value));
                         } else {
@@ -119,6 +126,7 @@ public class NewSavingActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), R.string.toast_new_saving_created, Toast.LENGTH_SHORT).show();
                         dataSource.close();
 
+                        // Return the new expense in order to refresh the list in the previous activity
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result", newSaving);
                         setResult(Activity.RESULT_OK, returnIntent);

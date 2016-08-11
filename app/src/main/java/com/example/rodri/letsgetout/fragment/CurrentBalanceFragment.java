@@ -32,7 +32,6 @@ public class CurrentBalanceFragment extends Fragment {
 
     private MyDataSource myDataSource;
 
-    // no data found corresponding to current balance
     private Button btSetUpGoal;
 
     private TextView txtEstimatedValueLabel;
@@ -64,9 +63,9 @@ public class CurrentBalanceFragment extends Fragment {
         try {
             myDataSource.open();
 
-            //it was here
-
-
+            // Check if there is already a Current Balance registered
+            // If not, than inflate the fragment_new_goal.xml
+            // Else, inflate the fragment_current_balance.xml
             if (!myDataSource.isThereAnyCurrentBalance()) {
                 v = inflater.inflate(R.layout.fragment_new_goal, null);
                 btSetUpGoal = (Button) v.findViewById(R.id.btSetUpGoal);
@@ -98,6 +97,7 @@ public class CurrentBalanceFragment extends Fragment {
                 // setTypeFace for all text views
                 setStyle();
 
+                // Get InstanceStates if the user changed the screen orientation
                 if (savedInstanceState != null) {
                     currentBalance = (CurrentBalance) savedInstanceState.getSerializable(STATE_CURRENT_BALANCE);
 
@@ -147,6 +147,7 @@ public class CurrentBalanceFragment extends Fragment {
         Util.setTypeFace(getContext(), btUpdateGoal, "Quicksand.otf");
     }
 
+    // Will get the data through the DataSource
     private class GetDataFromDatabase extends AsyncTask<String, Void, String> {
 
         @Override
@@ -215,6 +216,14 @@ public class CurrentBalanceFragment extends Fragment {
         outState.putSerializable(STATE_CURRENT_BALANCE, currentBalance);
     }
 
+    /**
+     *
+     * Refresh the data if any action was taken regarding to the Current Balance (new goal, update)
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {

@@ -63,8 +63,5 @@ public class StatisticsFragment extends Fragment {
         for (int i = 0; i < menuItemTitles.size(); i++) {
             menuItems.add(new StatisticsMenuItem(i, menuItemTitles.get(i), menuItemIcons.getResourceId(i, -1)));
         }
-
-        //menuItems.add(new StatisticsMenuItem(0, "Simulation", R.drawable.ic_simulation));
-        //menuItems.add(new StatisticsMenuItem(1, "Graph", R.drawable.ic_graph));
     }
 }

@@ -98,15 +98,14 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
         }
 
         holder.displayDescription.setText(description);
-
-        NumberFormat formatter = new DecimalFormat("#0.00");
-        holder.displayValue.setText("R$ " + String.valueOf(formatter.format(genericBudget.getValue())));
+        holder.displayValue.setText("R$ " + Util.setNumberFormat(genericBudget.getValue()));
 
         // set custom type font to the TextViews
         Util.setTypeFace(getContext(), holder.displayDate, "Quicksand-Bold.otf");
         Util.setTypeFace(getContext(), holder.displayDescription, "Quicksand.otf");
         Util.setTypeFace(getContext(), holder.displayValue, "Quicksand.otf");
 
+        // The LongClick() event will show an AlertDialog with the option to remove the selected Expense/Saving
         v.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -151,6 +150,7 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
             }
         });
 
+        // The OnClick() event will open a new activity for the user to update the selected Expense/Saving
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,6 +164,12 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
         return v;
     }
 
+    /**
+     *
+     * Refresh the ListView
+     *
+     * @param newList
+     */
     public void updateList(List<GenericBudget> newList) {
         genericBudgets.clear();
         genericBudgets.addAll(newList);

@@ -79,6 +79,7 @@ public class MonthlyBalanceAdapter extends ArrayAdapter<MonthlyBalance> {
             holder.displayMonthlyBalance.setBackgroundColor(activity.getResources().getColor(R.color.red));
         }
 
+        // The OnClick() event will open a new Activity with the Graph corresponding to the select Expense/Saving
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
