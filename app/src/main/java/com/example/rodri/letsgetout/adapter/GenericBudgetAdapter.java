@@ -170,10 +170,5 @@ public class GenericBudgetAdapter extends ArrayAdapter<GenericBudget> {
         notifyDataSetChanged();
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("GenericBudgetAdapter", "onActivityResult");
-        Toast.makeText(activity, "It worked!", Toast.LENGTH_SHORT).show();
-    }
-
 
 }

@@ -85,8 +85,8 @@ public class MonthlyBalanceGraphActivity extends AppCompatActivity {
             entries.add(new Entry(mb.getTotalExpenses(), 0));
             entries.add(new Entry(mb.getTotalSavings(), 1));
 
-            labels.add(String.valueOf(R.string.label_expenses));
-            labels.add(String.valueOf(R.string.label_savings));
+            labels.add(getResources().getString(R.string.label_expenses));
+            labels.add(getResources().getString(R.string.label_savings));
 
             pieDataSet = new PieDataSet(entries, null);
             pieDataSet.setColors(pieChartColors);

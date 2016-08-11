@@ -148,8 +148,11 @@ public class ExpensesAndSavingsFragment extends Fragment {
                 }
             }
         } else if (requestCode == 2) {
-            Toast.makeText(getActivity(), "HEY!", Toast.LENGTH_SHORT).show();
-            adapter.onActivityResult(requestCode, resultCode, data);
+            if (resultCode == Activity.RESULT_OK) {
+                GetDataFromDatabase task = new GetDataFromDatabase();
+                task.execute("");
+            }
+
         }
     }
 }

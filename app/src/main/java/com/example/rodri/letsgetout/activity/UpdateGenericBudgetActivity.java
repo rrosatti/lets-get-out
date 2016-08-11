@@ -2,6 +2,7 @@ package com.example.rodri.letsgetout.activity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +39,9 @@ public class UpdateGenericBudgetActivity extends AppCompatActivity {
     private GenericBudget genericBudget;
     private int day, month, year;
 
+    // Those variables will be used to check if the user actually updated something when clicking in btUpdate
+    private String oldDescription, oldValue, oldDate;
+
     private MyDataSource dataSource;
 
     @Override
@@ -52,6 +56,14 @@ public class UpdateGenericBudgetActivity extends AppCompatActivity {
             day = genericBudget.getDay();
             month = genericBudget.getMonth();
             year = genericBudget.getYear();
+            oldDate = String.valueOf(day + "/" + month + "/" + year);
+            if (genericBudget instanceof Expense) {
+                oldDescription = ((Expense) genericBudget).getName();
+            } else {
+                oldDescription = ((Saving) genericBudget).getDescription();
+            }
+            oldValue = String.valueOf(genericBudget.getValue());
+
         } else {
             Log.e("ERROR", "ERROR! There is no content in the Intent!");
             finish();
@@ -118,8 +130,14 @@ public class UpdateGenericBudgetActivity extends AppCompatActivity {
                 String value = etValue.getText().toString();
                 String description = etDescription.getText().toString();
                 String date = txtDate.getText().toString();
+
+                // Check whether user updated something or not
+                if (value.equals(oldValue) && description.equals(oldDescription) && date.equals(oldDate)) {
+                    Toast.makeText(getApplicationContext(), R.string.toast_anything_was_updated, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 // check if the description, value or date EditTexts are not empty
-                
                 if (value.equals("")) {
                     Toast.makeText(getApplicationContext(), R.string.toast_value_field_empty, Toast.LENGTH_SHORT).show();
                 } else if (description.equals("")) {

@@ -121,6 +121,7 @@
     <string name="toast_current_goal_updated">Current Goal was successfully updated!</string>
     <string name="toast_expense_updated">The Expense Info was updated!</string>
     <string name="toast_saving_updated">The Saving Info was updated!</string>
+    <string name="toast_anything_was_updated">You haven\'t updated anything!</string>
 
     <!-- Alert Dialog Messages -->
     <string name="alert_dialog_delete_message">Are you sure you want to delete this item?</string>
