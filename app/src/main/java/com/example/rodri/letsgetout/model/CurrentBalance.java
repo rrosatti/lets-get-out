@@ -8,20 +8,24 @@ import java.io.Serializable;
 public class CurrentBalance implements Serializable{
 
     private long id;
-    private float estimatedValue;
-    private float achievedValue;
+    private double estimatedValue;
+    private double achievedValue;
     private int day;
     private int month;
     private int year;
 
     public CurrentBalance() {}
 
-    public CurrentBalance(float estimatedValue, float achievedValue, int day, int month, int year) {
+    public CurrentBalance(double estimatedValue, double achievedValue, int day, int month, int year) {
         this.estimatedValue = estimatedValue;
         this.achievedValue = achievedValue;
         this.day = day;
         this.month = month;
         this.year = year;
+    }
+
+    public double calculateHowMuchNeedToSave() {
+        return estimatedValue - achievedValue;
     }
 
     public long getId() {
@@ -32,19 +36,19 @@ public class CurrentBalance implements Serializable{
         this.id = id;
     }
 
-    public float getEstimatedValue() {
+    public double getEstimatedValue() {
         return estimatedValue;
     }
 
-    public void setEstimatedValue(float estimatedValue) {
+    public void setEstimatedValue(double estimatedValue) {
         this.estimatedValue = estimatedValue;
     }
 
-    public float getAchievedValue() {
+    public double getAchievedValue() {
         return achievedValue;
     }
 
-    public void setAchievedValue(float achievedValue) {
+    public void setAchievedValue(double achievedValue) {
         this.achievedValue = achievedValue;
     }
 

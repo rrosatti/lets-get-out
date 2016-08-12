@@ -45,8 +45,6 @@ public class CurrentBalanceFragment extends Fragment {
     private Button btUpdateGoal;
     private ProgressBar progressBar;
 
-    private int day, month, year;
-
     private CurrentBalance currentBalance;
 
     public CurrentBalanceFragment() {}
@@ -103,7 +101,7 @@ public class CurrentBalanceFragment extends Fragment {
 
                     txtEstimatedValue.setText("R$ " + String.valueOf(currentBalance.getEstimatedValue()));
                     txtAchievedValue.setText("R$ " + String.valueOf(currentBalance.getAchievedValue()));
-                    txtNeedToSave.setText("R$ " + String.valueOf(currentBalance.getEstimatedValue() - currentBalance.getAchievedValue()));
+                    txtNeedToSave.setText("R$ " + String.valueOf(currentBalance.calculateHowMuchNeedToSave()));
 
                     int years = currentBalance.getYear() - Calendar.getInstance().get(Calendar.YEAR);
                     int months = currentBalance.getMonth() - Calendar.getInstance().get(Calendar.MONTH);
@@ -178,7 +176,7 @@ public class CurrentBalanceFragment extends Fragment {
             changeVisibility(1);
             txtEstimatedValue.setText("R$ " + String.valueOf(currentBalance.getEstimatedValue()));
             txtAchievedValue.setText("R$ " + String.valueOf(currentBalance.getAchievedValue()));
-            txtNeedToSave.setText("R$ " + String.valueOf(currentBalance.getEstimatedValue() - currentBalance.getAchievedValue()));
+            txtNeedToSave.setText("R$ " + String.valueOf(currentBalance.calculateHowMuchNeedToSave()));
 
             int years = currentBalance.getYear() - Calendar.getInstance().get(Calendar.YEAR);
             int months = currentBalance.getMonth() - Calendar.getInstance().get(Calendar.MONTH);

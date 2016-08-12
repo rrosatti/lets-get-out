@@ -103,7 +103,7 @@ public class SetUpGoalActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), R.string.toast_set_a_date, Toast.LENGTH_SHORT).show();
                         return;
                     } else {
-                        dataSource.createCurrentBalance(Float.valueOf(estimatedValue), 0, day, month, year);
+                        dataSource.createCurrentBalance(Double.valueOf(estimatedValue), 0.00, day, month, year);
                         Toast.makeText(getApplicationContext(), R.string.toast_new_goal_created, Toast.LENGTH_SHORT).show();
 
                         setResult(Activity.RESULT_OK);

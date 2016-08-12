@@ -46,7 +46,7 @@ public class Util {
      * @param value
      * @return
      */
-    public static String setNumberFormat(float value) {
+    public static String setNumberFormat(double value) {
         String format = "";
         if (value < 9999.99) {
             format = "#0.00";

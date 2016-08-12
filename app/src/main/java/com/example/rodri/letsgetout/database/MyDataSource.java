@@ -71,7 +71,7 @@ public class MyDataSource {
      *  ---------- CREATE ----------
      */
 
-    public CurrentBalance createCurrentBalance(float estimatedValue, float achievedValue, int day, int month, int year) {
+    public CurrentBalance createCurrentBalance(double estimatedValue, double achievedValue, int day, int month, int year) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_ESTIMATED_VALUE, estimatedValue);
         values.put(MySQLiteHelper.COLUMN_ACHIEVED_VALUE, achievedValue);
@@ -111,7 +111,7 @@ public class MyDataSource {
 
         // Subtract the expense from achieved value of the current balance
         CurrentBalance currentBalance = getCurrentBalance(1);
-        float newAchievedValue = currentBalance.getAchievedValue();
+        double newAchievedValue = currentBalance.getAchievedValue();
         newAchievedValue -= value;
         updateCurrentBalance(currentBalance.getId(), currentBalance.getEstimatedValue(), newAchievedValue,
                 currentBalance.getDay(), currentBalance.getMonth(), currentBalance.getYear());
@@ -143,7 +143,7 @@ public class MyDataSource {
 
         // Update Achieved value of the current balance
         CurrentBalance currentBalance = getCurrentBalance(1);
-        float newAchievedValued = currentBalance.getAchievedValue();
+        double newAchievedValued = currentBalance.getAchievedValue();
         newAchievedValued += value;
         updateCurrentBalance(currentBalance.getId(), currentBalance.getEstimatedValue(), newAchievedValued,
                 currentBalance.getDay(), currentBalance.getMonth(), currentBalance.getYear());
@@ -196,8 +196,8 @@ public class MyDataSource {
     public CurrentBalance cursorToCurrentBalance(Cursor cursor) {
         CurrentBalance currentBalance = new CurrentBalance();
         currentBalance.setId(cursor.getLong(0));
-        currentBalance.setEstimatedValue(cursor.getFloat(1));
-        currentBalance.setAchievedValue(cursor.getFloat(2));
+        currentBalance.setEstimatedValue(cursor.getDouble(1));
+        currentBalance.setAchievedValue(cursor.getDouble(2));
         currentBalance.setDay(cursor.getInt(3));
         currentBalance.setMonth(cursor.getInt(4));
         currentBalance.setYear(cursor.getInt(5));
@@ -643,7 +643,7 @@ public class MyDataSource {
         database.update(MySQLiteHelper.TABLE_EXPENSES, values, MySQLiteHelper.KEY_ID + " = " + id, null);
     }
 
-    public void updateCurrentBalance(long id, float estimatedValue, float achievedValue, int day, int month, int year) {
+    public void updateCurrentBalance(long id, double estimatedValue, double achievedValue, int day, int month, int year) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_ESTIMATED_VALUE, estimatedValue);
         values.put(MySQLiteHelper.COLUMN_ACHIEVED_VALUE, achievedValue);

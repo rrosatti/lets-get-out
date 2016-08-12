@@ -119,7 +119,7 @@ public class UpdateGoalActivity extends AppCompatActivity {
                         Toast.makeText(UpdateGoalActivity.this, R.string.toast_estimated_value_field_empty, Toast.LENGTH_SHORT).show();
                     } else {
 
-                        dataSource.updateCurrentBalance(1, Float.valueOf(estimatedValue),
+                        dataSource.updateCurrentBalance(1, Double.valueOf(estimatedValue),
                                 currentBalance.getAchievedValue(), day, month, year);
                         Toast.makeText(UpdateGoalActivity.this, R.string.toast_current_goal_updated, Toast.LENGTH_SHORT).show();
 
